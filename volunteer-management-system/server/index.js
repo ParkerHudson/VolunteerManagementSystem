@@ -10,6 +10,7 @@ var con = mysql.createConnection({
 	host: config.host,
 	user: config.username,
 	password: config.password,
+	database: "TeamDB",
 });
 
 con.connect(function (err) {
@@ -17,10 +18,13 @@ con.connect(function (err) {
 		console.log("Error connecting to DB: " + err);
 	} else {
 		console.log("Connected!");
+		tables.checkForTables(con);
 	}
 });
 
-tables.checkForTables(con);
+app.listen(config.listengPort, () => {
+	console.log("Express Server Started");
+});
 
 //This was used to test if tables were being created
 

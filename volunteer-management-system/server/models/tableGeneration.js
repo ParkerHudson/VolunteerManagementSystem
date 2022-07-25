@@ -6,11 +6,6 @@ const checkForTables = (con) => {
 		console.log("Database Created");
 	});
 
-	con.query("USE TeamDB", function (err, result) {
-		if (err) throw err;
-		console.log("Using TeamDB");
-	});
-
 	con.query(
 		"CREATE TABLE IF NOT EXISTS USER (userId VARCHAR(255) PRIMARY KEY, password VARCHAR(255) NOT NULL, isAdmin BOOL)",
 		function (err) {
