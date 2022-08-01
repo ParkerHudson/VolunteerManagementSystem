@@ -52,6 +52,15 @@ const checkForTables = (con) => {
 			console.log("Opportunity Table Created");
 		}
 	);
+
+	//Run this once. Alters preffered center table
+	/* con.query(
+		"ALTER TABLE PREFERREDCENTER ADD CONSTRAINT prefCtr PRIMARY KEY(volId,ctrName)",
+		function (err) {
+			if (err) throw err;
+			console.log("Center Table Created");
+		}
+	); */
 };
 
 module.exports = {

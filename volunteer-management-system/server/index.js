@@ -23,7 +23,9 @@ con.connect(function (err) {
 });
 
 app.listen(config.listengPort, () => {
-	console.log("Express Server Started");
+	console.log(
+		"Express Server Started. Listening on port " + config.listeningPort
+	);
 });
 
 //This was used to test if tables were being created
