@@ -3,14 +3,14 @@
 const checkForTables = (con) => {
 	con.query("CREATE DATABASE IF NOT EXISTS TeamDB", function (err, result) {
 		if (err) throw err;
-		console.log("Database Created");
+		//console.log("Database Created");
 	});
 
 	con.query(
 		"CREATE TABLE IF NOT EXISTS USER (userId VARCHAR(255) PRIMARY KEY, password VARCHAR(255) NOT NULL, isAdmin BOOL)",
 		function (err) {
 			if (err) throw err;
-			console.log("User Table Created");
+			//console.log("User Table Created");
 		}
 	);
 
@@ -23,7 +23,7 @@ const checkForTables = (con) => {
         skills VARCHAR(255), FOREIGN KEY(volunteerId) REFERENCES USER(userId) )",
 		function (err) {
 			if (err) throw err;
-			console.log("Volunteer Table Created");
+			//console.log("Volunteer Table Created");
 		}
 	);
 
@@ -31,7 +31,7 @@ const checkForTables = (con) => {
 		"CREATE TABLE IF NOT EXISTS CENTER (centerName VARCHAR(255) PRIMARY KEY)",
 		function (err) {
 			if (err) throw err;
-			console.log("Center Table Created");
+			//console.log("Center Table Created");
 		}
 	);
 
@@ -40,7 +40,7 @@ const checkForTables = (con) => {
         ctrName VARCHAR(255) NOT NULL, FOREIGN KEY(volId) REFERENCES USER(userId), FOREIGN KEY(ctrName) REFERENCES CENTER(centerName)  )",
 		function (err) {
 			if (err) throw err;
-			console.log("PREFFEREDCENTER Table Created");
+			//console.log("PREFFEREDCENTER Table Created");
 		}
 	);
 
@@ -49,18 +49,27 @@ const checkForTables = (con) => {
         time DATETIME NOT NULL, FOREIGN KEY(ctrName) REFERENCES CENTER(centerName) )",
 		function (err) {
 			if (err) throw err;
-			console.log("Opportunity Table Created");
+			//console.log("Opportunity Table Created");
 		}
 	);
 
 	//Run this once. Alters preffered center table
-	// con.query(
-	// 	"ALTER TABLE PREFERREDCENTER ADD CONSTRAINT prefCtr PRIMARY KEY(volId,ctrName)",
-	// 	function (err) {
-	// 		if (err) throw err;
-	// 		console.log("Center Table Created");
-	// 	}
-	// );
+	/* con.query(
+		"ALTER TABLE PREFERREDCENTER ADD CONSTRAINT prefCtr PRIMARY KEY(volId,ctrName)",
+		function (err) {
+			if (err) throw err;
+			console.log("prefferedcenter table altered");
+		}
+	); */
+
+	/* con.query(
+		"ALTER TABLE opportunity ADD oppID MEDIUMINT NOT NULL AUTO_INCREMENT First, ADD PRIMARY KEY (oppID)",
+		function (err) {
+			if (err) throw err;
+			console.log("Opportunity table altered");
+		}
+	); */
+	console.log("Tables Verified");
 };
 
 module.exports = {

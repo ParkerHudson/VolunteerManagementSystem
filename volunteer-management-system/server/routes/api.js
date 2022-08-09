@@ -14,51 +14,44 @@ var connection = config.connection;
 //**Take in volunteer ID, return list of matching opportunities
 // /getOppMatches
 apiRouter.get("/getOppMatches", (req, res) => {
-	const query = "SELECT * \
+	const query =
+		"SELECT * \
 		FROM opportunity o, preferredcenter pc \
-		WHERE o.ctrName = pc.ctrName and pc.volId = ?;"
+		WHERE o.ctrName = pc.ctrName and pc.volId = ?;";
 
-	connection.execute(
-		query,
-		[req.body.volId],
-		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
-		}
-	);
+	connection.execute(query, [req.body.volId], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
 });
 
-//**Take in opportunity, get matching volunteers
-///getVolMatches
+//Take in opportunity, get matching volunteers
 apiRouter.get("/getVolMatches", (req, res) => {
-	const query = "SELECT * \
+	const query =
+		"SELECT * \
 	FROM volunteer v, preferredcenter pc \
-	WHERE v.volunteerId = pc.volId and pc.ctrName = ?;"
+	WHERE v.volunteerId = pc.volId and pc.ctrName = ?;";
 
-	connection.execute(
-		query,
-		[req.body.ctrName],
-		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
-		}
-	);
+	connection.execute(query, [req.body.ctrName], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
 });
 
-/* **Return all opportunities in array
-/getOpportunities */
+//Return all opportunities in array
 apiRouter.get("/getOpportunities", (req, res) => {
-	let query = "SELECT ctrName, category FROM opportunity";
+	let query = "SELECT * FROM opportunity";
 	connection.execute(query, (err, results) => {
 		if (err) console.log(err);
 		res.send(results);
 	});
 });
-/* /addOpportunity */
+
+//add opportunity to opportunity table
 apiRouter.post("/addOpportunity", (req, res) => {
 	var testTime = new Date();
 
-	let query = "INSERT INTO opportunity VALUES (?, ?, ?)";
+	let query = "INSERT INTO opportunity VALUES (NULL, ?, ?, ?)";
 
 	connection.execute(
 		query,
@@ -70,7 +63,7 @@ apiRouter.post("/addOpportunity", (req, res) => {
 	);
 });
 
-/* /deleteOpportunity */
+/* /deleteOpportunity : Delete opportunity by */
 
 /* /updateOpportunity */
 
