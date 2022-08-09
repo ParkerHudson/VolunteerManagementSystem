@@ -19,14 +19,15 @@ var connection = config.connection;
 
 /* **Return all opportunities
 /getOpportunities */
-apiRouter.get("/getOpportunities", (req, res) => {});
-/* /addOpportunity */
-apiRouter.post("/addOpportunity", (req, res) => {
+apiRouter.get("/getOpportunities", (req, res) => {
 	const opp = new Opportunity(
 		req.body.ctrName,
 		req.body.category,
 		req.body.time
 	);
+});
+/* /addOpportunity */
+apiRouter.post("/addOpportunity", (req, res) => {
 	var testTime = new Date();
 
 	let query = "INSERT INTO opportunity VALUES (?, ?, ?)";
@@ -34,10 +35,8 @@ apiRouter.post("/addOpportunity", (req, res) => {
 	connection.execute(
 		query,
 		[req.body.ctrName, req.body.category, testTime],
-		(err, results, fields) => {
-			console.log(results);
-			console.log(fields);
-			console.log(err);
+		(err, results) => {
+			if (err) console.log(err);
 			res.send(results);
 		}
 	);
