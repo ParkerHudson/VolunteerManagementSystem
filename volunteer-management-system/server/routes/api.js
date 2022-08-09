@@ -1,4 +1,5 @@
 const express = require("express");
+const { useInsertionEffect } = require("react");
 const config = require("../config");
 const apiRouter = express.Router();
 const Opportunity = require("../models/Opportunity");
@@ -63,10 +64,21 @@ apiRouter.post("/addOpportunity", (req, res) => {
 	);
 });
 
-/* /deleteOpportunity : Delete opportunity by */
+//deleteOpportunity : Delete opportunity by provided oppID
 
-/* /updateOpportunity */
-
+//updateOpportunity : Update opportunity by provided oppID
+apiRouter.post("/updateOpportunity", (req, res) => {
+	let query =
+		"UPDATE opportunity SET ctrName = ?, category = ?, time = ? WHERE oppID = ?";
+	connection.execute(
+		query,
+		[req.body.ctrName, req.body.category, req.body.time, req.body.oppID],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
 /* /addVolunteer */
 
 /* /addUser */
