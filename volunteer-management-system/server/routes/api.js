@@ -65,6 +65,13 @@ apiRouter.post("/addOpportunity", (req, res) => {
 });
 
 //deleteOpportunity : Delete opportunity by provided oppID
+apiRouter.post("/deleteOpportunity", (req, res) => {
+	let query = "DELETE FROM opportunity WHERE oppID = ?";
+	connection.execute(query, [req.body.oppID], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
 
 //updateOpportunity : Update opportunity by provided oppID
 apiRouter.post("/updateOpportunity", (req, res) => {
