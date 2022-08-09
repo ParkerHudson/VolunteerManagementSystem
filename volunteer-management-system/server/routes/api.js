@@ -9,8 +9,20 @@ var connection = config.connection;
 //** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
 ///login
 
+/* /addUser */
+
+/* /updateUser */
+
+/* /deleteUser */
+
 //**Returns all volunteers
 ///getVolunteers
+
+/* /addVolunteer */
+
+// /deleteVolunteer
+
+/* /updateVolunteer */
 
 //**Take in volunteer ID, return list of matching opportunities
 // /getOppMatches
@@ -86,17 +98,6 @@ apiRouter.post("/updateOpportunity", (req, res) => {
 		}
 	);
 });
-/* /addVolunteer */
-
-/* /addUser */
-
-/* /deleteUser */
-
-// /deleteVolunteer
-
-/* /updateVolunteer */
-
-/* /updateUser */
 
 // getCenters : Return all centers in array
 apiRouter.get("/getCenters", (req, res) => {
