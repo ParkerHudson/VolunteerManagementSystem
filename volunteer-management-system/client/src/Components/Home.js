@@ -1,11 +1,9 @@
 import React from "react";
+import Login from "./Login";
 
 const Home = () => {
-	return (
-		<>
-			<h1>This is the admin home page</h1>
-		</>
-	);
+	//Placeholder for home page. For now redirects to log in page
+	return <Login />;
 };
 
 export default Home;
