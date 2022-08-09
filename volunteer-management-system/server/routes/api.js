@@ -1,3 +1,4 @@
+const { application } = require("express");
 const express = require("express");
 const config = require("../config");
 const apiRouter = express.Router();
@@ -7,6 +8,21 @@ var connection = config.connection;
 
 //** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
 ///login
+apiRouter.get("/getOppMatches", (req, res) => {
+
+	const user = req.body.name;
+	const password = req.body.password
+	const query = "SELECT * from user WHERE userID = ?"
+
+	connection.execute(
+		query,
+		[req.body.volId],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+
 
 //**Returns all volunteers
 ///getVolunteers
