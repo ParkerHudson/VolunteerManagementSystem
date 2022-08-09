@@ -13,7 +13,7 @@ const sumbitHandler = e => {
     <form onSubmit={sumbitHandler}>
       <div className="form-inner">
         <h2> Welcome to the Voluntary Management System</h2>
-        {(error != "") ? (<div className="error">{error}</div> ) : ""}
+        {(error !== "") ? (<div className="error">{error}</div> ) : ""}
         
     
         <div className="form-group">
@@ -22,7 +22,7 @@ const sumbitHandler = e => {
         </div>
         <div className="form-group">
             <label htmlFor="name">Password: </label>
-            <input type="text" name="name" id="name" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
+            <input type="password" name="name" id="name" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
         </div>
         <button>Login</button>
       </div>
