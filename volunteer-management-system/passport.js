@@ -19,12 +19,10 @@ passport.use(new JwtStrategy({
     //Check if user exists
 
 
-}
-
-
+}));
 
 passport.use(new LocalStrategy((username,password,done)=>{
 
 
 
-}))
+}));
