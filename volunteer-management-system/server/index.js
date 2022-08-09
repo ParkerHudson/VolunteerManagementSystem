@@ -1,36 +1,13 @@
 const express = require("express");
 const app = express();
-var mysql = require("mysql2");
-const config = require("./config");
-const tables = require("./models/tableGeneration");
+const cookieParser = require("cookie-parser");
+const apiRouter = require("./routes/api");
 
-//Establish DB connection using information in config file
+app.use(cookieParser());
+app.use(express.json());
 
-var con = mysql.createConnection({
-	host: config.host,
-	user: config.username,
-	password: config.password,
-	database: "TeamDB",
+app.use("/api", apiRouter);
+
+app.listen(5000, () => {
+	console.log("Express Server Started.");
 });
-
-con.connect(function (err) {
-	if (err) {
-		console.log("Error connecting to DB: " + err);
-	} else {
-		console.log("Connected!");
-		tables.checkForTables(con);
-	}
-});
-
-app.listen(config.listengPort, () => {
-	console.log(
-		"Express Server Started. Listening on port " + config.listeningPort
-	);
-});
-
-//This was used to test if tables were being created
-
-/* con.query("DESCRIBE USER", function (err, result) {
-	if (err) throw err;
-	console.log("Description: " + JSON.stringify(result));
-}); */

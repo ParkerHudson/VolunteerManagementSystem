@@ -1,49 +1,72 @@
-/*
-** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
-/login
+const express = require("express");
+const config = require("../config");
+const apiRouter = express.Router();
+const Opportunity = require("../models/Opportunity");
 
-**Returns all volunteers
-/getVolunteers
+var connection = config.connection;
 
-**Take in volunteer ID, return list of matching opportunities
-/getOppMatches
+//** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
+///login
 
-**Take in opportunity, get matching volunteers
-/getVolMatches
+//**Returns all volunteers
+///getVolunteers
 
-**Return all opportunities
-/getOpportunities
+//**Take in volunteer ID, return list of matching opportunities
+// /getOppMatches
 
-/addOpportunity
+//**Take in opportunity, get matching volunteers
+///getVolMatches
 
-/addVolunteer
+/* **Return all opportunities
+/getOpportunities */
+apiRouter.get("/getOpportunities", (req, res) => {});
+/* /addOpportunity */
+apiRouter.post("/addOpportunity", (req, res) => {
+	const opp = new Opportunity(
+		req.body.ctrName,
+		req.body.category,
+		req.body.time
+	);
+	var testTime = new Date();
 
-/addUser
+	let query = "INSERT INTO opportunity VALUES (?, ?, ?)";
 
-/deleteUser
+	connection.execute(
+		query,
+		[req.body.ctrName, req.body.category, testTime],
+		(err, results, fields) => {
+			console.log(results);
+			console.log(fields);
+			console.log(err);
+			res.send(results);
+		}
+	);
+});
 
-/deleteVolunteer
+/* /deleteOpportunity */
 
-/deleteOpportunity
+/* /updateOpportunity */
 
-/updateVolunteer
+/* /addVolunteer */
 
-/updateUser
+/* /addUser */
 
-/updateOpportunity
+/* /deleteUser */
 
-**Return all centers
-/getCenters
+// /deleteVolunteer
 
+/* /updateVolunteer */
 
+/* /updateUser */
 
+/* **Return all centers
+/getCenters */
 
-
-
-***Optional***
+/* ***Optional***
 **Give another account admin priv
 /addAdmin
 /updateCenter
 /deleteCenter
-/addCenter
-*/
+/addCenter */
+
+module.exports = apiRouter;
