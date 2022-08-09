@@ -17,14 +17,14 @@ var connection = config.connection;
 //**Take in opportunity, get matching volunteers
 ///getVolMatches
 
-/* **Return all opportunities
+/* **Return all opportunities in array
 /getOpportunities */
 apiRouter.get("/getOpportunities", (req, res) => {
-	const opp = new Opportunity(
-		req.body.ctrName,
-		req.body.category,
-		req.body.time
-	);
+	let query = "SELECT ctrName, category FROM opportunity";
+	connection.execute(query, (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
 });
 /* /addOpportunity */
 apiRouter.post("/addOpportunity", (req, res) => {
