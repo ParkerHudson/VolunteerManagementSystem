@@ -54,13 +54,13 @@ const checkForTables = (con) => {
 	);
 
 	//Run this once. Alters preffered center table
-	/* con.query(
-		"ALTER TABLE PREFERREDCENTER ADD CONSTRAINT prefCtr PRIMARY KEY(volId,ctrName)",
-		function (err) {
-			if (err) throw err;
-			console.log("Center Table Created");
-		}
-	); */
+	// con.query(
+	// 	"ALTER TABLE PREFERREDCENTER ADD CONSTRAINT prefCtr PRIMARY KEY(volId,ctrName)",
+	// 	function (err) {
+	// 		if (err) throw err;
+	// 		console.log("Center Table Created");
+	// 	}
+	// );
 };
 
 module.exports = {

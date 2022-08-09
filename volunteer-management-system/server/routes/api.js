@@ -13,9 +13,37 @@ var connection = config.connection;
 
 //**Take in volunteer ID, return list of matching opportunities
 // /getOppMatches
+apiRouter.get("/getOppMatches", (req, res) => {
+	const query = "SELECT * \
+		FROM opportunity o, preferredcenter pc \
+		WHERE o.ctrName = pc.ctrName and pc.volId = ?;"
+
+	connection.execute(
+		query,
+		[req.body.volId],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
 
 //**Take in opportunity, get matching volunteers
 ///getVolMatches
+apiRouter.get("/getVolMatches", (req, res) => {
+	const query = "SELECT * \
+	FROM volunteer v, preferredcenter pc \
+	WHERE v.volunteerId = pc.volId and pc.ctrName = ?;"
+
+	connection.execute(
+		query,
+		[req.body.ctrName],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
 
 /* **Return all opportunities
 /getOpportunities */
