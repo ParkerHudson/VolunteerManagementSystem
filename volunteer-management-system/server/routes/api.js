@@ -98,14 +98,50 @@ apiRouter.post("/updateOpportunity", (req, res) => {
 
 /* /updateUser */
 
-/* **Return all centers
-/getCenters */
+// getCenters : Return all centers in array
+apiRouter.get("/getCenters", (req, res) => {
+	let query = "SELECT * FROM center";
+	connection.execute(query, (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
+
+// updateCenter : update center by provided ctrName
+apiRouter.post("/updateCenter", (req, res) => {
+	let query = "UPDATE center SET centerName = ? WHERE centerName = ?";
+	connection.execute(
+		query,
+		[req.body.newCtrName, req.body.currentCtrName],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
+
+// deleteCenter : delte center by provided ctrName
+apiRouter.post("/deleteCenter", (req, res) => {
+	let query = "DELETE FROM center WHERE centerName = ?";
+	connection.execute(query, [req.body.ctrName], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
+
+// addCenter : add center to DB
+apiRouter.post("/addCenter", (req, res) => {
+	let query = "INSERT INTO center VALUES (?)";
+
+	connection.execute(query, [req.body.ctrName], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
 
 /* ***Optional***
-**Give another account admin priv
+Give another account admin priv
 /addAdmin
-/updateCenter
-/deleteCenter
-/addCenter */
+ */
 
 module.exports = apiRouter;
