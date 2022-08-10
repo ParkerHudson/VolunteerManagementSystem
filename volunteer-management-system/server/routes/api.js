@@ -10,19 +10,15 @@ var connection = config.connection;
 // WIP Still trying to figure out the authentication
 
 apiRouter.get("/Login", (req, res) => {
-
 	const user = req.body.name;
-	const password = req.body.password
-	const query = "SELECT * from user WHERE userID = ?"
+	const password = req.body.password;
+	const query = "SELECT * from user WHERE userID = ?";
 
-	connection.execute(
-		query,
-		[req.body.volId],
-		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
-		}
-	);
+	connection.execute(query, [req.body.volId], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
 
 //addVolunteer : add volunteer to DB
 
