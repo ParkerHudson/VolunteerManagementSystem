@@ -20,6 +20,10 @@ apiRouter.get("/Login", (req, res) => {
 	});
 });
 
+//addUser : add user to DB
+
+//updateUser : update user information
+
 //addVolunteer : add volunteer to DB
 
 //deleteVolunteer : delete volunteer by volunteerId
