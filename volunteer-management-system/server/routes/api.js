@@ -5,15 +5,24 @@ const Opportunity = require("../models/Opportunity");
 
 var connection = config.connection;
 
-///login : Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
+//** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
+///login
+// WIP Still trying to figure out the authentication
 
-//addUser
+apiRouter.get("/Login", (req, res) => {
 
-//updateUser
+	const user = req.body.name;
+	const password = req.body.password
+	const query = "SELECT * from user WHERE userID = ?"
 
-//deleteUser
-
-///getVolunteers : Returns all volunteers
+	connection.execute(
+		query,
+		[req.body.volId],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
 
 //addVolunteer : add volunteer to DB
 
