@@ -10,7 +10,7 @@ var connection = config.connection;
 ///login
 // WIP Still trying to figure out the authentication
 
-apiRouter.get("/getOppMatches", (req, res) => {
+apiRouter.get("/Login", (req, res) => {
 
 	const user = req.body.name;
 	const password = req.body.password
