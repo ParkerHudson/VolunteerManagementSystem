@@ -1,31 +1,35 @@
 const express = require("express");
-const { useInsertionEffect } = require("react");
 const config = require("../config");
 const apiRouter = express.Router();
 const Opportunity = require("../models/Opportunity");
 
 var connection = config.connection;
 
-//** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
-///login
+///login : Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
 
-/* /addUser */
+//addUser
 
-/* /updateUser */
+//updateUser
 
-/* /deleteUser */
+//deleteUser
 
-//**Returns all volunteers
-///getVolunteers
+///getVolunteers : Returns all volunteers
 
-/* /addVolunteer */
+//addVolunteer : add volunteer to DB
 
-// /deleteVolunteer
+//deleteVolunteer : delete volunteer by volunteerId
 
-/* /updateVolunteer */
+//updateVolunteer : update volunteer by volunteerId
 
-//**Take in volunteer ID, return list of matching opportunities
-// /getOppMatches
+//addPrefCenter : add preferred center pair to DB (params: volunteerID & center)
+
+//getPrefCenter : get array of preferred center for each volunteer by ID
+
+//updatePrefCenter : update preferred center for volunteer given volunteer and center
+
+//deletePrefCenter : delete preferred center pair given volunteerId
+
+//getOppMatches : Take in volunteer ID, return list of matching opportunities
 apiRouter.get("/getOppMatches", (req, res) => {
 	const query =
 		"SELECT * \
@@ -38,7 +42,7 @@ apiRouter.get("/getOppMatches", (req, res) => {
 	});
 });
 
-//Take in opportunity, get matching volunteers
+//getVolMatches : Take in opportunity, get matching volunteers
 apiRouter.get("/getVolMatches", (req, res) => {
 	const query =
 		"SELECT * \
@@ -121,7 +125,7 @@ apiRouter.post("/updateCenter", (req, res) => {
 	);
 });
 
-// deleteCenter : delte center by provided ctrName
+// deleteCenter : delete center by provided ctrName
 apiRouter.post("/deleteCenter", (req, res) => {
 	let query = "DELETE FROM center WHERE centerName = ?";
 	connection.execute(query, [req.body.ctrName], (err, results) => {
@@ -140,9 +144,8 @@ apiRouter.post("/addCenter", (req, res) => {
 	});
 });
 
-/* ***Optional***
-Give another account admin priv
-/addAdmin
- */
+// ***Optional***
+
+//addAdmin : Give another account admin priv
 
 module.exports = apiRouter;
