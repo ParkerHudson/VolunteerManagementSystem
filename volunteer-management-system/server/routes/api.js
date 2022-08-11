@@ -55,8 +55,8 @@ apiRouter.get("/getOppMatches", (req, res) => {
 apiRouter.get("/getVolMatches", (req, res) => {
 	const query =
 		"SELECT * \
-	FROM volunteer v, preferredcenter pc \
-	WHERE v.volunteerId = pc.volId and pc.ctrName = ?;";
+		FROM volunteer v, preferredcenter pc, opportunity o \
+		WHERE v.volunteerId = pc.volId AND pc.ctrName = o.ctrName AND o.oppID = ?;";
 
 	connection.execute(query, [req.body.ctrName], (err, results) => {
 		if (err) console.log(err);
