@@ -74,6 +74,14 @@ const checkForTables = (con) => {
 		}
 	);
 
+	con.query(
+		"CREATE TABLE IF NOT EXISTS skills (\
+		username VARCHAR (255) NOT NULL,\
+		skill VARCHAR(50) NOT NULL,\
+		PRIMARY KEY(username, skill)\
+		);"
+	);
+
 	//Run this once. Alters preffered center table
 	/* con.query(
 		"ALTER TABLE PREFERREDCENTER ADD CONSTRAINT prefCtr PRIMARY KEY(volId,ctrName)",
