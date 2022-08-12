@@ -69,6 +69,24 @@ const checkForTables = (con) => {
 			console.log("Opportunity table altered");
 		}
 	); */
+
+	//ALTER TABLE table_name RENAME COLUMN old_column_name TO new_column_name;
+
+	/* con.query(
+		"ALTER TABLE volunteer RENAME COLUMN volunteerId TO username",
+		(err) => {
+			if (err) throw err;
+			console.log("table altered");
+		}
+	); */
+
+	/* con.query(
+		"ALTER TABLE volunteer DROP FOREIGN KEY volunteer_ibfk_1",
+		(err) => {
+			if (err) throw err;
+			console.log("removed FK constraint");
+		}
+	); */
 	console.log("Tables Verified");
 };
 
