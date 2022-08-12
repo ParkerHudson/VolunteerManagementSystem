@@ -4,7 +4,6 @@ const apiRouter = express.Router();
 const Opportunity = require("../models/Opportunity");
 const Volunteer = require("../models/Volunteer");
 
-
 var connection = config.connection;
 
 //** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
@@ -14,7 +13,8 @@ var connection = config.connection;
 apiRouter.get("/Login", (req, res) => {
 	const user = req.body.name;
 	const password = req.body.password;
-	const query = "SELECT * from user WHERE userID = ? AND password = ? AND isAdmin ='1'";
+	const query =
+		"SELECT * from user WHERE userID = ? AND password = ? AND isAdmin ='1'";
 
 	connection.execute(query, [req.body.volId], (err, results) => {
 		if (err) console.log(err);
@@ -28,20 +28,46 @@ apiRouter.get("/Login", (req, res) => {
 
 //addVolunteer : add volunteer to DB
 apiRouter.post("/addVolunteer", (req, res) => {
-
-
-	let query = "INSERT INTO volunteer VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	let query =
+		"INSERT INTO volunteer VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	connection.execute(
 		query,
-		[req.body.firstName, req.body.lastName, req.body.address, req.body.homePhone, req.body.workPhone, req.body.cellPhone, 
-			req.body.email, req.body.education, req.body.licenses, req.body.emContactName, req.body.emContactPhone, req.body.emContactEmail, 
-			req.body.emContactAddress, req.body.driversLicense, req.body.socialSecurity, req.body.approvalStatus, req.body.skills],
+		[
+			req.body.username,
+			req.body.firstName,
+			req.body.lastName,
+			req.body.address,
+			req.body.homePhone,
+			req.body.workPhone,
+			req.body.cellPhone,
+			req.body.email,
+			req.body.education,
+			req.body.licenses,
+			req.body.emContactName,
+			req.body.emContactPhone,
+			req.body.emContactEmail,
+			req.body.emContactAddress,
+			req.body.driversLicense,
+			req.body.socialSecurity,
+			req.body.approvalStatus,
+			req.body.skills,
+		],
 		(err, results) => {
 			if (err) console.log(err);
 			res.send(results);
 		}
 	);
+});
+
+//getVolunteers : Return array of volunteers with optional where clause filter
+apiRouter.get("/getVolunteers", (req, res) => {
+	let query = "SELECT * FROM volunteer";
+
+	connection.execute(query, (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
 });
 //deleteVolunteer : delete volunteer by volunteerId
 apiRouter.post("/deleteVolunteer", (req, res) => {
@@ -55,12 +81,32 @@ apiRouter.post("/deleteVolunteer", (req, res) => {
 //updateVolunteer : update volunteer by volunteerId
 apiRouter.post("/updateVolunteer", (req, res) => {
 	let query =
-		"UPDATE volunteer SET firstName = ?, lastName = ?, address = ?, homePhone = ?, workPhone = ?, cellPhone = ?, email = ?, education = ?, licenses = ?, emContactName = ?, emContactPhone = ?, emContactEmail = ?, emContactAddress = ?, driversLicense = ?, socialSecurity = ?, approvalStatus = ?, skills = ?,  WHERE volunteerID = ?";
+		"UPDATE volunteer SET username = ?, firstName = ?, lastName = ?, address = ?, homePhone = ?, \
+		workPhone = ?, cellPhone = ?, email = ?, education = ?, licenses = ?, emContactName = ?,\
+		 emContactPhone = ?, emContactEmail = ?, emContactAddress = ?, driversLicense = ?,\
+		  socialSecurity = ?, approvalStatus = ?, skills = ?,  WHERE volunteerID = ?";
 	connection.execute(
 		query,
-		[req.body.firstName, req.body.lastName, req.body.address, req.body.homePhone, req.body.workPhone, req.body.cellPhone, 
-			req.body.email, req.body.education, req.body.licenses, req.body.emContactName, req.body.emContactPhone, req.body.emContactEmail, 
-			req.body.emContactAddress, req.body.driversLicense, req.body.socialSecurity, req.body.approvalStatus, req.body.skills, req.body.volunteerID],
+		[
+			req.body.username,
+			req.body.firstName,
+			req.body.lastName,
+			req.body.address,
+			req.body.homePhone,
+			req.body.workPhone,
+			req.body.cellPhone,
+			req.body.email,
+			req.body.education,
+			req.body.licenses,
+			req.body.emContactName,
+			req.body.emContactPhone,
+			req.body.emContactEmail,
+			req.body.emContactAddress,
+			req.body.driversLicense,
+			req.body.socialSecurity,
+			req.body.approvalStatus,
+			req.body.skills,
+		],
 		(err, results) => {
 			if (err) console.log(err);
 			res.send(results);
