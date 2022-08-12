@@ -2,6 +2,7 @@ const express = require("express");
 const config = require("../config");
 const apiRouter = express.Router();
 const Opportunity = require("../models/Opportunity");
+const Volunteer = require("../models/Volunteer");
 
 var connection = config.connection;
 
@@ -12,7 +13,8 @@ var connection = config.connection;
 apiRouter.get("/Login", (req, res) => {
 	const user = req.body.name;
 	const password = req.body.password;
-	const query = "SELECT * from user WHERE userID = ?";
+	const query =
+		"SELECT * from user WHERE userID = ? AND password = ? AND isAdmin ='1'";
 
 	connection.execute(query, [req.body.volId], (err, results) => {
 		if (err) console.log(err);
@@ -25,10 +27,92 @@ apiRouter.get("/Login", (req, res) => {
 //updateUser : update user information
 
 //addVolunteer : add volunteer to DB
+apiRouter.post("/addVolunteer", (req, res) => {
+	let query =
+		"INSERT INTO volunteer VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+	connection.execute(
+		query,
+		[
+			req.body.username,
+			req.body.firstName,
+			req.body.lastName,
+			req.body.address,
+			req.body.homePhone,
+			req.body.workPhone,
+			req.body.cellPhone,
+			req.body.email,
+			req.body.education,
+			req.body.licenses,
+			req.body.emContactName,
+			req.body.emContactPhone,
+			req.body.emContactEmail,
+			req.body.emContactAddress,
+			req.body.driversLicense,
+			req.body.socialSecurity,
+			req.body.approvalStatus,
+			req.body.skills,
+		],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
+
+//getVolunteers : Return array of volunteers with optional where clause filter
+apiRouter.get("/getVolunteers", (req, res) => {
+	let query = "SELECT * FROM volunteer";
+
+	connection.execute(query, (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
 //deleteVolunteer : delete volunteer by volunteerId
+apiRouter.post("/deleteVolunteer", (req, res) => {
+	let query = "DELETE FROM volunteer WHERE volunteerID = ?";
+	connection.execute(query, [req.body.volunteerID], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
 
 //updateVolunteer : update volunteer by volunteerId
+apiRouter.post("/updateVolunteer", (req, res) => {
+	let query =
+		"UPDATE volunteer SET username = ?, firstName = ?, lastName = ?, address = ?, homePhone = ?, \
+		workPhone = ?, cellPhone = ?, email = ?, education = ?, licenses = ?, emContactName = ?,\
+		 emContactPhone = ?, emContactEmail = ?, emContactAddress = ?, driversLicense = ?,\
+		  socialSecurity = ?, approvalStatus = ?, skills = ?,  WHERE volunteerID = ?";
+	connection.execute(
+		query,
+		[
+			req.body.username,
+			req.body.firstName,
+			req.body.lastName,
+			req.body.address,
+			req.body.homePhone,
+			req.body.workPhone,
+			req.body.cellPhone,
+			req.body.email,
+			req.body.education,
+			req.body.licenses,
+			req.body.emContactName,
+			req.body.emContactPhone,
+			req.body.emContactEmail,
+			req.body.emContactAddress,
+			req.body.driversLicense,
+			req.body.socialSecurity,
+			req.body.approvalStatus,
+			req.body.skills,
+		],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
 
 //addPrefCenter : add preferred center pair to DB (params: volunteerID & center)
 

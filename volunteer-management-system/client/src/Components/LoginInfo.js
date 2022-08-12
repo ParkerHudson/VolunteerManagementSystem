@@ -22,7 +22,7 @@ const sumbitHandler = e => {
         </div>
         <div className="form-group">
             <label htmlFor="name">Password: </label>
-            <input type="text" name="name" id="name" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
+            <input type="password" name="name" id="name" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
         </div>
         <button>Login</button>
       </div>
