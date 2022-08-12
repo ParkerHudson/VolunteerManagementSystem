@@ -1,4 +1,5 @@
 const express = require("express");
+const { useInsertionEffect } = require("react");
 const config = require("../config");
 const apiRouter = express.Router();
 const Opportunity = require("../models/Opportunity");
@@ -54,8 +55,16 @@ apiRouter.post("/addVolunteer", (req, res) => {
 			req.body.skills,
 		],
 		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
 		}
 	);
 });
@@ -65,16 +74,32 @@ apiRouter.get("/getVolunteers", (req, res) => {
 	let query = "SELECT * FROM volunteer";
 
 	connection.execute(query, (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 //deleteVolunteer : delete volunteer by volunteerId
 apiRouter.post("/deleteVolunteer", (req, res) => {
 	let query = "DELETE FROM volunteer WHERE volunteerID = ?";
 	connection.execute(query, [req.body.volunteerID], (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
@@ -108,19 +133,105 @@ apiRouter.post("/updateVolunteer", (req, res) => {
 			req.body.skills,
 		],
 		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
 		}
 	);
 });
 
 //addPrefCenter : add preferred center pair to DB (params: volunteerID & center)
+apiRouter.post("/addPrefCenter", (req, res) => {
+	const query = "INSERT INTO preferredcenter VALUES (?, ?)";
 
-//getPrefCenter : get array of preferred center for each volunteer by ID
+	connection.execute(
+		query,
+		[req.body.username, req.body.ctrName],
+		(err, results) => {
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
+		}
+	);
+});
+
+//getPrefCenter : get array of preferred center for each volunteer by username
+apiRouter.get("/getPrefCenter", (req, res) => {
+	const query = "SELECT * FROM preferredcenter WHERE username = ?";
+
+	connection.execute(query, [req.body.username], (err, results) => {
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
+	});
+});
 
 //updatePrefCenter : update preferred center for volunteer given volunteer and center
+apiRouter.post("/updatePrefCenter", (req, res) => {
+	let query = "UPDATE preferredcenter SET ctrName = ? WHERE username = ?";
+	connection.execute(
+		query,
+		[req.body.ctrName, req.body.username],
+		(err, results) => {
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
+		}
+	);
+});
 
-//deletePrefCenter : delete preferred center pair given volunteerId
+//deletePrefCenter : delete preferred center pair given volunteer username
+apiRouter.post("/deletePrefCenter", (req, res) => {
+	let query = "DELETE FROM preferredcenter WHERE username = ?";
+	connection.execute(query, [req.body.username], (err, results) => {
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
+	});
+});
+
+//addSkill : add a skill to the skills table
+
+//getSkills : get all of the skills of a particular username
+
+//updateSkill : Update skill given username and skill
+
+//deleteSkill : Delete username/skill pair in skills table
 
 //getOppMatches : Take in volunteer ID, return list of matching opportunities
 apiRouter.get("/getOppMatches", (req, res) => {
@@ -130,8 +241,16 @@ apiRouter.get("/getOppMatches", (req, res) => {
 		WHERE o.ctrName = pc.ctrName and pc.volId = ?;";
 
 	connection.execute(query, [req.body.volId], (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
@@ -143,8 +262,16 @@ apiRouter.get("/getVolMatches", (req, res) => {
 		WHERE v.volunteerId = pc.volId AND pc.ctrName = o.ctrName AND o.oppID = ?;";
 
 	connection.execute(query, [req.body.ctrName], (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
@@ -152,8 +279,16 @@ apiRouter.get("/getVolMatches", (req, res) => {
 apiRouter.get("/getOpportunities", (req, res) => {
 	let query = "SELECT * FROM opportunity";
 	connection.execute(query, (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
@@ -167,8 +302,16 @@ apiRouter.post("/addOpportunity", (req, res) => {
 		query,
 		[req.body.ctrName, req.body.category, testTime],
 		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
 		}
 	);
 });
@@ -177,8 +320,16 @@ apiRouter.post("/addOpportunity", (req, res) => {
 apiRouter.post("/deleteOpportunity", (req, res) => {
 	let query = "DELETE FROM opportunity WHERE oppID = ?";
 	connection.execute(query, [req.body.oppID], (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
@@ -190,8 +341,16 @@ apiRouter.post("/updateOpportunity", (req, res) => {
 		query,
 		[req.body.ctrName, req.body.category, req.body.time, req.body.oppID],
 		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
 		}
 	);
 });
@@ -200,8 +359,16 @@ apiRouter.post("/updateOpportunity", (req, res) => {
 apiRouter.get("/getCenters", (req, res) => {
 	let query = "SELECT * FROM center";
 	connection.execute(query, (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
@@ -212,8 +379,16 @@ apiRouter.post("/updateCenter", (req, res) => {
 		query,
 		[req.body.newCtrName, req.body.currentCtrName],
 		(err, results) => {
-			if (err) console.log(err);
-			res.send(results);
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
 		}
 	);
 });
@@ -222,8 +397,16 @@ apiRouter.post("/updateCenter", (req, res) => {
 apiRouter.post("/deleteCenter", (req, res) => {
 	let query = "DELETE FROM center WHERE centerName = ?";
 	connection.execute(query, [req.body.ctrName], (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
@@ -232,8 +415,16 @@ apiRouter.post("/addCenter", (req, res) => {
 	let query = "INSERT INTO center VALUES (?)";
 
 	connection.execute(query, [req.body.ctrName], (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
 	});
 });
 
