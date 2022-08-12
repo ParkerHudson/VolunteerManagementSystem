@@ -2,6 +2,8 @@ const express = require("express");
 const config = require("../config");
 const apiRouter = express.Router();
 const Opportunity = require("../models/Opportunity");
+const Volunteer = require("../models/Volunteer");
+
 
 var connection = config.connection;
 
@@ -25,10 +27,46 @@ apiRouter.get("/Login", (req, res) => {
 //updateUser : update user information
 
 //addVolunteer : add volunteer to DB
+apiRouter.post("/addVolunteer", (req, res) => {
 
+
+	let query = "INSERT INTO volunteer VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+	connection.execute(
+		query,
+		[req.body.firstName, req.body.lastName, req.body.address, req.body.homePhone, req.body.workPhone, req.body.cellPhone, 
+			req.body.email, req.body.education, req.body.licenses, req.body.emContactName, req.body.emContactPhone, req.body.emContactEmail, 
+			req.body.emContactAddress, req.body.driversLicense, req.body.socialSecurity, req.body.approvalStatus, req.body.skills],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
 //deleteVolunteer : delete volunteer by volunteerId
+apiRouter.post("/deleteVolunteer", (req, res) => {
+	let query = "DELETE FROM volunteer WHERE volunteerID = ?";
+	connection.execute(query, [req.body.volunteerID], (err, results) => {
+		if (err) console.log(err);
+		res.send(results);
+	});
+});
 
 //updateVolunteer : update volunteer by volunteerId
+apiRouter.post("/updateVolunteer", (req, res) => {
+	let query =
+		"UPDATE volunteer SET firstName = ?, lastName = ?, address = ?, homePhone = ?, workPhone = ?, cellPhone = ?, email = ?, education = ?, licenses = ?, emContactName = ?, emContactPhone = ?, emContactEmail = ?, emContactAddress = ?, driversLicense = ?, socialSecurity = ?, approvalStatus = ?, skills = ?,  WHERE volunteerID = ?";
+	connection.execute(
+		query,
+		[req.body.firstName, req.body.lastName, req.body.address, req.body.homePhone, req.body.workPhone, req.body.cellPhone, 
+			req.body.email, req.body.education, req.body.licenses, req.body.emContactName, req.body.emContactPhone, req.body.emContactEmail, 
+			req.body.emContactAddress, req.body.driversLicense, req.body.socialSecurity, req.body.approvalStatus, req.body.skills, req.body.volunteerID],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+});
 
 //addPrefCenter : add preferred center pair to DB (params: volunteerID & center)
 
