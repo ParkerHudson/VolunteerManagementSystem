@@ -226,12 +226,86 @@ apiRouter.post("/deletePrefCenter", (req, res) => {
 });
 
 //addSkill : add a skill to the skills table
+apiRouter.post("/addSkill", (req, res) => {
+	const query = "INSERT INTO skills VALUES (?, ?)";
+
+	connection.execute(
+		query,
+		[req.body.username, req.body.skill],
+		(err, results) => {
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
+		}
+	);
+});
 
 //getSkills : get all of the skills of a particular username
+apiRouter.get("/getSkills", (req, res) => {
+	const query = "SELECT skill FROM skills WHERE username = ?";
+
+	connection.execute(query, [req.body.username], (err, results) => {
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
+	});
+});
 
 //updateSkill : Update skill given username and skill
+apiRouter.post("/updateSkill", (req, res) => {
+	let query = "UPDATE skills SET skill = ? WHERE username = ? AND skill = ?";
+	connection.execute(
+		query,
+		[req.body.newSkill, req.body.username, req.body.skill],
+		(err, results) => {
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
+		}
+	);
+});
 
 //deleteSkill : Delete username/skill pair in skills table
+apiRouter.post("/deleteSkill", (req, res) => {
+	let query = "DELETE FROM skills WHERE username = ? AND skill = ?";
+	connection.execute(
+		query,
+		[req.body.username, req.body.skill],
+		(err, results) => {
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
+		}
+	);
+});
 
 //getOppMatches : Take in volunteer ID, return list of matching opportunities
 apiRouter.get("/getOppMatches", (req, res) => {
