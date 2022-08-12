@@ -8,9 +8,9 @@ const checkForTables = (con) => {
 
 	con.query(
 		"CREATE TABLE IF NOT EXISTS USER (\
-				userId VARCHAR(255) PRIMARY KEY, \
-				password VARCHAR(255) NOT NULL, \
-				isAdmin BOOL)",
+			userId VARCHAR(255) PRIMARY KEY, \
+			password VARCHAR(255) NOT NULL, \
+			isAdmin BOOL)",
 		function (err) {
 			if (err) throw err;
 			//console.log("User Table Created");
@@ -30,7 +30,7 @@ const checkForTables = (con) => {
 			emContactName VARCHAR(255), \
 			emContactPhone VARCHAR(255), \
         	emContactEmail VARCHAR(255),\
-			 emContactAddress VARCHAR(255), \
+			emContactAddress VARCHAR(255), \
         	driversLicense BOOL, \
 			socialSecurity BOOL, \
 			approvalStatus VARCHAR(255) NOT NULL, \
