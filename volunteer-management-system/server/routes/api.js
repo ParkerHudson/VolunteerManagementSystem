@@ -14,7 +14,7 @@ var connection = config.connection;
 apiRouter.get("/Login", (req, res) => {
 	const user = req.body.name;
 	const password = req.body.password;
-	const query = "SELECT * from user WHERE userID = ?";
+	const query = "SELECT * from user WHERE userID = ? AND password = ? AND isAdmin ='1'";
 
 	connection.execute(query, [req.body.volId], (err, results) => {
 		if (err) console.log(err);
