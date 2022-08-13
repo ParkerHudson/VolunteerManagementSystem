@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LoginInfo from "./LoginInfo";
+import AdminPanel from "./AdminPanel";
 import "../css/App.css";
 
 const Login = () => {
@@ -37,10 +38,7 @@ const Login = () => {
 	return (
 		<div className="App">
 			{user.name != "" ? (
-				<div className="welcome">
-					<h2>Admin Page Dashboard</h2>
-					<button onClick={Logout}>Logout</button>
-				</div>
+				<AdminPanel />
 			) : (
 				<LoginInfo Login={Login} error={error} />
 			)}

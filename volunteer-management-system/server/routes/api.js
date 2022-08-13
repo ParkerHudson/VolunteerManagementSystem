@@ -91,6 +91,9 @@ apiRouter.get("/getVolunteers", (req, res) => {
 				query = query + " WHERE approvalStatus = 'inactive'";
 				break;
 			default:
+				query =
+					query +
+					" WHERE approvalStatus = 'approved' OR approvalStatus = 'pending' OR approvalStatus = 'disapproved' OR approvalStatus = 'inactive'";
 				break;
 		}
 	}
@@ -118,6 +121,7 @@ apiRouter.get("/getVolunteers", (req, res) => {
 					message: err.message,
 				});
 			} else {
+				console.log(results);
 				res.send(results);
 			}
 		});

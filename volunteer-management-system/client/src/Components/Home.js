@@ -1,4 +1,5 @@
 import React from "react";
+import AdminPanel from "./AdminPanel";
 import Login from "./Login";
 
 const Home = () => {
