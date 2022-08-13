@@ -1,5 +1,4 @@
 const express = require("express");
-const { useInsertionEffect } = require("react");
 const config = require("../config");
 const apiRouter = express.Router();
 const Opportunity = require("../models/Opportunity");
@@ -72,19 +71,57 @@ apiRouter.post("/addVolunteer", (req, res) => {
 //getVolunteers : Return array of volunteers with optional where clause filter
 apiRouter.get("/getVolunteers", (req, res) => {
 	let query = "SELECT * FROM volunteer";
-
-	connection.execute(query, (err, results) => {
-		if (err) {
-			console.log(err);
-			res.send({
-				errorCode: err.code,
-				errorNum: err.errno,
-				message: err.message,
-			});
-		} else {
-			res.send(results);
+	if (req.body.filter != null) {
+		switch (req.body.filter) {
+			case "approved & pending":
+				query =
+					query +
+					" WHERE approvalStatus = 'approved' OR approvalStatus = 'pending'";
+				break;
+			case "approved":
+				query = query + " WHERE approvalStatus = 'approved'";
+				break;
+			case "pending":
+				query = query + " WHERE approvalStatus = 'pending'";
+				break;
+			case "disapproved":
+				query = query + " WHERE approvalStatus = 'disapproved'";
+				break;
+			case "inactive":
+				query = query + " WHERE approvalStatus = 'inactive'";
+				break;
+			default:
+				break;
 		}
-	});
+	}
+	if (req.body.search != null) {
+		query = query + " AND username LIKE CONCAT ('%',?,'%')";
+		connection.execute(query, [req.body.search], (err, results) => {
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
+		});
+	} else {
+		connection.execute(query, (err, results) => {
+			if (err) {
+				console.log(err);
+				res.send({
+					errorCode: err.code,
+					errorNum: err.errno,
+					message: err.message,
+				});
+			} else {
+				res.send(results);
+			}
+		});
+	}
 });
 //deleteVolunteer : delete volunteer by volunteerId
 apiRouter.post("/deleteVolunteer", (req, res) => {
