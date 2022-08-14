@@ -2,13 +2,21 @@
 import React, { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import Home from "./Components/Home";
+import Navbar from "./Components/Navbar";
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 function App() {
-	//const { user, setUser, isAuthenticated, setIsAuthenticated } =
-	//useContext(AuthContext);
-	//console.log(user);
-	//console.log(isAuthenticated);
 	return <Home />;
+//   return (
+//  <Router>
+//   <Navbar>
+//     <Route exact path="/" component={Home}/>
+//   </Navbar>
+// </Router> 
+//   )
+
+
+  
 }
 
 export default App;
