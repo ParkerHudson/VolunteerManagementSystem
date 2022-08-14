@@ -71,8 +71,10 @@ apiRouter.post("/addVolunteer", (req, res) => {
 //getVolunteers : Return array of volunteers with optional where clause filter
 apiRouter.get("/getVolunteers", (req, res) => {
 	let query = "SELECT * FROM volunteer";
-	if (req.body.filter != null) {
-		switch (req.body.filter) {
+	let filter = req.query.filter;
+	let search = req.query.search;
+	if (filter != null) {
+		switch (filter) {
 			case "approved & pending":
 				query =
 					query +
@@ -93,13 +95,13 @@ apiRouter.get("/getVolunteers", (req, res) => {
 			default:
 				query =
 					query +
-					" WHERE approvalStatus = 'approved' OR approvalStatus = 'pending' OR approvalStatus = 'disapproved' OR approvalStatus = 'inactive'";
+					" WHERE approvalStatus = 'inactive' OR approvalStatus = 'approved' OR approvalStatus = 'pending' OR approvalStatus = 'disapproved'";
 				break;
 		}
 	}
-	if (req.body.search != null) {
+	if (search != null) {
 		query = query + " AND username LIKE CONCAT ('%',?,'%')";
-		connection.execute(query, [req.body.search], (err, results) => {
+		connection.execute(query, [search], (err, results) => {
 			if (err) {
 				console.log(err);
 				res.send({
@@ -121,7 +123,6 @@ apiRouter.get("/getVolunteers", (req, res) => {
 					message: err.message,
 				});
 			} else {
-				console.log(results);
 				res.send(results);
 			}
 		});
