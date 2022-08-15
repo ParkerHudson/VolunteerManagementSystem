@@ -6,14 +6,24 @@ import { Link } from "react-router-dom";
 
 const VolunteerRow = (props) => {
 	return (
-		<>
-			<li>
-				{props.volunteer.username}{" "}
+		<tr>
+			<td>{props.volunteer.username}</td>
+			<td>
+				{props.volunteer.firstName} {props.volunteer.lastName}
+			</td>
+
+			<td>{props.volunteer.approvalStatus}</td>
+			<td>
 				<Link to="/editVolunteer" state={{ volunteer: props.volunteer }}>
 					Edit
 				</Link>
-			</li>
-		</>
+			</td>
+			<td>
+				<Link to="/volunteerMatches" state={{ volunteer: props.volunteer }}>
+					View Opportunities
+				</Link>
+			</td>
+		</tr>
 	);
 };
 
