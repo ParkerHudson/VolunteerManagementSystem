@@ -31,7 +31,29 @@ export default {
 		});
 	},
 
-	//deleteVolunteer : fetch deleteVolunteer api
+	// deleteVolunteer : fetch deleteVolunteer api
+	deleteVolunteer: (volunteer) => {
+		return fetch("/api/deleteVolunteer", {
+			method: "delete",
+			body: JSON.stringify(volunteer),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
 
 	//updateVolunteer : fetch updateVolunteer api
+	updateVolunteer: (volunteer) => {
+		return fetch("/api/updateVolunteer", {
+			method: "put",
+			body: JSON.stringify(volunteer),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	}
 };
