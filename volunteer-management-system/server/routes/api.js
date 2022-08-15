@@ -132,9 +132,9 @@ apiRouter.get("/getVolunteers", (req, res) => {
 });
 
 //deleteVolunteer : delete volunteer by volunteerId
-apiRouter.post("/deleteVolunteer", (req, res) => {
-	let query = "DELETE FROM volunteer WHERE volunteerID = ?";
-	connection.execute(query, [req.body.volunteerID], (err, results) => {
+apiRouter.delete("/deleteVolunteer", (req, res) => {
+	let query = "DELETE FROM volunteer WHERE username = ?";
+	connection.execute(query, [req.body.username], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({

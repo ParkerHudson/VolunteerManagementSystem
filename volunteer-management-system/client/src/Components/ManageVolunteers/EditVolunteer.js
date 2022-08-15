@@ -30,20 +30,27 @@ const update = () => {
 		approvalStatus: "approved",
 		skills: "some skill here",
 	});
-	if(!console.error()) {
-		console.log("Updated volunteer details.")
-	}
+	console.log("Updated volunteer details.")
 }
+
+
 
 const EditVolunteer = (props) => {
 	const location = useLocation();
 	const { volunteer } = location.state;
+
+	const delVol = () => {
+		console.log(volunteer);
+		VolunteerService.deleteVolunteer(volunteer);
+		console.log("Deleted volunteer.")
+	}
 
 	//volunteer is the volunteer object that is being passed to the component from the row component
 	return (
 		<>
 			<h1>{volunteer.username}</h1>
 			<button onClick={update}>update volunteer</button>
+			<button onClick={delVol}>delete volunteer</button>
 		</>
 	);
 };
