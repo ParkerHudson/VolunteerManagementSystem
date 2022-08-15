@@ -73,12 +73,13 @@ apiRouter.get("/getVolunteers", (req, res) => {
 	let query = "SELECT * FROM volunteer";
 	let filter = req.query.filter;
 	let search = req.query.search;
+
 	if (filter != null) {
 		switch (filter) {
 			case "approved & pending":
 				query =
 					query +
-					" WHERE approvalStatus = 'approved' OR approvalStatus = 'pending'";
+					" WHERE (approvalStatus = 'approved' OR approvalStatus = 'pending')";
 				break;
 			case "approved":
 				query = query + " WHERE approvalStatus = 'approved'";
@@ -95,12 +96,13 @@ apiRouter.get("/getVolunteers", (req, res) => {
 			default:
 				query =
 					query +
-					" WHERE approvalStatus = 'inactive' OR approvalStatus = 'approved' OR approvalStatus = 'pending' OR approvalStatus = 'disapproved'";
+					" WHERE (approvalStatus = 'inactive' OR approvalStatus = 'approved' OR approvalStatus = 'pending' OR approvalStatus = 'disapproved')";
 				break;
 		}
 	}
 	if (search != null) {
 		query = query + " AND username LIKE CONCAT ('%',?,'%')";
+
 		connection.execute(query, [search], (err, results) => {
 			if (err) {
 				console.log(err);
