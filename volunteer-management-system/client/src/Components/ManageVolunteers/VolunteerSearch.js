@@ -7,6 +7,7 @@ import VolunteerTable from "./VolunteerTable";
 
 const VolunteerSearch = () => {
 	const [search, setSearch] = useState("");
+	const [filter, setFilter] = useState("");
 
 	const onChange = (e) => {
 		setSearch(e.target.value);
@@ -14,6 +15,10 @@ const VolunteerSearch = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+	};
+
+	const selectChange = (e) => {
+		setFilter(e.target.value);
 	};
 
 	return (
@@ -32,16 +37,24 @@ const VolunteerSearch = () => {
 					/>
 				</div>
 				<div className="px-2">
-					<span>
-						Filters <i className="fa fa-angle-down"></i>
-					</span>
+					<select className="form-select" onChange={selectChange}>
+						<option value="starter" selected disabled hidden>
+							Approval Status
+						</option>
+						<option value="none">All</option>
+						<option value="approved">Approved</option>
+						<option value="approved & pending">Approved & Pending</option>
+						<option value="pending">Pending</option>
+						<option value="disapproved">Disapproved</option>
+						<option value="inactive">Inactive</option>
+					</select>
 				</div>
 
 				<div className="px-2">
 					<Link to="/addVolunteer">Add Volunteer</Link>
 				</div>
 			</div>
-			<VolunteerTable search={search} />
+			<VolunteerTable search={search} filter={filter} />
 		</>
 	);
 };

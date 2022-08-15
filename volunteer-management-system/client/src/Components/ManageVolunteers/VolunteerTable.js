@@ -10,15 +10,10 @@ const VolunteerTable = (props) => {
 
 	//Get volunteers from DB
 	useEffect(() => {
-		VolunteerService.getVolunteers("", props.search).then((data) => {
+		VolunteerService.getVolunteers(props.filter, props.search).then((data) => {
 			setVolunteers(data);
 		});
-	}, [props.search]);
-
-	const buttonClick = () => {
-		VolunteerService.postVolunteer();
-	};
-	console.log(volunteers);
+	}, [props.search, props.filter]);
 
 	return (
 		<>
