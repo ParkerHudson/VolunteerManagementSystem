@@ -130,6 +130,7 @@ apiRouter.get("/getVolunteers", (req, res) => {
 		});
 	}
 });
+
 //deleteVolunteer : delete volunteer by volunteerId
 apiRouter.post("/deleteVolunteer", (req, res) => {
 	let query = "DELETE FROM volunteer WHERE volunteerID = ?";
