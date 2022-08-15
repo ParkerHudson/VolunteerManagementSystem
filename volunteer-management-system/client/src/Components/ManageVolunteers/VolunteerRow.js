@@ -71,7 +71,9 @@ const VolunteerRow = (props) => {
 				{capitalizeFirstLetter(props.volunteer.lastName)}
 			</td>
 
-			<td>{approvalStatus(props.volunteer.approvalStatus)}</td>
+			<td style={{ textAlign: "center" }}>
+				{approvalStatus(props.volunteer.approvalStatus)}
+			</td>
 
 			<td>
 				<Link to="/volunteerMatches" state={{ volunteer: props.volunteer }}>
