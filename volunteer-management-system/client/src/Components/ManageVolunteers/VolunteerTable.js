@@ -22,7 +22,7 @@ const VolunteerTable = (props) => {
 					<tr>
 						<th>Username</th>
 						<th>Name</th>
-						<th>Status</th>
+						<th>Approval Status</th>
 						<th colSpan={2}></th>
 					</tr>
 				</thead>
