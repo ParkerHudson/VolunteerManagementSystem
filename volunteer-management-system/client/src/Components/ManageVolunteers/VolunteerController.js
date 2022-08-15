@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import VolunteerService from "../../Services/VolunteerService";
 import VolunteerRow from "./VolunteerRow";
+import { Link } from "react-router-dom";
 
 const VolunteerController = () => {
 	const [volunteers, setVolunteers] = useState([]);
@@ -15,6 +16,7 @@ const VolunteerController = () => {
 
 	return (
 		<>
+			<Link to="/addVolunteer">Add Volunteer</Link>
 			<h2>This is a placeholder for Volunteer Controller</h2>
 
 			<h1>List of Volunteers Test</h1>

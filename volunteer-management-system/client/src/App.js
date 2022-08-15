@@ -3,20 +3,19 @@ import React, { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import Home from "./Components/Home";
 import Navbar from "./Components/Navbar";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import AddVolunteer from "./Components/ManageVolunteers/AddVolunteer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-	return <Home />;
-//   return (
-//  <Router>
-//   <Navbar>
-//     <Route exact path="/" component={Home}/>
-//   </Navbar>
-// </Router> 
-//   )
-
-
-  
+	return (
+		<Router>
+			{/* <Navbar /> */}
+			<Routes>
+				<Route exact path="/" element={<Home />} />
+				<Route path="/addVolunteer" element={<AddVolunteer />} />
+			</Routes>
+		</Router>
+	);
 }
 
 export default App;
