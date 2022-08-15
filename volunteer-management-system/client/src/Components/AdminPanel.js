@@ -2,14 +2,19 @@
 //manage Opportunities
 //manage volunteers
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const AdminPanel = () => {
 	return (
 		<>
-			<h2>This is a placeholder for admin panel</h2>
-			<Link to="/manageVolunteers">Manage Volunteers</Link>
+			<div className="">
+				<Link to="/manageVolunteers">
+					<button type="link" className="btn btn-info btn-block">
+						Manage Volunteers
+					</button>
+				</Link>
+			</div>
 		</>
 	);
 };

@@ -8,6 +8,7 @@ import AddVolunteer from "./Components/ManageVolunteers/AddVolunteer";
 import VolunteerMatches from "./Components/ManageVolunteers/VolunteerMatches";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VolunteerController from "./Components/ManageVolunteers/VolunteerController";
+import VolunteerView from "./Components/ManageVolunteers/VolunteerView";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 				<Route path="/editVolunteer" element={<EditVolunteer />} />
 				<Route path="/manageVolunteers" element={<VolunteerController />} />
 				<Route path="/volunteerMatches" element={<VolunteerMatches />} />
+				<Route path="/viewVolunteerInfo" element={<VolunteerView />} />
 			</Routes>
 		</Router>
 	);
