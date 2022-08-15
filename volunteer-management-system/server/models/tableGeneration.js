@@ -78,7 +78,7 @@ const checkForTables = (con) => {
 		"CREATE TABLE IF NOT EXISTS skills (\
 		username VARCHAR (255) NOT NULL,\
 		skill VARCHAR(50) NOT NULL,\
-		FOREIGN KEY (username) REFERENCES volunteer(username),\
+		FOREIGN KEY (username) REFERENCES volunteer(volunteerID),\
 		PRIMARY KEY(username, skill)\
 		);"
 	);
