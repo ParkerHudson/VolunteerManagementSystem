@@ -24,13 +24,13 @@ const VolunteerSearch = () => {
 	return (
 		<>
 			<div className="mb-2 d-flex align-items-center">
-				<div className="position-relative w-75">
+				<div className="position-relative w-50">
 					<span className="position-absolute search">
 						<i className="fa fa-search"></i>
 					</span>
 					<input
 						style={{ paddingLeft: 32 }}
-						className="form-control"
+						className="form-control w-100"
 						placeholder="Search by username . . ."
 						onChange={onChange}
 						onSubmit={onSubmit}
@@ -38,7 +38,7 @@ const VolunteerSearch = () => {
 				</div>
 				<div className="px-2">
 					<select className="form-select" onChange={selectChange}>
-						<option value="starter" selected disabled hidden>
+						<option value="starter" defaultValue hidden>
 							Approval Status
 						</option>
 						<option value="none">All</option>
@@ -49,11 +49,13 @@ const VolunteerSearch = () => {
 						<option value="inactive">Inactive</option>
 					</select>
 				</div>
-
 				<div className="px-2">
-					<Link to="/addVolunteer">Add Volunteer</Link>
+					<Link to="/addVolunteer">
+						<button className=" btn btn-success">Add Volunteer</button>
+					</Link>
 				</div>
 			</div>
+
 			<VolunteerTable search={search} filter={filter} />
 		</>
 	);

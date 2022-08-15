@@ -88,7 +88,7 @@ apiRouter.get("/getVolunteers", (req, res) => {
 				query = query + " WHERE approvalStatus = 'pending'";
 				break;
 			case "disapproved":
-				query = query + " WHERE approvalStatus = 'disapproved'";
+				query = query + " WHERE approvalStatus = 'denied'";
 				break;
 			case "inactive":
 				query = query + " WHERE approvalStatus = 'inactive'";
@@ -96,7 +96,7 @@ apiRouter.get("/getVolunteers", (req, res) => {
 			default:
 				query =
 					query +
-					" WHERE (approvalStatus = 'inactive' OR approvalStatus = 'approved' OR approvalStatus = 'pending' OR approvalStatus = 'disapproved')";
+					" WHERE (approvalStatus = 'inactive' OR approvalStatus = 'approved' OR approvalStatus = 'pending' OR approvalStatus = 'denied')";
 				break;
 		}
 	}
@@ -192,7 +192,7 @@ apiRouter.put("/updateVolunteer", (req, res) => {
 			req.body.socialSecurity,
 			req.body.approvalStatus,
 			req.body.skills,
-			req.body.username
+			req.body.username,
 		],
 		(err, results) => {
 			if (err) {
