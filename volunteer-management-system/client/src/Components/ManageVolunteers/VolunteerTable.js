@@ -15,6 +15,11 @@ const VolunteerTable = (props) => {
 		});
 	}, [props.search]);
 
+	const buttonClick = () => {
+		VolunteerService.postVolunteer();
+	};
+	console.log(volunteers);
+
 	return (
 		<>
 			<table className="table table-hover">
@@ -27,16 +32,14 @@ const VolunteerTable = (props) => {
 					</tr>
 				</thead>
 				<tbody>
-					{volunteers != [] ? (
+					{volunteers.length > 0 ? (
 						volunteers.map((volunteer) => {
 							return (
 								<VolunteerRow key={volunteer.username} volunteer={volunteer} />
 							);
 						})
 					) : (
-						<tr>
-							<td>none</td>
-						</tr>
+						<h3>No volunteers found . . .</h3>
 					)}
 				</tbody>
 			</table>
