@@ -148,10 +148,26 @@ apiRouter.post("/deleteVolunteer", (req, res) => {
 //updateVolunteer : update volunteer by volunteerId
 apiRouter.post("/updateVolunteer", (req, res) => {
 	let query =
-		"UPDATE volunteer SET username = ?, firstName = ?, lastName = ?, address = ?, homePhone = ?, \
-		workPhone = ?, cellPhone = ?, email = ?, education = ?, licenses = ?, emContactName = ?,\
-		 emContactPhone = ?, emContactEmail = ?, emContactAddress = ?, driversLicense = ?,\
-		  socialSecurity = ?, approvalStatus = ?, skills = ?,  WHERE volunteerID = ?";
+		"UPDATE volunteer \
+		SET username = ?, \
+			firstName = ?, \
+			lastName = ?, \
+			address = ?, \
+			homePhone = ?, \
+			workPhone = ?, \
+			cellPhone = ?, \
+			email = ?, \
+			education = ?, \
+			licenses = ?, \
+			emContactName = ?,\
+			emContactPhone = ?, \
+			emContactEmail = ?, \
+			emContactAddress = ?, \
+			driversLicense = ?,\
+			socialSecurity = ?, \
+			approvalStatus = ?, \
+			skills = ? \
+		WHERE username = ?";
 	connection.execute(
 		query,
 		[
@@ -173,6 +189,7 @@ apiRouter.post("/updateVolunteer", (req, res) => {
 			req.body.socialSecurity,
 			req.body.approvalStatus,
 			req.body.skills,
+			req.body.username
 		],
 		(err, results) => {
 			if (err) {
