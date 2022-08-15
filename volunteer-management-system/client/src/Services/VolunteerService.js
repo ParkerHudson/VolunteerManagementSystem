@@ -19,6 +19,17 @@ export default {
 	},
 
 	//postVolunteer : fetch addVolunteer api
+	postVolunteer: (volunteer) => {
+		return fetch("/api/addVolunteer", {
+			method: "post",
+			body: JSON.stringify(volunteer),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
 
 	//deleteVolunteer : fetch deleteVolunteer api
 
