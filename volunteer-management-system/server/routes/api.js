@@ -146,7 +146,7 @@ apiRouter.post("/deleteVolunteer", (req, res) => {
 });
 
 //updateVolunteer : update volunteer by volunteerId
-apiRouter.post("/updateVolunteer", (req, res) => {
+apiRouter.put("/updateVolunteer", (req, res) => {
 	let query =
 		"UPDATE volunteer \
 		SET username = ?, \
