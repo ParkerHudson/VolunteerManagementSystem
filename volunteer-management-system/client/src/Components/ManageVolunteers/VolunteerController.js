@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const VolunteerController = () => {
 	const [volunteers, setVolunteers] = useState([]);
 
+	//Get volunteers from DB
 	useEffect(() => {
 		VolunteerService.getVolunteers().then((data) => {
 			setVolunteers(data);
