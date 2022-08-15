@@ -21,6 +21,17 @@ body {
 .green {
 	color: green;
 }
+.orange {
+	color: orange;
+}
+
+.red {
+	color: red;
+}
+
+.grey {
+	color: grey;
+}
 
 input,
 .search {
