@@ -3,14 +3,13 @@
 import React from "react";
 
 import VolunteerSearch from "./VolunteerSearch";
-import VolunteerTable from "./VolunteerTable";
 
 const VolunteerController = () => {
 	return (
 		<>
 			<h2 className="text-center">Manage Volunteers</h2>
 
-			<div className="container-fluid">
+			<div className="container-fluid ">
 				<VolunteerSearch />
 			</div>
 		</>

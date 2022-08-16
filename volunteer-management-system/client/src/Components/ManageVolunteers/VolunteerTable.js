@@ -17,13 +17,15 @@ const VolunteerTable = (props) => {
 
 	return (
 		<>
-			<table className="table table-hover">
+			<table className="table table-hover table-sm ">
 				<thead className="table-dark">
 					<tr>
-						<th>Username</th>
-						<th>Name</th>
-						<th>Approval Status</th>
-						<th colSpan={3}></th>
+						<th className="col-sm-1">Username</th>
+						<th className="col-sm-1">Name</th>
+						<th className="col-sm-1" style={{ textAlign: "center" }}>
+							Approval Status
+						</th>
+						<th colSpan={3} className="col-sm-1"></th>
 					</tr>
 				</thead>
 				<tbody>
