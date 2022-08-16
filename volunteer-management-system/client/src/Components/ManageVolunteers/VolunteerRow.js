@@ -70,6 +70,7 @@ const VolunteerRow = (props) => {
 				{capitalizeFirstLetter(props.volunteer.firstName)}{" "}
 				{capitalizeFirstLetter(props.volunteer.lastName)}
 			</td>
+			<td>{props.volunteer.email}</td>
 
 			<td style={{ textAlign: "center" }}>
 				{approvalStatus(props.volunteer.approvalStatus)}

@@ -6,26 +6,6 @@ const Volunteer = require("../models/Volunteer");
 
 var connection = config.connection;
 
-//** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
-///login
-// WIP Still trying to figure out the authentication
-
-apiRouter.get("/Login", (req, res) => {
-	const user = req.body.name;
-	const password = req.body.password;
-	const query =
-		"SELECT * from user WHERE userID = ? AND password = ? AND isAdmin ='1'";
-
-	connection.execute(query, [req.body.volId], (err, results) => {
-		if (err) console.log(err);
-		res.send(results);
-	});
-});
-
-//addUser : add user to DB
-
-//updateUser : update user information
-
 //addVolunteer : add volunteer to DB
 apiRouter.post("/addVolunteer", (req, res) => {
 	let query =
