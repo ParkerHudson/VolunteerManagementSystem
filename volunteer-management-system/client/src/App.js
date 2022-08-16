@@ -13,7 +13,7 @@ import VolunteerView from "./Components/ManageVolunteers/VolunteerView";
 function App() {
 	return (
 		<Router>
-			{/* <Navbar /> */}
+			<Navbar />
 			<Routes>
 				<Route exact path="/" element={<Home />} />
 				<Route path="/addVolunteer" element={<AddVolunteer />} />
