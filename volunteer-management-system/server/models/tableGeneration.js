@@ -117,6 +117,15 @@ const checkForTables = (con) => {
 			console.log("removed FK constraint");
 		}
 	); */
+
+	con.query(
+		"ALTER TABLE opportunity ADD prefSkill VARCHAR(255)",
+		function (err) {
+			if (err) throw err;
+			console.log("Opportunity table altered");
+		}
+	);
+
 	console.log("Tables Verified");
 };
 
