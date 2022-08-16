@@ -55,7 +55,12 @@ const Navbar = (props) => {
     useContext(AuthContext); */
 
 	return (
-		<nav className="navbar navbar-dark navbar-expand-lg bg-dark">
+		<nav
+			className="navbar navbar-dark navbar-expand-lg bg-dark"
+			style={{
+				backgroundImage: "linear-gradient(to bottom right, #ffce00, #fe4880)",
+			}}
+		>
 			<Link to="/" style={{ textDecoration: "none" }}>
 				<div className="navbar-brand">Management Portal</div>
 			</Link>
