@@ -18,23 +18,23 @@ const EditVolunteer = (props) => {
 	const update = () => {
 		VolunteerService.updateVolunteer({
 			username: volunteer.username,
-			firstName: "Mirandaaa",
-			lastName: "Wheatersss",
-			address: "11134 Tester Dr",
-			homePhone: "9042224921",
-			workPhone: "3232221234",
-			cellPhone: "3334442322",
-			email: "Testy@tester.com",
-			education: "bachelors",
-			licenses: "None",
-			emContactName: "Jane",
-			emContactPhone: "9994443333",
-			emContactEmail: "helpMe@helper.com",
-			emContactAddress: "32455 Help Lane",
-			driversLicense: 1,
-			socialSecurity: 1,
-			approvalStatus: "approved",
-			skills: "some skill here",
+			firstName: volunteer.firstName,
+			lastName: volunteer.lastName,
+			address: volunteer.address,
+			homePhone: volunteer.homePhone,
+			workPhone: volunteer.workPhone,
+			cellPhone: volunteer.cellPhone,
+			email: volunteer.email,
+			education: volunteer.education,
+			licenses: volunteer.licenses,
+			emContactName: volunteer.emContactName,
+			emContactPhone: volunteer.emContactAddress,
+			emContactEmail: volunteer.emContactEmail,
+			emContactAddress: volunteer.emContactAddress,
+			driversLicense: volunteer.driversLicense,
+			socialSecurity: volunteer.socialSecurity,
+			approvalStatus: volunteer.approvalStatus,
+			skills: volunteer.skills,
 		});
 		console.log("Updated volunteer details.")
 	}
@@ -129,7 +129,6 @@ const EditVolunteer = (props) => {
 				<Link to="/manageVolunteers">
 				<button type="button" class="btn btn-info">Back</button>
 				</Link>
-				<button type="button" class="btn btn-primary">Submit</button>
 				<button type="button" class="btn btn-success" onClick={update}>Update Volunteer</button>
 			<button type="button" class="btn btn-danger" onClick={delVol}>Delete Volunteer</button>
 			</div>
