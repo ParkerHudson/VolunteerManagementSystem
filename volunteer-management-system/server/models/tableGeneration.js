@@ -78,7 +78,7 @@ const checkForTables = (con) => {
 		"CREATE TABLE IF NOT EXISTS skills (\
 		username VARCHAR (255) NOT NULL,\
 		skill VARCHAR(50) NOT NULL,\
-		FOREIGN KEY (username) REFERENCES volunteer(username),\
+		FOREIGN KEY (username) REFERENCES volunteer(volunteerID),\
 		PRIMARY KEY(username, skill)\
 		);"
 	);
@@ -117,6 +117,24 @@ const checkForTables = (con) => {
 			console.log("removed FK constraint");
 		}
 	); */
+
+	// run this if your opportunity table has 'prefSkill' column
+	// con.query(
+	// 	"ALTER TABLE opportunity DROP COLUMN prefSkill",
+	// 	(err) => {
+	// 		if (err) throw err;
+	// 		console.log("removed prefSkill from opportunity table");
+	// 	}
+	// );
+
+	// con.query(
+	// 	"ALTER TABLE center ADD prefSkill VARCHAR(255)",
+	// 	function (err) {
+	// 		if (err) throw err;
+	// 		console.log("Center table altered - added prefSkill");
+	// 	}
+	// );
+
 	console.log("Tables Verified");
 };
 

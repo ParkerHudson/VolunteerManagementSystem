@@ -37,11 +37,56 @@ import VolunteerService from "../../Services/VolunteerService";
 }) */
 
 const AddVolunteer = (props) => {
-	const [name, setName] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [address, setAddress] = useState("");
+	const [homePhone, setHomePhone] = useState("");
+	const [workPhone, setWorkPhone] = useState("");
+	const [cellPhone, setCellPhone] = useState("");
+	const [email, setEmail] = useState("");
+	const [education, setEducation] = useState("");
+	const [licenses, setLicenses] = useState("");
+	const [emContactName, setEmContactName] = useState("");
+	const [emContactPhone, setEmContactPhone] = useState("");
+	const [emContactEmail, setEmContactEmail] = useState("");
+	const [emContactAddress, setEmContactAddress] = useState("");
+	const [dlNumber, setDLNumber] = useState("");
+	const [ssn, setSSN] = useState("");
+	const [skills, setSkills] = useState("");
+
+
+
+
+	const addVol = () => {
+	VolunteerService.postVolunteer({
+		username: `${firstName}`,
+		firstName: `${firstName}`,
+		lastName: `${lastName}`,
+		address: `${address}`,
+		homePhone: `${homePhone}`,
+		workPhone: `${workPhone}`,
+		cellPhone: `${cellPhone}`,
+		email: `${email}`,
+		education: `${education}`,
+		licenses: `${licenses}`,
+		emContactName: `${emContactName}`,
+		emContactPhone: `${emContactPhone}`,
+		emContactEmail: `${emContactEmail}`,
+		emContactAddress: `${emContactAddress}`,
+		driversLicense: 1,
+		socialSecurity: 1,
+		approvalStatus: `${firstName}`,
+		skills: `${skills}`,
+	});
+	console.log("Added volunteer.")
+}
+
+
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		alert(`${name}`);
+		alert(`${firstName}`);
 
 		//update database with form data
 	};
@@ -55,74 +100,134 @@ const AddVolunteer = (props) => {
 					<label htmlFor="firstName">First Name: </label>
 					<input
 						type="text"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
+						value={firstName}
+						onChange={(e) => setFirstName(e.target.value)}
 						required
 					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="lastName">Last Name: </label>
-					<input type="text" name="lastName" id="lastName" required />
+					<input 
+					type="text" 
+					value = {lastName} 
+					onChange={(e) => setLastName(e.target.value)}
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="address">Address: </label>
-					<input type="text" name="address" id="address" required />
+					<input 
+					type="text"
+					 value={address}
+					 onChange={(e) => setAddress(e.target.value)} 
+					 required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="homePhone">Home Phone: </label>
-					<input type="text" name="homePhone" id="homePhone" required />
+					<input 
+					type="text" 
+					value={homePhone}
+					onChange={(e) => setHomePhone(e.target.value)} 
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="workPhone">Work Phone: </label>
-					<input type="text" name="workPhone" id="workPhone" required />
+					<input type="text"
+					value={workPhone}
+					onChange={(e) => setWorkPhone(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="cellPhone">Cell Phone: </label>
-					<input type="text" name="cellPhone" id="cellPhone" required />
+					<input type="text"  
+					value={cellPhone}
+					onChange={(e) => setCellPhone(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="email">Email: </label>
-					<input type="text" name="email" id="email" required />
+					<input type="text"  
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="education">Education: </label>
-					<input type="text" name="education" id="education" required />
+					<input type="text"  
+					value={education}
+					onChange={(e) => setEducation(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="licenses">Licenses: </label>
-					<input type="text" name="licenses" id="licenses" required />
+					<input type="text" 
+					value={licenses}
+					onChange={(e) => setLicenses(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="emConName">Emergency Contact Name: </label>
-					<input type="text" name="emConName" id="emConName" required />
+					<input type="text" 
+					value={emContactName}
+					onChange={(e) => setEmContactName(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
-					<label htmlFor="emConPhone">Emergency Contact Phone: </label>
-					<input type="text" name="emConPhone" id="emConPhone" required />
+					<label htmlFor="emConPhone">Emergency Contact Phone Number: </label>
+					<input type="text" 
+					value={emContactPhone}
+					onChange={(e) => setEmContactPhone(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="emConEmail">Emergency Contact Email: </label>
-					<input type="text" name="emConEmail" id="emConEmail" required />
+					<input type="text" 
+					value={emContactEmail}
+					onChange={(e) => setEmContactEmail(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="emConAddress">Emergency Contact Address: </label>
-					<input type="text" name="emConAddress" id="emConAddress" required />
+					<input type="text"  
+					value={emContactAddress}
+					onChange={(e) => setEmContactAddress(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="dlNumber">Driver's License Number: </label>
-					<input type="text" name="dlNumber" id="dlNumber" required />
+					<input type="text"  
+					value={dlNumber}
+					onChange={(e) => setDLNumber(e.target.value)}
+					
+					required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="ssn">Social Security Number: </label>
-					<input type="text" name="ssn" id="ssn" required />
+					<input type="text"  
+					value={ssn}
+					onChange={(e) => setSSN(e.target.value)}
+					
+					required />
 				</div>
 
 				<div className="form-group">
 					<label htmlFor="skills">Skills: </label>
-					<input type="text" name="skills" id="skills" />
+					<input type="text"  
+					value={skills}
+					onChange={(e) => setSkills(e.target.value)}
+					
+					/>
 				</div>
 
-				<button>Submit</button>
+				<button type="button" class="btn btn-success" onClick={addVol}>Submit</button>
 			</div>
 		</form>
 	);
