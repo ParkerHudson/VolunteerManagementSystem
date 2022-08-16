@@ -37,7 +37,7 @@ function LoginInfo({ Login, error }) {
 						value={details.password}
 					/>
 				</div>
-				<button>Login</button>
+				<button className="btn btn-primary">Login</button>
 			</div>
 		</form>
 	);
