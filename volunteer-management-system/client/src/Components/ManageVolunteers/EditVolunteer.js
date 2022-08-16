@@ -9,26 +9,31 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import VolunteerService from "../../Services/VolunteerService";
 
-// VolunteerService.updateVolunteer({
-// 	username: "mmw",
-// 	firstName: "Mirs",
-// 	lastName: "Jones",
-// 	address: "11134 Tester Dr",
-// 	homePhone: "9042224921",
-// 	workPhone: "3232221234",
-// 	cellPhone: "3334442322",
-// 	email: "Testy@tester.com",
-// 	education: "bachelors",
-// 	licenses: "None",
-// 	emContactName: "Jane",
-// 	emContactPhone: "9994443333",
-// 	emContactEmail: "helpMe@helper.com",
-// 	emContactAddress: "32455 Help Lane",
-// 	driversLicense: 1,
-// 	socialSecurity: 1,
-// 	approvalStatus: "approved",
-// 	skills: "some skill here",
-// })
+const update = () => {
+	VolunteerService.updateVolunteer({
+		username: "mmw",
+		firstName: "Mirandaaa",
+		lastName: "Wheatersss",
+		address: "11134 Tester Dr",
+		homePhone: "9042224921",
+		workPhone: "3232221234",
+		cellPhone: "3334442322",
+		email: "Testy@tester.com",
+		education: "bachelors",
+		licenses: "None",
+		emContactName: "Jane",
+		emContactPhone: "9994443333",
+		emContactEmail: "helpMe@helper.com",
+		emContactAddress: "32455 Help Lane",
+		driversLicense: 1,
+		socialSecurity: 1,
+		approvalStatus: "approved",
+		skills: "some skill here",
+	});
+	if(!console.error()) {
+		console.log("Updated volunteer details.")
+	}
+}
 
 const EditVolunteer = (props) => {
 	const location = useLocation();
@@ -38,6 +43,7 @@ const EditVolunteer = (props) => {
 	return (
 		<>
 			<h1>{volunteer.username}</h1>
+			<button onClick={update}>update volunteer</button>
 		</>
 	);
 };
