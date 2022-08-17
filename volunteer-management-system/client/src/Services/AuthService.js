@@ -16,7 +16,7 @@ export default {
 			"user/authenticated",
 			{
 				method: "post",
-				body: JSON.stringify(user),
+				body: JSON.stringify(token),
 				headers: {
 					"Content-Type": "application/json",
 				},
