@@ -38,6 +38,7 @@ import { Link } from "react-router-dom";
 }) */
 
 const AddVolunteer = (props) => {
+	const [username, setUsername] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [address, setAddress] = useState("");
@@ -52,12 +53,13 @@ const AddVolunteer = (props) => {
 	const [emContactEmail, setEmContactEmail] = useState("");
 	const [emContactAddress, setEmContactAddress] = useState("");
 	const [dlNumber, setDLNumber] = useState("");
+	const [approvalStatus, setApprovalStatus] = useState("");
 	const [ssn, setSSN] = useState("");
 	const [skills, setSkills] = useState("");
 
 	const addVol = () => {
 		VolunteerService.postVolunteer({
-			username: firstName,
+			username: username,
 			firstName: firstName,
 			lastName: lastName,
 			address: address,
@@ -71,26 +73,30 @@ const AddVolunteer = (props) => {
 			emContactPhone: emContactPhone,
 			emContactEmail: emContactEmail,
 			emContactAddress: emContactAddress,
-			driversLicense: 1,
-			socialSecurity: 1,
-			approvalStatus: "approved",
+			driversLicense: dlNumber,
+			socialSecurity: ssn,
+			approvalStatus: approvalStatus,
 			skills: skills,
 		});
 		console.log("Added volunteer.");
+		//console.log({dlNumber});
+		//console.log({ssn});
+		//console.log({approvalStatus});
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		addVol();
+		
 		window.alert("Volunteer Added!");
 
 		//update database with form data
 	};
 
 	//Approval status select
-	//Username field
-	//drivers license field (1 or 0)
-	//social security field (1 or 0)
+	//Username field DONE
+	//drivers license field (1 or 0) DONE
+	//social security field (1 or 0) DONE
 
 	//Skills checkboxes based off of center pref skills
 
@@ -98,6 +104,15 @@ const AddVolunteer = (props) => {
 		<form onSubmit={handleSubmit}>
 			<div className="form-inner">
 				<h2> Add a Volunteer </h2>
+				<div className="form-group">
+					<label htmlFor="username">Username: </label>
+					<input
+						type="text"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+						required
+					/>
+				</div>
 				
 
 				<div className="form-group">
@@ -217,25 +232,68 @@ const AddVolunteer = (props) => {
 						required
 					/>
 				</div>
-				<div className="form-group">
+					<br></br>
+					<div className="form-group">
 					<label htmlFor="dlNumber">Driver's License Number: </label>
+					</div>
+					
+					<div>
+					<label htmlFor= "dlYes">Yes</label>
 					<input
-						type="text"
-						value={dlNumber}
-						onChange={(e) => setDLNumber(e.target.value)}
-						required
+						id = "dlYes"
+						type="radio"
+						name = "dlNumber"
+						value= "1"
+						onChange={(e) => setDLNumber(e.target.value)}	
 					/>
-				</div>
-				<div className="form-group">
+					</div>
+					<label htmlFor= "dlNo"> No </label>
+					<input
+						id = "dlNo"
+						type="radio"
+						name = "dlNumber"
+						value= "0"
+						onChange={(e) => setDLNumber(e.target.value)}	
+					/>
+					<br></br>
+					<br></br>
+				
+					<div className="form-group">
 					<label htmlFor="ssn">Social Security Number: </label>
+					</div>
+					
+					<div>
+					<label htmlFor= "ssnYes">Yes</label>
 					<input
-						type="text"
-						value={ssn}
-						onChange={(e) => setSSN(e.target.value)}
-						required
+						id = "ssnYes"
+						type="radio"
+						name = "ssn"
+						value= "1"
+						onChange={(e) => setSSN(e.target.value)}	
 					/>
-				</div>
+					</div>
+					<label htmlFor= "ssnNo"> No </label>
+					<input
+						id = "ssnNo"
+						type="radio"
+						name = "ssn"
+						value= "0"
+						onChange={(e) => setSSN(e.target.value)}	
+					/>
+					<br></br><br></br>
+					<div className="form-group">
+					<label htmlFor="approval">Approval Status:</label>
 
+					<select name="approval" id="approval" onChange={(e) => setApprovalStatus(e.target.value)}>
+  						<option value="Approved">Approved</option>
+  						<option value="Pending Approval">Pending Approval</option>
+  						<option value="Disapproved">Disapproved</option>
+  						<option value="Inactive">Inactive</option>
+					</select>
+					</div>
+
+				
+				<br></br><br></br>
 				<div className="form-group">
 					<label htmlFor="skills">Skills: </label>
 					<input
