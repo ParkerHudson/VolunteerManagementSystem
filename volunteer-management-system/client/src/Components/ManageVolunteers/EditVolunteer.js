@@ -23,9 +23,9 @@ const EditVolunteer = (props) => {
 	const [education, setEducation] = useState(volunteer.education);
 	const [licenses, setLicense] = useState(volunteer.licenses);
 	const [emContactName, setEmContactName] = useState(volunteer.emContactName);
-	const [emContactPhone, setEmContactPhone] = useState(volunteer.emConPhone);
-	const [emContactEmail, setEmConEmail] = useState(volunteer.emConEmail);
-	const [emContactAddress, setEmConAddress] = useState(volunteer.emConAddress);
+	const [emContactPhone, setEmContactPhone] = useState(volunteer.emContactPhone);
+	const [emContactEmail, setEmContactEmail] = useState(volunteer.emContactEmail);
+	const [emContactAddress, setEmContactAddress] = useState(volunteer.emContactAddress);
 	const [driversLicense, setDriversLicense] = useState(volunteer.driversLicense);
 	const [socialSecurity, setSSN] = useState(volunteer.socialSecurity);
 	const [approvalStatus, setApproval] = useState(volunteer.approvalStatus);
@@ -210,7 +210,7 @@ const EditVolunteer = (props) => {
 							name="emConEmail"
 							id="emConEmail"
 							required
-							onChange={(e) => setEmConEmail(e.target.value)}
+							onChange={(e) => setEmContactEmail(e.target.value)}
 							value={emContactEmail}
 						/>
 					</div>
@@ -221,7 +221,7 @@ const EditVolunteer = (props) => {
 							name="emConAddress"
 							id="emConAddress"
 							required
-							onChange={(e) => setEmConAddress(e.target.value)}
+							onChange={(e) => setEmContactAddress(e.target.value)}
 							value={emContactAddress}
 						/>
 					</div>
