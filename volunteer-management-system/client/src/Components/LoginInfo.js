@@ -12,7 +12,7 @@ function LoginInfo({ Login, error }) {
 	return (
 		<form onSubmit={sumbitHandler}>
 			<div className="form-inner">
-				<h2> Welcome to the Voluntary Management System</h2>
+				<h2> Welcome to the Volunteer Management System</h2>
 				{error != "" ? <div className="error">{error}</div> : ""}
 
 				<div className="form-group">

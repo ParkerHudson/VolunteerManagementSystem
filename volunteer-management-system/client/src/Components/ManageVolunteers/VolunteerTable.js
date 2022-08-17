@@ -22,6 +22,7 @@ const VolunteerTable = (props) => {
 					<tr>
 						<th className="col-sm-1">Username</th>
 						<th className="col-sm-1">Name</th>
+						<th className="col-sm-1">Email</th>
 						<th className="col-sm-1" style={{ textAlign: "center" }}>
 							Approval Status
 						</th>

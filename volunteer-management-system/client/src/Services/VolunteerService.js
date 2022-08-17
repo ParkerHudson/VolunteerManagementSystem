@@ -1,4 +1,11 @@
+//import { post } from "../../../server/routes/api";
+
 export default {
+
+	//////////////////
+	//  VOLUNTEERS  //
+	//////////////////
+
 	//getVolunteers : fetch getVolunteers api
 	//param : search value, filter
 	getVolunteers: (filter, search) => {
@@ -57,6 +64,10 @@ export default {
 		});
 	},
 
+	////////////////
+	//   SKILLS   //
+	////////////////
+
 	// addVolunteerSkill : fetch addSkill api
 	// add entry to skills table with username and skill
 	addVolunteerSkill: (volunteer, skill) => {
@@ -92,7 +103,7 @@ export default {
 	// updateVolunteerSkills : fetch updateSkill api
 	// update skills table with volunteer username, skill (old), and newSkill
 	updateVolunteerSkill: (volunteer, skill, newSkill) => {
-		var update = {
+		var skillUpdate = {
 			username: volunteer.username,
 			newSkill: newSkill,
 			skill: skill
@@ -100,7 +111,7 @@ export default {
 
 		return fetch("/api/updateSkill", {
 			method: "post",
-			body: JSON.stringify(update),
+			body: JSON.stringify(skillUpdate),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -109,6 +120,8 @@ export default {
 		});
 	},
 
+	// deleteVolunteerSkill : fetch deleteSkill api
+	// remove entry for volunteer in preferredCenter table
 	deleteVolunteerSkill: (volunteer, skill) => {
 		var removeSkill = {
 			username: volunteer.username,
@@ -118,6 +131,76 @@ export default {
 		return fetch("/api/deleteSkill", {
 			method: "delete",
 			body: JSON.stringify(removeSkill),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
+
+	///////////////////
+	//  PREF CENTER  //
+	///////////////////
+
+	// addPrefCtr : fetch addPrefCenter api
+	// take in volunteer and center name
+	addPrefCtr: (volunteer, centerName) => {
+		var pref = {
+			username: volunteer.username,
+			ctrName: centerName
+		}
+
+		return fetch("api/addPrefCenter", {
+			method: "post",
+			body: JSON.stringify(pref),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
+
+	// getPrefCtr : fetch getPrefCenter api
+	// take in volunteer, return preferred center
+	getPrefCtr: (volunteer) => {
+		return fetch("api/getPrefCenter", {
+			method: "get",
+			body: JSON.stringify(volunteer),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
+
+	// updatePrefCtr : fetch updatePrefCenter api
+	// take in volunteer, prefCtr (old), and newPrefCtr
+	updatePrefCtr: (volunteer, centerName) => {
+		var prefCtrUpdate = {
+			username: volunteer.username,
+			ctrName: centerName
+		};
+
+		return fetch("/api/updateSkill", {
+			method: "put",
+			body: JSON.stringify(prefCtrUpdate),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
+
+	// deletePrefCtr : fetch deletePrefCenter api
+	// take in volunteer, remove prefCtr entry for the username
+	deletePrefCtr: (volunteer) => {
+		return fetch("/api/deletePrefCenter", {
+			method: "delete",
+			body: JSON.stringify(volunteer),
 			headers: {
 				"Content-Type": "application/json",
 			},

@@ -9,11 +9,16 @@ import VolunteerMatches from "./Components/ManageVolunteers/VolunteerMatches";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VolunteerController from "./Components/ManageVolunteers/VolunteerController";
 import VolunteerView from "./Components/ManageVolunteers/VolunteerView";
+import AddOpportunity from "./Components/ManageOpportunities/AddOpportunity";
+import EditOpportunity from "./Components/ManageOpportunities/EditOpportunity";
+import OpportunityController from "./Components/ManageOpportunities/OpportunityController";
+import OpportunityMatches from "./Components/ManageOpportunities/OpportunityMatches";
+import OpportunityView from "./Components/ManageOpportunities/OpportunityView";
 
 function App() {
 	return (
 		<Router>
-			{/* <Navbar /> */}
+			<Navbar />
 			<Routes>
 				<Route exact path="/" element={<Home />} />
 				<Route path="/addVolunteer" element={<AddVolunteer />} />
@@ -21,6 +26,14 @@ function App() {
 				<Route path="/manageVolunteers" element={<VolunteerController />} />
 				<Route path="/volunteerMatches" element={<VolunteerMatches />} />
 				<Route path="/viewVolunteerInfo" element={<VolunteerView />} />
+				<Route path="/addOpportunity" element={<AddOpportunity />} />
+				<Route path="/editOpportunity " element={<EditOpportunity />} />
+				<Route
+					path="/manageOpportunities"
+					element={<OpportunityController />}
+				/>
+				<Route path="/OpportunityMatches" element={<OpportunityMatches />} />
+				<Route path="/viewOpportunityInfo" element={<OpportunityView />} />
 			</Routes>
 		</Router>
 	);

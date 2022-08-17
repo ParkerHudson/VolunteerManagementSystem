@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../Context/AuthContext";
 
-const Navbar = props => {
-    const unauthenticatedNavBar = () => {
+const Navbar = (props) => {
+	/*     const unauthenticatedNavBar = () => {
       return (
         <>
           <Link to="/Home">
@@ -52,20 +52,20 @@ const Navbar = props => {
   };
 
   const { isAuthenticated, user, setIsAuthenticated, setUser } =
-    useContext(AuthContext);
-  return (
-    <nav className="navbar navbar-expand-lg bg-light">
-      <Link to="/">
-        <div className="navbar-brand">Admin Dashboard</div>
-      </Link>
-    
-        <div className="collapse navbar-collapse" id="navbarText">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
-          </ul>
-        </div>
-    </nav>
-  );
+    useContext(AuthContext); */
+
+	return (
+		<nav
+			className="navbar navbar-dark navbar-expand-lg bg-dark"
+			style={{
+				backgroundImage: "linear-gradient(to bottom right, #ffce00, #fe4880)",
+			}}
+		>
+			<Link to="/" style={{ textDecoration: "none" }}>
+				<div className="navbar-brand">Management Portal</div>
+			</Link>
+		</nav>
+	);
 };
 
 export default Navbar;
