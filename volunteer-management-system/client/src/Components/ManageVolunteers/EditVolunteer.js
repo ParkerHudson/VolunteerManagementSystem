@@ -235,10 +235,10 @@ const EditVolunteer = (props) => {
 							Back
 						</button>
 					</Link>
-					<button type="button" class="btn btn-success" onClick={update}>
+					<button type="submit" class="btn btn-success" onClick={update}>
 						Update Volunteer
 					</button>
-					<button type="button" class="btn btn-danger" onClick={delVol}>
+					<button type="submit" class="btn btn-danger" onClick={delVol}>
 						Delete Volunteer
 					</button>
 				</div>
