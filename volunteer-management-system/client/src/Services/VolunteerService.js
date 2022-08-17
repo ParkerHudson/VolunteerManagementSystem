@@ -207,5 +207,20 @@ export default {
 		}).then((response) => {
 			return response.json().then((data) => data);
 		});
+	},
+
+	
+	// getOpportunityMatches : fetch getOppMatches api
+	// take in username, return list of matching opportunities
+	getOpportunityMatches: (volunteer) => {
+		return fetch("api/getOppMatches", {
+			method: "get",
+			body: JSON.stringify(volunteer),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
 	}
 };
