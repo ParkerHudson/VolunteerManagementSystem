@@ -14,28 +14,45 @@ const EditVolunteer = (props) => {
 	const location = useLocation();
 	const { volunteer } = location.state;
 	const [firstName, setFirstName] = useState(volunteer.firstName);
+	const [lastName, setlastName] = useState(volunteer.lastName);
+	const [address, setAddress] = useState(volunteer.address);
+	const [homePhone, setHomePhone] = useState(volunteer.homePhone);
+	const [workPhone, setWorkPhone] = useState(volunteer.workPhone);
+	const [cellPhone, setCellPhone] = useState(volunteer.cellPhone);
+	const [email, setEmail] = useState(volunteer.email);
+	const [education, setEducation] = useState(volunteer.education);
+	const [licenses, setLicense] = useState(volunteer.licenses);
+	const [emContactName, setEmContactName] = useState(volunteer.emContactName);
+	const [emContactPhone, setEmContactPhone] = useState(volunteer.emConPhone);
+	const [emContactEmail, setEmConEmail] = useState(volunteer.emConEmail);
+	const [emContactAddress, setEmConAddress] = useState(volunteer.emConAddress);
+	const [driversLicense, setDriversLicense] = useState(volunteer.driversLicense);
+	const [socialSecurity, setSSN] = useState(volunteer.socialSecurity);
+	const [approvalStatus, setApproval] = useState(volunteer.approvalStatus);
+	const [skills, setSkills] = useState(volunteer.skills);
+
 
 	// need to include PREFERRED CENTER api call to add/edit volunteer functionality
 	const update = () => {
 		VolunteerService.updateVolunteer({
 			username: volunteer.username,
 			firstName: firstName,
-			lastName: volunteer.lastName,
-			address: volunteer.address,
-			homePhone: volunteer.homePhone,
-			workPhone: volunteer.workPhone,
-			cellPhone: volunteer.cellPhone,
-			email: volunteer.email,
-			education: volunteer.education,
-			licenses: volunteer.licenses,
-			emContactName: volunteer.emContactName,
-			emContactPhone: volunteer.emContactAddress,
-			emContactEmail: volunteer.emContactEmail,
-			emContactAddress: volunteer.emContactAddress,
-			driversLicense: volunteer.driversLicense,
-			socialSecurity: volunteer.socialSecurity,
-			approvalStatus: volunteer.approvalStatus,
-			skills: volunteer.skills,
+			lastName: lastName,
+			address: address,
+			homePhone: homePhone,
+			workPhone: workPhone,
+			cellPhone: cellPhone,
+			email: email,
+			education: education,
+			licenses: licenses,
+			emContactName: emContactName,
+			emContactPhone: emContactPhone,
+			emContactEmail: emContactEmail,
+			emContactAddress: emContactAddress,
+			driversLicense: driversLicense,
+			socialSecurity: socialSecurity,
+			approvalStatus: approvalStatus,
+			skills: skills,
 		});
 		console.log("Updated volunteer details.");
 	};
@@ -48,13 +65,9 @@ const EditVolunteer = (props) => {
 	const SubmitHandler = (e) => {
 		update();
 		e.preventDefault();
-		alert(`${volunteer.username}`);
+		alert(`${volunteer.username}'s information has been updated.`);
 
 		//update database with form data
-	};
-
-	const onChange = (e) => {
-		setFirstName(e.target.value);
 	};
 
 	//Add Skills section (Parker)
@@ -76,7 +89,7 @@ const EditVolunteer = (props) => {
 							name="firstName"
 							id="firstName"
 							required
-							onChange={onChange}
+							onChange={(e) => setFirstName(e.target.value)}
 							value={firstName}
 						/>
 					</div>
@@ -87,7 +100,8 @@ const EditVolunteer = (props) => {
 							name="lastName"
 							id="lastName"
 							required
-							value={volunteer.lastName}
+							onChange={(e) => setlastName(e.target.value)}
+							value={lastName}
 						/>
 					</div>
 					<div className="form-group">
@@ -97,7 +111,8 @@ const EditVolunteer = (props) => {
 							name="address"
 							id="address"
 							required
-							value={volunteer.address}
+							onChange={(e) => setAddress(e.target.value)}
+							value={address}
 						/>
 					</div>
 					<div className="form-group">
@@ -107,7 +122,8 @@ const EditVolunteer = (props) => {
 							name="homePhone"
 							id="homePhone"
 							required
-							value={volunteer.homePhone}
+							onChange={(e) => setHomePhone(e.target.value)}
+							value={homePhone}
 						/>
 					</div>
 					<div className="form-group">
@@ -117,7 +133,8 @@ const EditVolunteer = (props) => {
 							name="workPhone"
 							id="workPhone"
 							required
-							value={volunteer.workPhone}
+							onChange={(e) => setWorkPhone(e.target.value)}
+							value={workPhone}
 						/>
 					</div>
 					<div className="form-group">
@@ -127,7 +144,8 @@ const EditVolunteer = (props) => {
 							name="cellPhone"
 							id="cellPhone"
 							required
-							value={volunteer.cellPhone}
+							onChange={(e) => setCellPhone(e.target.value)}
+							value={cellPhone}
 						/>
 					</div>
 					<div className="form-group">
@@ -137,7 +155,8 @@ const EditVolunteer = (props) => {
 							name="email"
 							id="email"
 							required
-							value={volunteer.email}
+							onChange={(e) => setEmail(e.target.value)}
+							value={email}
 						/>
 					</div>
 					<div className="form-group">
@@ -147,7 +166,8 @@ const EditVolunteer = (props) => {
 							name="education"
 							id="education"
 							required
-							value={volunteer.education}
+							onChange={(e) => setEducation(e.target.value)}
+							value={education}
 						/>
 					</div>
 					<div className="form-group">
@@ -157,7 +177,8 @@ const EditVolunteer = (props) => {
 							name="licenses"
 							id="licenses"
 							required
-							value={volunteer.licenses}
+							onChange={(e) => setLicense(e.target.value)}
+							value={licenses}
 						/>
 					</div>
 					<div className="form-group">
@@ -167,7 +188,8 @@ const EditVolunteer = (props) => {
 							name="emConName"
 							id="emConName"
 							required
-							value={volunteer.emContactName}
+							onChange={(e) => setEmContactName(e.target.value)}
+							value={emContactName}
 						/>
 					</div>
 					<div className="form-group">
@@ -177,7 +199,8 @@ const EditVolunteer = (props) => {
 							name="emConPhone"
 							id="emConPhone"
 							required
-							value={volunteer.emContactPhone}
+							onChange={(e) => setEmContactPhone(e.target.value)}
+							value={emContactPhone}
 						/>
 					</div>
 					<div className="form-group">
@@ -187,7 +210,8 @@ const EditVolunteer = (props) => {
 							name="emConEmail"
 							id="emConEmail"
 							required
-							value={volunteer.emContactEmail}
+							onChange={(e) => setEmConEmail(e.target.value)}
+							value={emContactEmail}
 						/>
 					</div>
 					<div className="form-group">
@@ -197,7 +221,8 @@ const EditVolunteer = (props) => {
 							name="emConAddress"
 							id="emConAddress"
 							required
-							value={volunteer.emContactAddress}
+							onChange={(e) => setEmConAddress(e.target.value)}
+							value={emContactAddress}
 						/>
 					</div>
 					<div className="form-group">
@@ -207,7 +232,8 @@ const EditVolunteer = (props) => {
 							name="dlNumber"
 							id="dlNumber"
 							required
-							value={volunteer.driversLicense}
+							onChange={(e) => setDriversLicense(e.target.value)}
+							value={driversLicense}
 						/>
 					</div>
 					<div className="form-group">
@@ -217,7 +243,8 @@ const EditVolunteer = (props) => {
 							name="ssn"
 							id="ssn"
 							required
-							value={volunteer.socialSecurity}
+							onChange={(e) => setSSN(e.target.value)}
+							value={socialSecurity}
 						/>
 					</div>
 
@@ -227,7 +254,8 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="skills"
 							id="skills"
-							value={volunteer.skills}
+							onChange={(e) => setSkills(e.target.value)}
+							value={skills}
 						/>
 					</div>
 					<Link to="/manageVolunteers">
