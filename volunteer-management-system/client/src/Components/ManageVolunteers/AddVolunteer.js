@@ -3,6 +3,7 @@ import React from "react";
 //import { stripBasename } from "react-router/lib/router";
 import { useState } from "react";
 import VolunteerService from "../../Services/VolunteerService";
+import { Link } from "react-router-dom";
 
 /*const handleSubmit = (e) => {
 
@@ -95,6 +96,7 @@ const AddVolunteer = (props) => {
 		<form onSubmit={handleSubmit}>
 			<div className="form-inner">
 				<h2> Add a Volunteer </h2>
+				
 
 				<div className="form-group">
 					<label htmlFor="firstName">First Name: </label>
@@ -226,6 +228,9 @@ const AddVolunteer = (props) => {
 					
 					/>
 				</div>
+				<Link to="/manageVolunteers">
+				<button type="button" class="btn btn-info">Back</button>
+				</Link>
 
 				<button type="button" class="btn btn-success" onClick={addVol}>Submit</button>
 			</div>
