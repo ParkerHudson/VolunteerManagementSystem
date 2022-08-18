@@ -84,7 +84,7 @@ const AddOpportunity = () => {
 					
 				
 				<br></br><br></br>
-				<Link to="/manageVolunteers">
+				<Link to="/manageOpportunities">
 				<button type="button" class="btn btn-info">Back</button>
 				</Link>
 
