@@ -12,12 +12,6 @@ const OpportunityController = () => {
 
 			<div className="container-fluid ">
 				<OpportunitySearch />
-				<Link to="/editOpportunity" className=" btn btn-warning">
-					Edit Opp
-				</Link>
-				<Link to="/addOpportunity" className=" btn btn-success">
-					Add Opp
-				</Link>
 			</div>
 		</>
 	);
