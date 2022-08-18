@@ -1,7 +1,7 @@
 //import React, { useState } from "react";
 import React from "react";
 import Home from "./Components/Home";
-import Navbar from "./Components/Navbar";
+import NavbarComponent from "./Components/Navbar";
 import EditVolunteer from "./Components/ManageVolunteers/EditVolunteer";
 import AddVolunteer from "./Components/ManageVolunteers/AddVolunteer";
 import VolunteerMatches from "./Components/ManageVolunteers/VolunteerMatches";
@@ -18,7 +18,7 @@ import PrivateRoute from "./hocs/PrivateRoute";
 function App() {
 	return (
 		<Router>
-			<Navbar />
+			<NavbarComponent />
 			<Routes>
 				<Route exact path="/" element={<Home />} />
 

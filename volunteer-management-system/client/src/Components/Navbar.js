@@ -5,25 +5,73 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../Context/AuthContext";
+import {
+	Collapse,
+	Navbar,
+	NavbarToggler,
+	NavbarBrand,
+	Nav,
+	NavItem,
+	UncontrolledDropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem,
+} from "reactstrap";
 
-const Navbar = (props) => {
+const NavbarComponent = (props) => {
 	const { isAuthenticated, user, setIsAuthenticated, setUser } =
 		useContext(AuthContext);
+
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggle = () => setIsOpen(!isOpen);
+
 	const unauthenticatedNavBar = () => {
-		return <></>;
+		return (
+			<>
+				<Navbar>
+					<NavbarBrand href="/">V M S</NavbarBrand>
+				</Navbar>
+			</>
+		);
 	};
 
 	const authenticatedNavBar = () => {
 		return (
-			<>
-				<button
-					type="button"
-					className="btn btn-link nav-item nav-link"
-					onClick={onClickLogoutHandler}
-				>
-					Logout
-				</button>
-			</>
+			<Navbar>
+				<NavbarBrand href="/">V M S</NavbarBrand>
+				<NavbarToggler onClick={toggle} />
+				<Collapse isOpen={isOpen} navbar>
+					<Nav className="me-auto" navbar>
+						<UncontrolledDropdown nav inNavbar>
+							<DropdownToggle nav caret>
+								Manage
+							</DropdownToggle>
+							<DropdownMenu right>
+								<DropdownItem>
+									<Link to="/manageVolunteers" className="dropdown-item">
+										Volunteers
+									</Link>
+								</DropdownItem>
+								<DropdownItem>
+									<Link to="/manageOpportunities" className="dropdown-item">
+										Opportunities
+									</Link>
+								</DropdownItem>
+							</DropdownMenu>
+						</UncontrolledDropdown>
+						<NavItem>
+							<button
+								type="button"
+								className="btn btn-link nav-item nav-link"
+								onClick={onClickLogoutHandler}
+							>
+								Logout
+							</button>
+						</NavItem>
+					</Nav>
+				</Collapse>
+			</Navbar>
 		);
 	};
 
@@ -40,9 +88,6 @@ const Navbar = (props) => {
 				backgroundImage: "linear-gradient(to bottom right, #ffce00, #fe4880)",
 			}}
 		>
-			<Link to="/" style={{ textDecoration: "none" }}>
-				<div className="navbar-brand">V M S</div>
-			</Link>
 			<ul className="navbar-nav">
 				{!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
 			</ul>
@@ -50,4 +95,4 @@ const Navbar = (props) => {
 	);
 };
 
-export default Navbar;
+export default NavbarComponent;
