@@ -111,7 +111,7 @@ apiRouter.get("/getVolunteers", (req, res) => {
 	}
 });
 
-//deleteVolunteer : delete volunteer by volunteerId
+//deleteVolunteer : delete volunteer by username
 apiRouter.delete("/deleteVolunteer", (req, res) => {
 	let query = "DELETE FROM volunteer WHERE username = ?";
 	connection.execute(query, [req.body.username], (err, results) => {
@@ -128,7 +128,7 @@ apiRouter.delete("/deleteVolunteer", (req, res) => {
 	});
 });
 
-//updateVolunteer : update volunteer by volunteerId
+//updateVolunteer : update volunteer by username
 apiRouter.put("/updateVolunteer", (req, res) => {
 	let query =
 		"UPDATE volunteer \
@@ -189,7 +189,7 @@ apiRouter.put("/updateVolunteer", (req, res) => {
 	);
 });
 
-//addPrefCenter : add preferred center pair to DB (params: volunteerID & center)
+//addPrefCenter : add preferred center pair to DB (params: username & center)
 apiRouter.post("/addPrefCenter", (req, res) => {
 	const query = "INSERT INTO preferredcenter VALUES (?, ?)";
 
@@ -230,7 +230,7 @@ apiRouter.get("/getPrefCenter", (req, res) => {
 });
 
 //updatePrefCenter : update preferred center for volunteer given volunteer and center
-apiRouter.post("/updatePrefCenter", (req, res) => {
+apiRouter.put("/updatePrefCenter", (req, res) => {
 	let query = "UPDATE preferredcenter SET ctrName = ? WHERE username = ?";
 	connection.execute(
 		query,
@@ -251,7 +251,7 @@ apiRouter.post("/updatePrefCenter", (req, res) => {
 });
 
 //deletePrefCenter : delete preferred center pair given volunteer username
-apiRouter.post("/deletePrefCenter", (req, res) => {
+apiRouter.delete("/deletePrefCenter", (req, res) => {
 	let query = "DELETE FROM preferredcenter WHERE username = ?";
 	connection.execute(query, [req.body.username], (err, results) => {
 		if (err) {
@@ -349,14 +349,14 @@ apiRouter.post("/deleteSkill", (req, res) => {
 	);
 });
 
-//getOppMatches : Take in volunteer ID, return list of matching opportunities
+//getOppMatches : Take in username, return list of matching opportunities
 apiRouter.get("/getOppMatches", (req, res) => {
 	const query =
 		"SELECT * \
 		FROM opportunity o, preferredcenter pc \
 		WHERE o.ctrName = pc.ctrName and pc.volId = ?;";
 
-	connection.execute(query, [req.body.volId], (err, results) => {
+	connection.execute(query, [req.body.username], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({
@@ -375,7 +375,7 @@ apiRouter.get("/getVolMatches", (req, res) => {
 	const query =
 		"SELECT * \
 		FROM volunteer v, preferredcenter pc, opportunity o \
-		WHERE v.volunteerId = pc.volId AND pc.ctrName = o.ctrName AND o.oppID = ?;";
+		WHERE v.username = pc.volId AND pc.ctrName = o.ctrName AND o.oppID = ?;";
 
 	connection.execute(query, [req.body.ctrName], (err, results) => {
 		if (err) {

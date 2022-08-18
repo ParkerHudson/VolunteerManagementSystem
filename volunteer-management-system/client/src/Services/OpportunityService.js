@@ -1,4 +1,4 @@
-const Opportunity = require("../../../server/models/Opportunity");
+//const Opportunity = require("../../../server/models/Opportunity");
 
 export default {
 	// addOpp : fetch addOpportunity api
@@ -60,20 +60,6 @@ export default {
 		return fetch("/api/deleteOpportunity", {
 			method: "delete",
 			body: JSON.stringify(opportunity),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then((response) => {
-			return response.json().then((data) => data);
-		});
-	},
-
-	// getOpportunityMatches : fetch getOppMatches api
-	// take in username, return list of matching opportunities
-	getOpportunityMatches: (volunteer) => {
-		return fetch("api/getOppMatches", {
-			method: "get",
-			body: JSON.stringify(volunteer),
 			headers: {
 				"Content-Type": "application/json",
 			},

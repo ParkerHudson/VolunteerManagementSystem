@@ -15,7 +15,7 @@ const OpportunityController = () => {
 				<Link to="/editOpportunity" className=" btn btn-warning">
 					Edit Opp
 				</Link>
-				<Link to="/addVolunteer" className=" btn btn-success">
+				<Link to="/addOpportunity" className=" btn btn-success">
 					Add Opp
 				</Link>
 			</div>
