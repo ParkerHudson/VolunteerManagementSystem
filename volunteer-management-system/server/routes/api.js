@@ -409,8 +409,8 @@ apiRouter.get("/getOpportunities", (req, res) => {
 		valuesToPass.push(search, search);
 		switch (filter) {
 			case "recent":
-				query = query + " AND time BETWEEN ? AND ?";
-				valuesToPass.push(sixtyDaysAgo, today);
+				query = query + " AND time >= ?";
+				valuesToPass.push(sixtyDaysAgo);
 				break;
 			case "byCenter":
 				query = query + " ORDER BY ctrName ASC";
@@ -423,8 +423,8 @@ apiRouter.get("/getOpportunities", (req, res) => {
 		if (filter != null) {
 			switch (filter) {
 				case "recent":
-					query = query + " WHERE time BETWEEN ? AND ?";
-					valuesToPass.push(sixtyDaysAgo, today);
+					query = query + " WHERE time >= ? ";
+					valuesToPass.push(sixtyDaysAgo);
 					break;
 				case "byCenter":
 					query = query + " ORDER BY ctrName ASC";
