@@ -11,7 +11,6 @@ export default ({ children }) => {
 	useEffect(() => {
 		AuthService.isAuthenticated(getCookie()).then((data) => {
 			setUser(data.user);
-			//setIsAuthenticated(data.isAuthorized);
 			setIsLoaded(true);
 		});
 	}, [isAuthenticated]);

@@ -11,7 +11,6 @@ const LoginInfo = () => {
 
 	const sumbitHandler = (e) => {
 		e.preventDefault();
-
 		LoginHandler(details);
 	};
 

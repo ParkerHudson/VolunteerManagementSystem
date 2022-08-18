@@ -30,7 +30,11 @@ const NavbarComponent = (props) => {
 		return (
 			<>
 				<Navbar>
-					<NavbarBrand href="/">V M S</NavbarBrand>
+					<NavbarBrand>
+						<Link to="/" className="brandLogoColoring">
+							V M S
+						</Link>
+					</NavbarBrand>
 				</Navbar>
 			</>
 		);
@@ -39,7 +43,11 @@ const NavbarComponent = (props) => {
 	const authenticatedNavBar = () => {
 		return (
 			<Navbar>
-				<NavbarBrand href="/">V M S</NavbarBrand>
+				<NavbarBrand>
+					<Link to="/" className="brandLogoColoring">
+						V M S
+					</Link>
+				</NavbarBrand>
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="me-auto" navbar>

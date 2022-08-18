@@ -18,6 +18,15 @@ body {
 	box-shadow: none;
 }
 
+.brandLogoColoring {
+	color: #020202;
+	text-decoration: none;
+}
+
+.brandLogoColoring:hover {
+	color: #666;
+}
+
 .green {
 	color: green;
 }
