@@ -394,7 +394,48 @@ apiRouter.get("/getVolMatches", (req, res) => {
 //Return all opportunities in array
 apiRouter.get("/getOpportunities", (req, res) => {
 	let query = "SELECT * FROM opportunity";
-	connection.execute(query, (err, results) => {
+	let filter = req.query.filter;
+	let search = req.query.search;
+	let today = new Date();
+	today.setTime(req.query.date);
+	let sixtyDaysAgo = new Date();
+	sixtyDaysAgo.setDate(today.getDate() - 60);
+	let valuesToPass = [];
+
+	if (search != null) {
+		query =
+			query +
+			" WHERE (ctrName LIKE CONCAT ('%',?,'%') OR category LIKE CONCAT ('%',?,'%'))";
+		valuesToPass.push(search, search);
+		switch (filter) {
+			case "recent":
+				query = query + " AND time BETWEEN ? AND ?";
+				valuesToPass.push(sixtyDaysAgo, today);
+				break;
+			case "byCenter":
+				query = query + " ORDER BY ctrName ASC";
+				break;
+			default:
+				query = query;
+				break;
+		}
+	} else {
+		if (filter != null) {
+			switch (filter) {
+				case "recent":
+					query = query + " WHERE time BETWEEN ? AND ?";
+					valuesToPass.push(sixtyDaysAgo, today);
+					break;
+				case "byCenter":
+					query = query + " ORDER BY ctrName ASC";
+					break;
+				default:
+					query = query;
+					break;
+			}
+		}
+	}
+	connection.execute(query, valuesToPass, (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({
@@ -410,13 +451,13 @@ apiRouter.get("/getOpportunities", (req, res) => {
 
 //add opportunity to opportunity table
 apiRouter.post("/addOpportunity", (req, res) => {
-	var testTime = new Date();
+	var time = new Date(req.body.time);
 
 	let query = "INSERT INTO opportunity VALUES (NULL, ?, ?, ?)";
 
 	connection.execute(
 		query,
-		[req.body.ctrName, req.body.category, testTime],
+		[req.body.ctrName, req.body.category, time],
 		(err, results) => {
 			if (err) {
 				console.log(err);

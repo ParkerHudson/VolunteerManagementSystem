@@ -7,14 +7,14 @@ export default {
 		var opp = {
 			ctrName: ctrName,
 			category: category,
-			time: time
-		}
+			time: time,
+		};
 
 		return fetch("api/addOpportunity", {
 			method: "post",
 			body: JSON.stringify(opp),
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
 			},
 		}).then((response) => {
 			return response.json().then((data) => data);
@@ -23,7 +23,7 @@ export default {
 
 	// getOpps : fetch getOpportunities api
 	// return all opportunities, with filter and search options
-	getOpps: (filter, search) => {
+	getOpps: (filter, search, date) => {
 		var query = new URLSearchParams();
 		if (filter != "") {
 			query.append("filter", filter);
@@ -33,6 +33,7 @@ export default {
 		if (search != "") {
 			query.append("search", search);
 		}
+		query.append("date", date);
 
 		let url = "/api/getOpportunities?" + query;
 		return fetch(url).then((response) => {
@@ -80,5 +81,5 @@ export default {
 		}).then((response) => {
 			return response.json().then((data) => data);
 		});
-	}
-}
+	},
+};

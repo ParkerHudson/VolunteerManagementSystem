@@ -29,10 +29,7 @@ const OpportunityRow = (props) => {
 			<td>{props.opportunity.oppID}</td>
 			<td>{capitalizeFirstLetter(props.opportunity.ctrName)}</td>
 			<td>{props.opportunity.category}</td>
-
-			<td style={{ textAlign: "center" }}>
-				{convertDate(props.opportunity.time)}
-			</td>
+			<td>{convertDate(props.opportunity.time)}</td>
 			<td>{convertTime(props.opportunity.time)}</td>
 
 			<td>
