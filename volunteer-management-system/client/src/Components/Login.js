@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import LoginInfo from "./LoginInfo";
 import AdminPanel from "./AdminPanel";
+import AuthService from "../Services/AuthService";
 import "../css/App.css";
 
 const Login = () => {
-	const adminInfo = {
-		username: "admin",
-		password: "password",
-	};
-
-	const [user, setUser] = useState({ name: "", password: "" });
-	const [error, setError] = useState("");
-
-	const Login = (details) => {
-		if (
+	/* if (
 			details.name === adminInfo.username &&
 			details.password === adminInfo.password
 		) {
@@ -27,21 +19,11 @@ const Login = () => {
 			setError("Incorrect login details. Please try again.");
 		}
 
-		console.log(details);
-	};
-
-	const Logout = () => {
-		console.log("Logout");
-		setUser({ name: "", password: "" });
-	};
+		console.log(details); */
 
 	return (
 		<div className="App">
-			{user.name != "" ? (
-				<AdminPanel />
-			) : (
-				<LoginInfo Login={Login} error={error} />
-			)}
+			<LoginInfo />
 		</div>
 	);
 };

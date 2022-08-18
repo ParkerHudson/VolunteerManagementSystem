@@ -12,18 +12,26 @@ export default {
 	},
 
 	isAuthenticated: (token) => {
-		return fetch(
-			"user/authenticated",
-			{
-				method: "post",
-				body: JSON.stringify(token),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}.then((res) => {
-				if (res.isAuthorized == "true") return res.json().then((data) => data);
-				else return { isAuthenticated: false, user: { username: "" } };
-			})
-		);
+		let obj = { token: token };
+		return fetch("user/authenticated", {
+			method: "post",
+			body: JSON.stringify(obj),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((res) => {
+			return res.json().then((data) => data);
+		});
+	},
+
+	logout: () => {
+		return fetch("user/logout", {
+			method: "post",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => data);
 	},
 };

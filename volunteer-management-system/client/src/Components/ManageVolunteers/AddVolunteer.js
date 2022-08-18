@@ -4,38 +4,6 @@ import React from "react";
 import { useState } from "react";
 import VolunteerService from "../../Services/VolunteerService";
 
-/*const handleSubmit = (e) => {
-
-
-
-	e.preventDefault();
-
-
-	//update database with form data
-};*/
-
-//SAMPLE INPUT FOR VolunteerService.postVolunteer (it needs to be in a JSON object)
-/* VolunteerService.postVolunteer({
-	username: "testedAdd",
-	firstName: "Jarry",
-	lastName: "Jones",
-	address: "11134 Tester Dr",
-	homePhone: "9042224921",
-	workPhone: "3232221234",
-	cellPhone: "3334442322",
-	email: "Testy@tester.com",
-	education: "bachelors",
-	licenses: "None",
-	emContactName: "Jane",
-	emContactPhone: "9994443333",
-	emContactEmail: "helpMe@helper.com",
-	emContactAddress: "32455 Help Lane",
-	driversLicense: 1,
-	socialSecurity: 1,
-	approvalStatus: "approved",
-	skills: "some skill here",
-}) */
-
 const AddVolunteer = (props) => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");

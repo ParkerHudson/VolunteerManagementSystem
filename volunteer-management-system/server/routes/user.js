@@ -125,8 +125,10 @@ userRouter.post("/login", loginValidation, (req, res, next) => {
 							expiresIn: "1h",
 						});
 
+						res.cookie("token", token);
 						return res.status(200).send({
 							msg: "Logged in!",
+							isAuthenticated: true,
 							token,
 							user: result[0],
 						});
@@ -141,15 +143,19 @@ userRouter.post("/login", loginValidation, (req, res, next) => {
 });
 
 //Logout
-userRouter.post("/logout", (req, res) => {});
+userRouter.post("/logout", (req, res) => {
+	res.clearCookie("token");
+	res.json({ loggedOut: "true" });
+});
 
 //checkAuth : check if user is authenticated, gives username and token and verifies if token is expired
 userRouter.post("/authenticated", (req, res) => {
 	const { token, username } = req.body;
+
 	jwt.verify(token, "DevOspreys", (err, results) => {
-		if (err) res.send({ isAuthorized: "false" });
+		if (err) res.send({ isAuthenticated: false });
 		else {
-			res.send({ isAuthorized: "true" });
+			res.send({ isAuthenticated: true });
 		}
 	});
 });

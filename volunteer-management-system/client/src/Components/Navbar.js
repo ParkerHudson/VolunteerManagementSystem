@@ -7,52 +7,31 @@ import AuthService from "../Services/AuthService";
 import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = (props) => {
-	/*     const unauthenticatedNavBar = () => {
-      return (
-        <>
-          <Link to="/Home">
-            <li className="nav-item nav-link">Home Page</li>
-          </Link>
+	const { isAuthenticated, user, setIsAuthenticated, setUser } =
+		useContext(AuthContext);
+	const unauthenticatedNavBar = () => {
+		return <></>;
+	};
 
-          <Link to="/Login">
-            <li className="nav-item nav-link">Login</li>
-          </Link>
-        </>
-      )
-    }
+	const authenticatedNavBar = () => {
+		return (
+			<>
+				<button
+					type="button"
+					className="btn btn-link nav-item nav-link"
+					onClick={onClickLogoutHandler}
+				>
+					Logout
+				</button>
+			</>
+		);
+	};
 
-  const authenticatedNavBar = () => {
-    return (
-      <>
-        <Link to="/Home">
-          <li className="nav-item nav-link">Home Page</li>
-        </Link>
-
-        <Link to="/Login">
-          <li className="nav-item nav-link">Login</li>
-        </Link>
-        <button
-          type="button"
-          className="btn btn-link nav-item nav-link"
-          onClick={onClickLogoutHandler}
-        >
-          Logout{" "}
-        </button>
-      </>
-    );
-  };
-
-  const onClickLogoutHandler = () => {
-    AuthService.logout().then((data) => {
-      if (data.success) {
-        setUser(data.user)
-      setIsAuthenticated(false)
-      }
-    });
-  };
-
-  const { isAuthenticated, user, setIsAuthenticated, setUser } =
-    useContext(AuthContext); */
+	const onClickLogoutHandler = () => {
+		AuthService.logout().then((data) => {
+			setIsAuthenticated(false);
+		});
+	};
 
 	return (
 		<nav
@@ -62,8 +41,11 @@ const Navbar = (props) => {
 			}}
 		>
 			<Link to="/" style={{ textDecoration: "none" }}>
-				<div className="navbar-brand">Management Portal</div>
+				<div className="navbar-brand">V M S</div>
 			</Link>
+			<ul className="navbar-nav">
+				{!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+			</ul>
 		</nav>
 	);
 };
