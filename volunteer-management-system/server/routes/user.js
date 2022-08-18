@@ -106,7 +106,7 @@ userRouter.post("/login", loginValidation, (req, res, next) => {
 			}
 			if (!result.length) {
 				return res.status(401).send({
-					msg: "username or password is incorrect!",
+					msg: "Username or password is incorrect!",
 				});
 			}
 			// check password

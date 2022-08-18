@@ -35,7 +35,7 @@ const Navbar = (props) => {
 
 	return (
 		<nav
-			className="navbar navbar-dark navbar-expand-lg bg-dark"
+			className="navbar navbar-dark navbar-expand-sm bg-dark"
 			style={{
 				backgroundImage: "linear-gradient(to bottom right, #ffce00, #fe4880)",
 			}}
