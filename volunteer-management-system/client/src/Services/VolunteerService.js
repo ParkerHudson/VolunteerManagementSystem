@@ -218,7 +218,7 @@ export default {
 	// take in username, return list of matching opportunities
 	getOpportunityMatches: (volunteer) => {
 		var query = new URLSearchParams();
-		query.append("username",volunteer.username);
+		query.append("username", volunteer.username);
 
 		let url = "api/getOppMatches?" + query;
 

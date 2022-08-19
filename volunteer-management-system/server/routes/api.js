@@ -350,7 +350,8 @@ apiRouter.delete("/deleteSkill", (req, res) => {
 });
 
 //getOppMatches : Take in username, return list of matching opportunities
-apiRouter.get("/getOppMatches?", (req, res) => {
+apiRouter.get("/getOppMatches", (req, res) => {
+	const username = req.query.username;
 	const query =
 		"SELECT distinct o.* \
 		FROM volunteer v, preferredcenter pc, opportunity o, skills s, center c \
@@ -360,7 +361,7 @@ apiRouter.get("/getOppMatches?", (req, res) => {
 		AND s.skill = c.prefSkill \
 		AND v.username = ?;";
 
-	connection.execute(query, [req.body.username], (err, results) => {
+	connection.execute(query, [username], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({
