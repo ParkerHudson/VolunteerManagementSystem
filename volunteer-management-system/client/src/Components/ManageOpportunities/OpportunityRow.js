@@ -34,7 +34,7 @@ const OpportunityRow = (props) => {
 
 			<td>
 				<Link
-					to="/opportunityMatches"
+					to="/volunteerMatches"
 					state={{ opportunity: props.opportunity }}
 				>
 					<button className=" btn btn-primary ">View Volunteer Matches</button>
