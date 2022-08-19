@@ -163,7 +163,7 @@ export default {
 	// take in volunteer and center name
 	addPrefCtr: (volunteer, centerName) => {
 		var pref = {
-			username: volunteer.username,
+			username: volunteer,
 			ctrName: centerName,
 		};
 

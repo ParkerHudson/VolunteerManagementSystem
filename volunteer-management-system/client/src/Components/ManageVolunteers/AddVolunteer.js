@@ -60,11 +60,10 @@ const AddVolunteer = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		addVol().then(() => {
-			pushSkills();
-		});
+		addVol();
 
 		window.alert("Volunteer Added!");
+		window.location.href = "http://localhost:3000/manageVolunteers";
 
 		//update database with form data
 	};
@@ -77,18 +76,23 @@ const AddVolunteer = (props) => {
 		if (animals) skillsArray.push("Animals");
 		if (hospitality) skillsArray.push("Hospitality");
 		if (foodService) skillsArray.push("Food Service");
-		setSkills(skillsArray);
+
+		skillsArray.forEach((skill) => {
+			skills.push(skill);
+		});
 	};
 
 	const pushSkills = () => {
 		getSkills();
+		console.log(skills);
 		for (let i = 0; i < skills.length; i++) {
 			VolunteerService.addVolunteerSkill(username, skills[i]);
 		}
+		setSkills([]);
 	};
 
 	const pushPrefCenter = () => {
-		VolunteerService.addPrefCtr({ usrname: username }, prefCenter);
+		VolunteerService.addPrefCtr(username, prefCenter);
 	};
 
 	useEffect(() => {
@@ -96,7 +100,6 @@ const AddVolunteer = (props) => {
 			// Fetch data
 			VolunteerService.getCenters().then((data) => {
 				const results = [];
-				console.log(data);
 
 				// Store results in the results array
 				data.forEach((value) => {
@@ -107,7 +110,6 @@ const AddVolunteer = (props) => {
 				});
 				// Update the options state
 				setCenters([{ key: "Select a center", value: "" }, ...results]);
-				console.log(centers);
 			});
 		}
 
