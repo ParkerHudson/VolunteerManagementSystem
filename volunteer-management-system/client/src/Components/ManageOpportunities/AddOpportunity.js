@@ -12,11 +12,7 @@ const AddOpportunity = () => {
 	const [testTime, setTestTime] = useState(new Date());
 
 	const addOpp = () => {
-		OpportunityService.addOpp({
-			ctrName: ctrName,
-			category: category,
-			testTime: testTime,
-		});
+		OpportunityService.addOpp(ctrName, category, testTime);
 		console.log("Added opportunity.");
 	};
 
@@ -35,10 +31,13 @@ const AddOpportunity = () => {
 				<div className="form-inner">
 					<h2> Add an Opportunity </h2>
 					<div className="form-group">
-						<label htmlFor="ctrName">Center Name: </label>
+						<label htmlFor="ctrName" className="form-label">
+							Center Name
+						</label>
 						<input
 							type="text"
 							value={ctrName}
+							className="form-control"
 							onChange={(e) => setCtrName(e.target.value)}
 							required
 						/>
@@ -54,13 +53,20 @@ const AddOpportunity = () => {
 	</div> */}
 
 						<div className="form-group">
-							<label htmlFor="category">Category:</label>
+							<label htmlFor="category" className="form-label">
+								Category
+							</label>
 
 							<select
 								name="category"
 								id="category"
+								className="form-select"
 								onChange={(e) => setCategory(e.target.value)}
+								required
 							>
+								<option value="starter" defaultValue hidden>
+									Select...
+								</option>
 								<option value="Animals">Animals</option>
 								<option value="Food">Food</option>
 								<option value="Hospitality">Hospitality</option>
@@ -70,27 +76,35 @@ const AddOpportunity = () => {
 							</select>
 						</div>
 					</div>
-
+					<div className="form-group">
+						<label htmlFor="approval" className="form-label">
+							Time
+						</label>
+					</div>
 					<DateTimePicker
 						className="datePicker"
 						onChange={setTestTime}
 						value={testTime}
 					/>
-
 					<br></br>
 					<br></br>
 
 					<br></br>
 					<br></br>
-					<Link to="/manageOpportunities">
-						<button type="button" class="btn btn-info">
-							Back
-						</button>
-					</Link>
-
-					<button type="button" class="btn btn-success" onClick={addOpp}>
-						Submit
-					</button>
+					<div className="row">
+						<div className="col-1">
+							<Link to="/manageOpportunities">
+								<button type="button" class="btn btn-info">
+									Back
+								</button>
+							</Link>
+						</div>
+						<div className="col-1">
+							<button type="submit" class="btn btn-success">
+								Submit
+							</button>
+						</div>
+					</div>
 				</div>
 			</form>
 		</>

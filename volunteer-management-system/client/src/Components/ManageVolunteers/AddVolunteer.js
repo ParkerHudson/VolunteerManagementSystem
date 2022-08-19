@@ -539,7 +539,7 @@ const AddVolunteer = (props) => {
 						</div>
 						<div className="col-2">
 							<label htmlFor="approval" className="form-label">
-								Approval Status:
+								Approval Status
 							</label>
 
 							<select
@@ -567,11 +567,7 @@ const AddVolunteer = (props) => {
 							</Link>
 						</div>
 						<div className="col-1">
-							<button
-								type="submit"
-								className="btn btn-lg btn-success"
-								onClick={addVol}
-							>
+							<button type="submit" className="btn btn-lg btn-success">
 								Submit
 							</button>
 						</div>
