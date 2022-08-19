@@ -352,9 +352,12 @@ apiRouter.delete("/deleteSkill", (req, res) => {
 //getOppMatches : Take in username, return list of matching opportunities
 apiRouter.get("/getOppMatches", (req, res) => {
 	const query =
-		"SELECT * \
-		FROM opportunity o, preferredcenter pc \
-		WHERE o.ctrName = pc.ctrName and pc.volId = ?;";
+		"SELECT distinct o.* \
+		FROM preferredcenter pc, opportunity o, skills s, center c \
+		WHERE pc.ctrName = o.ctrName \
+		AND s.username = pc.volId \
+		AND s.skill = c.prefSkill \
+		AND pc.volId  = ?;";
 
 	connection.execute(query, [req.body.username], (err, results) => {
 		if (err) {
