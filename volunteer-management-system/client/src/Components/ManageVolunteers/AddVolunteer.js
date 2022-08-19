@@ -55,6 +55,7 @@ const AddVolunteer = (props) => {
 			skills: "none",
 		});
 		pushSkills();
+		pushPrefCenter();
 	};
 
 	const handleSubmit = (e) => {
@@ -86,29 +87,32 @@ const AddVolunteer = (props) => {
 		}
 	};
 
+	const pushPrefCenter = () => {
+		VolunteerService.addPrefCtr({ usrname: username }, prefCenter);
+	};
+
 	useEffect(() => {
-		VolunteerService.getCenters().then((data) => {
-			console.log(data);
-			setCenters(data);
-			console.log(centers);
-			console.log("ranUseEffect");
-			let selector = document.getElementById("prefCenterSelector");
-			var existing = [];
-			for (let k = 0; k < selector.length; k++) {
-				existing.push(selector.options[k].value);
-			}
+		async function fetchData() {
+			// Fetch data
+			VolunteerService.getCenters().then((data) => {
+				const results = [];
+				console.log(data);
 
-			for (let i = 0; i < centers.length; i++) {
-				if (!existing.includes(centers[i].centerName)) {
-					let option = document.createElement("option");
-					option.value = centers[i].centerName;
-					option.innerHTML = centers[i].centerName;
-					selector.appendChild(option);
+				// Store results in the results array
+				data.forEach((value) => {
+					results.push({
+						key: value.centerName,
+						ctrName: value.centerName,
+					});
+				});
+				// Update the options state
+				setCenters([{ key: "Select a center", value: "" }, ...results]);
+				console.log(centers);
+			});
+		}
 
-					console.log(existing);
-				}
-			}
-		});
+		// Trigger the fetch
+		fetchData();
 	}, []);
 
 	//Skills checkboxes based off of center pref skills
@@ -476,9 +480,9 @@ const AddVolunteer = (props) => {
 								onChange={(e) => setPrefCenter(e.target.value)}
 								id="prefCenterSelector"
 							>
-								<option value="starter" defaultValue hidden>
-									Select...
-								</option>
+								{centers.map((center) => {
+									return <option value={center.key}>{center.ctrName}</option>;
+								})}
 							</select>
 						</div>
 
