@@ -5,13 +5,14 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import OpportunityService from "../../Services/OpportunityService";
 import { Link } from "react-router-dom";
+import DateTimePicker from "react-datetime-picker";
 
 const EditOpportunity = (props) => {
   const location = useLocation();
   const { opportunity } = location.state;
   const [ctrName, setCtrName] = useState(opportunity.ctrName);
   const [category, setCategory] = useState(opportunity.category);
-  const [time, setTime] = useState(opportunity.time);
+  const [time, setTime] = useState(new Date(opportunity.time));
 
   const editOppor = () => {
     OpportunityService.updateOpp({
@@ -67,28 +68,25 @@ const EditOpportunity = (props) => {
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="testTime">Date &amp; Time: </label>
-            <input
-              type="text"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              required
-            />
-
+          <DateTimePicker
+						className="datePicker"
+						onChange={setTime}
+						value={time}
+					/>
+<br></br><br></br><br></br>
             <Link to="/manageOpportunities">
               <button type="button" class="btn btn-info">
                 Back
               </button>
             </Link>
-			</div>
-            <button type="button" class="btn btn-success" onClick={editOppor}>
+			
+            <button type="submit" class="btn btn-success" onClick={editOppor}>
               Edit Opportunity
             </button>
             <button type="submit" class="btn btn-danger" onClick={delOppor}>
               Delete Opportunity
             </button>
-          </div>
+            </div>
       </form>
     </>
   );
