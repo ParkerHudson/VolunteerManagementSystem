@@ -11,7 +11,10 @@ const AdminPanel = () => {
 		<>
 			<form>
 				<div className="form-inner">
-					<h2> DevOspreys Volunteer Management System</h2>
+					<h2 className="text-center">
+						{" "}
+						DevOspreys Volunteer Management System
+					</h2>
 					<Link
 						to="/manageVolunteers"
 						className="btn btn-primary btn-block btn-lg w-100"
@@ -28,7 +31,6 @@ const AdminPanel = () => {
 					</Link>
 				</div>
 			</form>
-			<div className="app"></div>
 		</>
 	);
 };

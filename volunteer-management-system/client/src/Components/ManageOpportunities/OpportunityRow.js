@@ -59,7 +59,7 @@ const OpportunityRow = (props) => {
 						icon={faPenToSquare}
 						data-toggle="tooltip"
 						data-placement="top"
-						title="Edit Volunteer"
+						title="Edit Opportunity"
 					></FontAwesomeIcon>
 				</Link>
 			</td>
