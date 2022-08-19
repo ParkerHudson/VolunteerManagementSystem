@@ -71,7 +71,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="/editOpportunity "
+					path="/editOpportunity"
 					element={
 						<PrivateRoute>
 							<EditOpportunity />

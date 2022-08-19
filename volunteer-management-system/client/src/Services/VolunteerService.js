@@ -1,7 +1,6 @@
 //import { post } from "../../../server/routes/api";
 
 export default {
-
 	//////////////////
 	//  VOLUNTEERS  //
 	//////////////////
@@ -70,9 +69,9 @@ export default {
 
 	// addVolunteerSkill : fetch addSkill api
 	// add entry to skills table with username and skill
-	addVolunteerSkill: (volunteer, skill) => {
+	addVolunteerSkill: (username, skill) => {
 		var volSkill = {};
-		volSkill.username = volunteer.username;
+		volSkill.username = username;
 		volSkill.skill = skill;
 
 		return fetch("/api/addSkill", {
@@ -88,10 +87,10 @@ export default {
 
 	// getVolunteerSkills : fetch getSkills api
 	// take in volunteer, return list of skills by username
-	getVolunteerSkills: (volunteer) => {
+	getVolunteerSkills: (volunteerUsername) => {
 		return fetch("/api/getSkills", {
 			method: "get",
-			body: JSON.stringify(volunteer),
+			body: JSON.stringify(volunteerUsername),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -106,7 +105,7 @@ export default {
 		var skillUpdate = {
 			username: volunteer.username,
 			newSkill: newSkill,
-			skill: skill
+			skill: skill,
 		};
 
 		return fetch("/api/updateSkill", {
@@ -125,7 +124,7 @@ export default {
 	deleteVolunteerSkill: (volunteer, skill) => {
 		var removeSkill = {
 			username: volunteer.username,
-			skill: skill
+			skill: skill,
 		};
 
 		return fetch("/api/deleteSkill", {
@@ -143,13 +142,19 @@ export default {
 	//  PREF CENTER  //
 	///////////////////
 
+	getCenters: () => {
+		return fetch("/api/getCenters").then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
+
 	// addPrefCtr : fetch addPrefCenter api
 	// take in volunteer and center name
 	addPrefCtr: (volunteer, centerName) => {
 		var pref = {
 			username: volunteer.username,
-			ctrName: centerName
-		}
+			ctrName: centerName,
+		};
 
 		return fetch("api/addPrefCenter", {
 			method: "post",
@@ -181,7 +186,7 @@ export default {
 	updatePrefCtr: (volunteer, centerName) => {
 		var prefCtrUpdate = {
 			username: volunteer.username,
-			ctrName: centerName
+			ctrName: centerName,
 		};
 
 		return fetch("/api/updateSkill", {
@@ -209,7 +214,6 @@ export default {
 		});
 	},
 
-	
 	// getOpportunityMatches : fetch getOppMatches api
 	// take in username, return list of matching opportunities
 	getOpportunityMatches: (volunteer) => {
@@ -222,5 +226,5 @@ export default {
 		}).then((response) => {
 			return response.json().then((data) => data);
 		});
-	}
+	},
 };

@@ -4,55 +4,46 @@ import React from "react";
 import { useState } from "react";
 import OpportunityService from "../../Services/OpportunityService";
 import { Link } from "react-router-dom";
-import DateTimePicker from 'react-datetime-picker';
-
-
+import DateTimePicker from "react-datetime-picker";
 
 const AddOpportunity = () => {
 	const [ctrName, setCtrName] = useState("");
 	const [category, setCategory] = useState("");
 	const [testTime, setTestTime] = useState(new Date());
-	
-
 
 	const addOpp = () => {
 		OpportunityService.addOpp({
-			ctrName : ctrName,
-			category : category,
-			testTime : testTime,
-			
+			ctrName: ctrName,
+			category: category,
+			testTime: testTime,
 		});
 		console.log("Added opportunity.");
-		
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		addOpp();
-		
+
 		window.alert("Opportunity Added!");
 
 		//update database with form data
 	};
 
 	return (
-		
 		<>
-		<form onSubmit={handleSubmit}>
-			<div className="form-inner">
-				<h2> Add an Opportunity </h2>
-				<div className="form-group">
-					<label htmlFor="ctrName">Center Name: </label>
-					<input
-						type="text"
-						value={ctrName}
-						onChange={(e) => setCtrName(e.target.value)}
-						required
-					/>
-				
-				
+			<form onSubmit={handleSubmit}>
+				<div className="form-inner">
+					<h2> Add an Opportunity </h2>
+					<div className="form-group">
+						<label htmlFor="ctrName">Center Name: </label>
+						<input
+							type="text"
+							value={ctrName}
+							onChange={(e) => setCtrName(e.target.value)}
+							required
+						/>
 
-				{/*<div className="form-group">
+						{/*<div className="form-group">
 					<label htmlFor="category">Category: </label>
 					<input
 						type="text"
@@ -62,38 +53,46 @@ const AddOpportunity = () => {
 					/>
 	</div> */}
 
-				<div className="form-group">
-					<label htmlFor="category">Category:</label>
+						<div className="form-group">
+							<label htmlFor="category">Category:</label>
 
-					<select name="category" id="category" onChange={(e) => setCategory(e.target.value)}>
-  						<option value="Animals">Animals</option>
-  						<option value="Food">Food</option>
-  						<option value="Hospitality">Hospitality</option>
-  						<option value="Sports">Sports</option>
-					</select>
+							<select
+								name="category"
+								id="category"
+								onChange={(e) => setCategory(e.target.value)}
+							>
+								<option value="Animals">Animals</option>
+								<option value="Food">Food</option>
+								<option value="Hospitality">Hospitality</option>
+								<option value="Sports">Sports</option>
+								<option value="Green Cleanup">Green Cleanup</option>
+								<option value="Healthcare">Healthcare</option>
+							</select>
+						</div>
 					</div>
-					</div>
-	
-				
-				
-					<DateTimePicker className="datePicker" onChange={setTestTime} value={testTime} />
-					
-					
-					<br></br><br></br>
-					
-				
-				<br></br><br></br>
-				<Link to="/manageOpportunities">
-				<button type="button" class="btn btn-info">Back</button>
-				</Link>
 
-				<button type="button" class="btn btn-success" onClick={addOpp}>
-					Submit
-				</button>
-			</div>
-			
-		</form>
-			
+					<DateTimePicker
+						className="datePicker"
+						onChange={setTestTime}
+						value={testTime}
+					/>
+
+					<br></br>
+					<br></br>
+
+					<br></br>
+					<br></br>
+					<Link to="/manageOpportunities">
+						<button type="button" class="btn btn-info">
+							Back
+						</button>
+					</Link>
+
+					<button type="button" class="btn btn-success" onClick={addOpp}>
+						Submit
+					</button>
+				</div>
+			</form>
 		</>
 	);
 };

@@ -1,5 +1,5 @@
 //Form to add volunteer to DB
-import React from "react";
+import React, { useEffect } from "react";
 //import { stripBasename } from "react-router/lib/router";
 import { useState } from "react";
 import VolunteerService from "../../Services/VolunteerService";
@@ -23,7 +23,15 @@ const AddVolunteer = (props) => {
 	const [dlNumber, setDLNumber] = useState("");
 	const [approvalStatus, setApprovalStatus] = useState("");
 	const [ssn, setSSN] = useState("");
-	const [skills, setSkills] = useState("");
+	const [healthcare, setHealthcare] = useState(false);
+	const [greenCleanup, setGreenCleanup] = useState(false);
+	const [sports, setSports] = useState(false);
+	const [animals, setAnimals] = useState(false);
+	const [hospitality, setHospitality] = useState(false);
+	const [foodService, setFoodService] = useState(false);
+	const [skills, setSkills] = useState([]);
+	const [centers, setCenters] = useState([]);
+	const [prefCenter, setPrefCenter] = useState("");
 
 	const addVol = () => {
 		VolunteerService.postVolunteer({
@@ -44,241 +52,527 @@ const AddVolunteer = (props) => {
 			driversLicense: dlNumber,
 			socialSecurity: ssn,
 			approvalStatus: approvalStatus,
-			skills: skills,
+			skills: "none",
 		});
-		console.log("Added volunteer.");
-		//console.log({dlNumber});
-		//console.log({ssn});
-		//console.log({approvalStatus});
+		pushSkills();
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		addVol();
-		
+		addVol().then(() => {
+			pushSkills();
+		});
+
 		window.alert("Volunteer Added!");
 
 		//update database with form data
 	};
 
-	//Approval status select
-	//Username field DONE
-	//drivers license field (1 or 0) DONE
-	//social security field (1 or 0) DONE
+	const getSkills = () => {
+		var skillsArray = [];
+		if (healthcare) skillsArray.push("Healthcare");
+		if (greenCleanup) skillsArray.push("Green Cleanup");
+		if (sports) skillsArray.push("Sports");
+		if (animals) skillsArray.push("Animals");
+		if (hospitality) skillsArray.push("Hospitality");
+		if (foodService) skillsArray.push("Food Service");
+		setSkills(skillsArray);
+	};
+
+	const pushSkills = () => {
+		getSkills();
+		for (let i = 0; i < skills.length; i++) {
+			VolunteerService.addVolunteerSkill(username, skills[i]);
+		}
+	};
+
+	useEffect(() => {
+		VolunteerService.getCenters().then((data) => {
+			console.log(data);
+			setCenters(data);
+			console.log(centers);
+			console.log("ranUseEffect");
+			let selector = document.getElementById("prefCenterSelector");
+			var existing = [];
+			for (let k = 0; k < selector.length; k++) {
+				existing.push(selector.options[k].value);
+			}
+
+			for (let i = 0; i < centers.length; i++) {
+				if (!existing.includes(centers[i].centerName)) {
+					let option = document.createElement("option");
+					option.value = centers[i].centerName;
+					option.innerHTML = centers[i].centerName;
+					selector.appendChild(option);
+
+					console.log(existing);
+				}
+			}
+		});
+	}, []);
 
 	//Skills checkboxes based off of center pref skills
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div className="form-inner">
-				<h2> Add a Volunteer </h2>
-				<div className="form-group">
-					<label htmlFor="username">Username: </label>
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</div>
-				
+		<>
+			<h2 className="text-center"> Add a Volunteer </h2>
 
-				<div className="form-group">
-					<label htmlFor="firstName">First Name: </label>
-					<input
-						type="text"
-						value={firstName}
-						onChange={(e) => setFirstName(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="lastName">Last Name: </label>
-					<input
-						type="text"
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="address">Address: </label>
-					<input
-						type="text"
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="homePhone">Home Phone: </label>
-					<input
-						type="text"
-						value={homePhone}
-						onChange={(e) => setHomePhone(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="workPhone">Work Phone: </label>
-					<input
-						type="text"
-						value={workPhone}
-						onChange={(e) => setWorkPhone(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="cellPhone">Cell Phone: </label>
-					<input
-						type="text"
-						value={cellPhone}
-						onChange={(e) => setCellPhone(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="email">Email: </label>
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="education">Education: </label>
-					<input
-						type="text"
-						value={education}
-						onChange={(e) => setEducation(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="licenses">Licenses: </label>
-					<input
-						type="text"
-						value={licenses}
-						onChange={(e) => setLicenses(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="emConName">Emergency Contact Name: </label>
-					<input
-						type="text"
-						value={emContactName}
-						onChange={(e) => setEmContactName(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="emConPhone">Emergency Contact Phone Number: </label>
-					<input
-						type="text"
-						value={emContactPhone}
-						onChange={(e) => setEmContactPhone(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="emConEmail">Emergency Contact Email: </label>
-					<input
-						type="text"
-						value={emContactEmail}
-						onChange={(e) => setEmContactEmail(e.target.value)}
-						required
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="emConAddress">Emergency Contact Address: </label>
-					<input
-						type="text"
-						value={emContactAddress}
-						onChange={(e) => setEmContactAddress(e.target.value)}
-						required
-					/>
-				</div>
-					<br></br>
-					<div className="form-group">
-					<label htmlFor="dlNumber">Driver's License Number: </label>
-					</div>
-					
-					<div>
-					<label htmlFor= "dlYes">Yes</label>
-					<input
-						id = "dlYes"
-						type="radio"
-						name = "dlNumber"
-						value= "1"
-						onChange={(e) => setDLNumber(e.target.value)}	
-					/>
-					</div>
-					<label htmlFor= "dlNo"> No </label>
-					<input
-						id = "dlNo"
-						type="radio"
-						name = "dlNumber"
-						value= "0"
-						onChange={(e) => setDLNumber(e.target.value)}	
-					/>
-					<br></br>
-					<br></br>
-				
-					<div className="form-group">
-					<label htmlFor="ssn">Social Security Number: </label>
-					</div>
-					
-					<div>
-					<label htmlFor= "ssnYes">Yes</label>
-					<input
-						id = "ssnYes"
-						type="radio"
-						name = "ssn"
-						value= "1"
-						onChange={(e) => setSSN(e.target.value)}	
-					/>
-					</div>
-					<label htmlFor= "ssnNo"> No </label>
-					<input
-						id = "ssnNo"
-						type="radio"
-						name = "ssn"
-						value= "0"
-						onChange={(e) => setSSN(e.target.value)}	
-					/>
-					<br></br><br></br>
-					<div className="form-group">
-					<label htmlFor="approval">Approval Status:</label>
+			<form onSubmit={handleSubmit}>
+				<div className="form-inner">
+					<div className="row g-3">
+						<div className="col-md-6">
+							<label for="username" className="form-label">
+								Username
+							</label>
+							<input
+								type="text"
+								value={username}
+								className="form-control"
+								onChange={(e) => setUsername(e.target.value)}
+								placeholder="Username"
+								required
+							/>
+						</div>
+						<div className="col-md-6">
+							<label for="email" className="form-label">
+								Email
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								value={email}
+								placeholder="Email"
+								onChange={(e) => setEmail(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-md-6">
+							<label for="username" className="form-label">
+								First Name
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								value={firstName}
+								onChange={(e) => setFirstName(e.target.value)}
+								placeholder="First Name"
+								required
+							/>
+						</div>
+						<div className="col-md-6">
+							<label for="email" className="form-label">
+								Last Name
+							</label>
+							<input
+								type="text"
+								value={lastName}
+								className="form-control"
+								onChange={(e) => setLastName(e.target.value)}
+								placeholder="Last Name"
+								required
+							/>
+						</div>
+						{/* City,State,Zip */}
+						<div className="col-12">
+							<label for="inputAddress" className="form-label">
+								Address
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								value={address}
+								placeholder="1234 Main St"
+								onChange={(e) => setAddress(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-md-6">
+							<label for="inputCity" className="form-label">
+								City
+							</label>
+							<input type="text" className="form-control" id="inputCity" />
+						</div>
+						<div className="col-md-1">
+							<label for="inputState" className="form-label">
+								State
+							</label>
+							<select id="inputState" className="form-select">
+								<option defaultValue>Choose...</option>
+								<option value="AL">AL</option>
+								<option value="AK">AK</option>
+								<option value="AR">AR</option>
+								<option value="AZ">AZ</option>
+								<option value="CA">CA</option>
+								<option value="CO">CO</option>
+								<option value="CT">CT</option>
+								<option value="DC">DC</option>
+								<option value="DE">DE</option>
+								<option value="FL">FL</option>
+								<option value="GA">GA</option>
+								<option value="HI">HI</option>
+								<option value="IA">IA</option>
+								<option value="ID">ID</option>
+								<option value="IL">IL</option>
+								<option value="IN">IN</option>
+								<option value="KS">KS</option>
+								<option value="KY">KY</option>
+								<option value="LA">LA</option>
+								<option value="MA">MA</option>
+								<option value="MD">MD</option>
+								<option value="ME">ME</option>
+								<option value="MI">MI</option>
+								<option value="MN">MN</option>
+								<option value="MO">MO</option>
+								<option value="MS">MS</option>
+								<option value="MT">MT</option>
+								<option value="NC">NC</option>
+								<option value="NE">NE</option>
+								<option value="NH">NH</option>
+								<option value="NJ">NJ</option>
+								<option value="NM">NM</option>
+								<option value="NV">NV</option>
+								<option value="NY">NY</option>
+								<option value="ND">ND</option>
+								<option value="OH">OH</option>
+								<option value="OK">OK</option>
+								<option value="OR">OR</option>
+								<option value="PA">PA</option>
+								<option value="RI">RI</option>
+								<option value="SC">SC</option>
+								<option value="SD">SD</option>
+								<option value="TN">TN</option>
+								<option value="TX">TX</option>
+								<option value="UT">UT</option>
+								<option value="VT">VT</option>
+								<option value="VA">VA</option>
+								<option value="WA">WA</option>
+								<option value="WI">WI</option>
+								<option value="WV">WV</option>
+								<option value="WY">WY</option>
+							</select>
+						</div>
+						<div className="col-md-2">
+							<label for="inputZip" className="form-label">
+								Zip
+							</label>
+							<input type="number" className="form-control" id="inputZip" />
+						</div>
+						<div className="col-4">
+							<label htmlFor="homePhone" className="form-label">
+								Home Phone
+							</label>
+							<input
+								type="number"
+								value={homePhone}
+								className="form-control"
+								onChange={(e) => setHomePhone(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-4">
+							<label htmlFor="workPhone" className="form-label">
+								Work Phone
+							</label>
+							<input
+								type="number"
+								value={workPhone}
+								className="form-control"
+								onChange={(e) => setWorkPhone(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-4">
+							<label htmlFor="cellPhone" className="form-label">
+								Cell Phone
+							</label>
+							<input
+								type="number"
+								value={cellPhone}
+								className="form-control"
+								onChange={(e) => setCellPhone(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-8">
+							<label htmlFor="licenses" className="form-label">
+								Licenses
+							</label>
+							<input
+								type="text"
+								value={licenses}
+								className="form-control"
+								placeholder="CDL, Servsafe, Mental Health, etc . . ."
+								onChange={(e) => setLicenses(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-4">
+							<label className="form-label">Highest Education</label>
+							<select
+								value={education}
+								className="form-select"
+								onChange={(e) => setEducation(e.target.value)}
+								required
+							>
+								<option value="starter" defaultValue hidden>
+									Select...
+								</option>
+								<option value="highSchool">High School Diploma</option>
+								<option value="associates">Associate's Degree</option>
+								<option value="bachelors">Bachelor's Degree</option>
+								<option value="masters">Master's Degree</option>
+								<option value="phd">Doctore / PHD</option>
+							</select>
+						</div>
+						<div className="col-2">
+							<label className="form-label">Driver's License on file?</label>
+							<select
+								required
+								className="form-select"
+								name="dlNumber"
+								onChange={(e) => setDLNumber(e.target.value)}
+							>
+								<option value="starter" defaultValue hidden>
+									Select...
+								</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+						<div className="col-2">
+							<label className="form-label">Social Security # on file?</label>
+							<select
+								required
+								className="form-select"
+								onChange={(e) => setSSN(e.target.value)}
+							>
+								<option value="starter" defaultValue hidden>
+									Select...
+								</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+						<div className="col-4">
+							<div className="align-content-center border">
+								<div className="text-center">Skillsets</div>
+								<div className="row">
+									<div className="col">
+										<div className="form-check">
+											<input
+												className="form-check-input"
+												type="checkbox"
+												value="Animals"
+												id="flexCheckDefault"
+												onChange={(e) => {
+													setAnimals(e.target.checked);
+												}}
+											/>
+											<label
+												className="form-check-label"
+												for="flexCheckDefault"
+											>
+												Animals
+											</label>
+										</div>
+										<div className="form-check">
+											<input
+												className="form-check-input"
+												type="checkbox"
+												value="Food Service"
+												id="flexCheckDefault"
+												onChange={(e) => {
+													setFoodService(e.target.checked);
+												}}
+											/>
+											<label
+												className="form-check-label"
+												for="flexCheckDefault"
+											>
+												Food Service
+											</label>
+										</div>
+									</div>
+									<div className="col">
+										<div className="form-check">
+											<input
+												className="form-check-input"
+												type="checkbox"
+												value="Hospitality"
+												id="flexCheckDefault"
+												onChange={(e) => {
+													setHospitality(e.target.checked);
+												}}
+											/>
+											<label
+												className="form-check-label"
+												for="flexCheckDefault"
+											>
+												Hospitality
+											</label>
+										</div>
+										<div className="form-check">
+											<input
+												className="form-check-input"
+												type="checkbox"
+												value="Sports"
+												id="flexCheckDefault"
+												onChange={(e) => {
+													setSports(e.target.checked);
+												}}
+											/>
+											<label
+												className="form-check-label"
+												for="flexCheckDefault"
+											>
+												Sports
+											</label>
+										</div>
+									</div>
+									<div className="col">
+										<div className="form-check">
+											<input
+												className="form-check-input"
+												type="checkbox"
+												value="Healthcare"
+												id="flexCheckDefault"
+												onChange={(e) => {
+													setHealthcare(e.target.checked);
+												}}
+											/>
+											<label
+												className="form-check-label"
+												for="flexCheckDefault"
+											>
+												Healthcare
+											</label>
+										</div>
+										<div className="form-check">
+											<input
+												className="form-check-input"
+												type="checkbox"
+												value="Green Cleanup"
+												id="flexCheckDefault"
+												onChange={(e) => {
+													setGreenCleanup(e.target.checked);
+												}}
+											/>
+											<label
+												className="form-check-label"
+												for="flexCheckDefault"
+											>
+												Green Cleanup
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="col-4">
+							<label className="form-label">Preferred Center</label>
+							<select
+								required
+								className="form-select"
+								onChange={(e) => setPrefCenter(e.target.value)}
+								id="prefCenterSelector"
+							>
+								<option value="starter" defaultValue hidden>
+									Select...
+								</option>
+							</select>
+						</div>
 
-					<select name="approval" id="approval" onChange={(e) => setApprovalStatus(e.target.value)}>
-  						<option value="Approved">Approved</option>
-  						<option value="Pending Approval">Pending Approval</option>
-  						<option value="Disapproved">Disapproved</option>
-  						<option value="Inactive">Inactive</option>
-					</select>
+						<div className="col-6">
+							<label htmlFor="emConName" className="form-label">
+								Emergency Contact Name
+							</label>
+							<input
+								type="text"
+								value={emContactName}
+								className="form-control"
+								onChange={(e) => setEmContactName(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-6">
+							<label htmlFor="emConEmail" className="form-label">
+								Emergency Contact Email
+							</label>
+							<input
+								type="text"
+								value={emContactEmail}
+								className="form-control"
+								onChange={(e) => setEmContactEmail(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-4">
+							<label htmlFor="emConPhone" className="form-label">
+								Emergency Contact Phone Number
+							</label>
+							<input
+								type="number"
+								value={emContactPhone}
+								className="form-control"
+								onChange={(e) => setEmContactPhone(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-8">
+							<label htmlFor="emConAddress" className="form-label">
+								Emergency Contact Address
+							</label>
+							<input
+								type="text"
+								value={emContactAddress}
+								className="form-control"
+								placeholder="1234 Main St City, State Zip"
+								onChange={(e) => setEmContactAddress(e.target.value)}
+								required
+							/>
+						</div>
+						<div className="col-2">
+							<label htmlFor="approval" className="form-label">
+								Approval Status:
+							</label>
+
+							<select
+								name="approval"
+								id="approval"
+								className="form-select"
+								onChange={(e) => setApprovalStatus(e.target.value)}
+							>
+								<option value="starter" defaultValue hidden>
+									Select...
+								</option>
+								<option value="approved">Approved</option>
+								<option value="pending">Pending Approval</option>
+								<option value="denied">Denied</option>
+								<option value="inactive">Inactive</option>
+							</select>
+						</div>
+
+						<div className="col-12"></div>
+						<div className="col-1">
+							<Link to="/manageVolunteers">
+								<button type="button" className="btn btn-lg btn-primary">
+									Back
+								</button>
+							</Link>
+						</div>
+						<div className="col-1">
+							<button
+								type="submit"
+								className="btn btn-lg btn-success"
+								onClick={addVol}
+							>
+								Submit
+							</button>
+						</div>
 					</div>
-
-				
-				<br></br><br></br>
-				<div className="form-group">
-					<label htmlFor="skills">Skills: </label>
-					<input
-						type="text"
-						value={skills}
-						onChange={(e) => setSkills(e.target.value)}
-					/>
 				</div>
-				<Link to="/manageVolunteers">
-				<button type="button" class="btn btn-info">Back</button>
-				</Link>
-
-				<button type="button" class="btn btn-success" onClick={addVol}>
-					Submit
-				</button>
-			</div>
-		</form>
+			</form>
+		</>
 	);
 };
 
