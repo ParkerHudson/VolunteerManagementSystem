@@ -55,15 +55,15 @@ const AddVolunteer = (props) => {
 			skills: "none",
 		});
 		pushSkills();
+		pushPrefCenter();
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		addVol().then(() => {
-			pushSkills();
-		});
+		addVol();
 
 		window.alert("Volunteer Added!");
+		window.location.href = "http://localhost:3000/manageVolunteers";
 
 		//update database with form data
 	};
@@ -76,39 +76,45 @@ const AddVolunteer = (props) => {
 		if (animals) skillsArray.push("Animals");
 		if (hospitality) skillsArray.push("Hospitality");
 		if (foodService) skillsArray.push("Food Service");
-		setSkills(skillsArray);
+
+		skillsArray.forEach((skill) => {
+			skills.push(skill);
+		});
 	};
 
 	const pushSkills = () => {
 		getSkills();
+		console.log(skills);
 		for (let i = 0; i < skills.length; i++) {
 			VolunteerService.addVolunteerSkill(username, skills[i]);
 		}
+		setSkills([]);
+	};
+
+	const pushPrefCenter = () => {
+		VolunteerService.addPrefCtr(username, prefCenter);
 	};
 
 	useEffect(() => {
-		VolunteerService.getCenters().then((data) => {
-			console.log(data);
-			setCenters(data);
-			console.log(centers);
-			console.log("ranUseEffect");
-			let selector = document.getElementById("prefCenterSelector");
-			var existing = [];
-			for (let k = 0; k < selector.length; k++) {
-				existing.push(selector.options[k].value);
-			}
+		async function fetchData() {
+			// Fetch data
+			VolunteerService.getCenters().then((data) => {
+				const results = [];
 
-			for (let i = 0; i < centers.length; i++) {
-				if (!existing.includes(centers[i].centerName)) {
-					let option = document.createElement("option");
-					option.value = centers[i].centerName;
-					option.innerHTML = centers[i].centerName;
-					selector.appendChild(option);
+				// Store results in the results array
+				data.forEach((value) => {
+					results.push({
+						key: value.centerName,
+						ctrName: value.centerName,
+					});
+				});
+				// Update the options state
+				setCenters([{ key: "Select a center", value: "" }, ...results]);
+			});
+		}
 
-					console.log(existing);
-				}
-			}
-		});
+		// Trigger the fetch
+		fetchData();
 	}, []);
 
 	//Skills checkboxes based off of center pref skills
@@ -482,9 +488,9 @@ const AddVolunteer = (props) => {
 								onChange={(e) => setPrefCenter(e.target.value)}
 								id="prefCenterSelector"
 							>
-								<option value="starter" defaultValue hidden>
-									Select...
-								</option>
+								{centers.map((center) => {
+									return <option value={center.key}>{center.ctrName}</option>;
+								})}
 							</select>
 						</div>
 
@@ -541,7 +547,7 @@ const AddVolunteer = (props) => {
 						</div>
 						<div className="col-2">
 							<label htmlFor="approval" className="form-label">
-								Approval Status:
+								Approval Status
 							</label>
 
 							<select
@@ -569,11 +575,7 @@ const AddVolunteer = (props) => {
 							</Link>
 						</div>
 						<div className="col-1">
-							<button
-								type="submit"
-								className="btn btn-lg btn-success"
-								onClick={addVol}
-							>
+							<button type="submit" className="btn btn-lg btn-success">
 								Submit
 							</button>
 						</div>
