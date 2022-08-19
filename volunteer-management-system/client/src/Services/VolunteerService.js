@@ -147,6 +147,17 @@ export default {
 			return response.json().then((data) => data);
 		});
 	},
+	postCenter: (ctrName) => {
+		return fetch("/api/addCenter", {
+			method: "post",
+			body: JSON.stringify(ctrName),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
 
 	// addPrefCtr : fetch addPrefCenter api
 	// take in volunteer and center name
@@ -217,13 +228,12 @@ export default {
 	// getOpportunityMatches : fetch getOppMatches api
 	// take in username, return list of matching opportunities
 	getOpportunityMatches: (volunteer) => {
-		return fetch("api/getOppMatches", {
-			method: "get",
-			body: JSON.stringify(volunteer),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then((response) => {
+		var query = new URLSearchParams();
+		query.append("username", volunteer.username);
+
+		let url = "api/getOppMatches?" + query;
+
+		return fetch(url).then((response) => {
 			return response.json().then((data) => data);
 		});
 	},
