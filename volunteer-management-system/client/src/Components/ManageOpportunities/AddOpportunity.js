@@ -4,15 +4,15 @@ import React from "react";
 import { useState } from "react";
 import OpportunityService from "../../Services/OpportunityService";
 import { Link } from "react-router-dom";
-//import DateTimePicker from 'react-datetime-picker';
+import DateTimePicker from "react-datetime-picker";
 
 const AddOpportunity = () => {
 	const [ctrName, setCtrName] = useState("");
 	const [category, setCategory] = useState("");
-	const [testTime, setTestTime] = useState("");
+	const [testTime, setTestTime] = useState(new Date());
 
 	const addOpp = () => {
-		OpportunityService.postOpportunity({
+		OpportunityService.addOpp({
 			ctrName: ctrName,
 			category: category,
 			testTime: testTime,
@@ -71,30 +71,26 @@ const AddOpportunity = () => {
 						</div>
 					</div>
 
-					<div className="form-group">
-						<label htmlFor="testTime">Date &amp; Time: </label>
-						<input
-							type="text"
-							value={testTime}
-							onChange={(e) => setTestTime(e.target.value)}
-							required
-						/>
+					<DateTimePicker
+						className="datePicker"
+						onChange={setTestTime}
+						value={testTime}
+					/>
 
-						<br></br>
-						<br></br>
+					<br></br>
+					<br></br>
 
-						<br></br>
-						<br></br>
-						<Link to="/manageVolunteers">
-							<button type="button" class="btn btn-info">
-								Back
-							</button>
-						</Link>
-
-						<button type="button" class="btn btn-success" onClick={addOpp}>
-							Submit
+					<br></br>
+					<br></br>
+					<Link to="/manageOpportunities">
+						<button type="button" class="btn btn-info">
+							Back
 						</button>
-					</div>
+					</Link>
+
+					<button type="button" class="btn btn-success" onClick={addOpp}>
+						Submit
+					</button>
 				</div>
 			</form>
 		</>
