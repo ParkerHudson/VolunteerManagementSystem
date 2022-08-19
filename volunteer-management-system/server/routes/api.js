@@ -356,9 +356,9 @@ apiRouter.get("/getOppMatches", (req, res) => {
 		"SELECT distinct o.* \
 		FROM volunteer v, preferredcenter pc, opportunity o, skills s, center c \
 		WHERE pc.ctrName = o.ctrName \
-		AND pc.volId = v.username \
+		AND pc.username = v.username \
 		AND s.username = v.username \
-		AND s.skill = c.prefSkill \
+		AND s.skill = o.category \
 		AND v.username = ?;";
 
 	connection.execute(query, [username], (err, results) => {
@@ -380,9 +380,9 @@ apiRouter.get("/getVolMatches?", (req, res) => {
 	const query =
 		"SELECT DISTINCT v.* \
 		FROM volunteer v, preferredcenter pc, opportunity o, skills s, center c \
-		WHERE v.username = pc.volId \
+		WHERE v.username = pc.username \
 		AND pc.ctrName = o.ctrName \
-		AND s.skill = c.prefSkill \
+		AND s.skill = o.category \
 		AND o.ctrName = ?;";
 
 	connection.execute(query, [req.query.ctrName], (err, results) => {
