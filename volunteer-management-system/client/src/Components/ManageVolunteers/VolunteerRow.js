@@ -77,7 +77,7 @@ const VolunteerRow = (props) => {
 			</td>
 
 			<td>
-				<Link to="/volunteerMatches" state={{ volunteer: props.volunteer }}>
+				<Link to="/manageOpportunities" state={{ volunteer: props.volunteer }}>
 					<button className=" btn btn-primary ">View Opportunities</button>
 				</Link>
 			</td>
