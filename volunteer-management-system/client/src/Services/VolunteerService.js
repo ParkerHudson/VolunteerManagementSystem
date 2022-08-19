@@ -147,6 +147,17 @@ export default {
 			return response.json().then((data) => data);
 		});
 	},
+	postCenter: (ctrName) => {
+		return fetch("/api/addCenter", {
+			method: "post",
+			body: JSON.stringify(ctrName),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
 
 	// addPrefCtr : fetch addPrefCenter api
 	// take in volunteer and center name
