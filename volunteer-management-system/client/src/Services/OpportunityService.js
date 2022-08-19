@@ -72,13 +72,11 @@ export default {
 	// getVolunteerMatches : fetch getVolMatches api
 	// take in oppID, return list of matching volunteers
 	getVolunteerMatches: (opportunity) => {
-		return fetch("api/getVolMatches", {
-			method: "get",
-			body: JSON.stringify(opportunity),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then((response) => {
+		var query = new URLSearchParams();
+		query.append("ctrName",opportunity.ctrName);
+
+		let url = "api/getVolMatches?" + query;
+		return fetch(url).then((response) => {
 			return response.json().then((data) => data);
 		});
 	},

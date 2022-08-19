@@ -329,7 +329,7 @@ apiRouter.post("/updateSkill", (req, res) => {
 });
 
 //deleteSkill : Delete username/skill pair in skills table
-apiRouter.post("/deleteSkill", (req, res) => {
+apiRouter.delete("/deleteSkill", (req, res) => {
 	let query = "DELETE FROM skills WHERE username = ? AND skill = ?";
 	connection.execute(
 		query,
@@ -371,13 +371,16 @@ apiRouter.get("/getOppMatches", (req, res) => {
 });
 
 //getVolMatches : Take in opportunity, get matching volunteers
-apiRouter.get("/getVolMatches", (req, res) => {
+apiRouter.get("/getVolMatches?", (req, res) => {
 	const query =
-		"SELECT * \
-		FROM volunteer v, preferredcenter pc, opportunity o \
-		WHERE v.username = pc.volId AND pc.ctrName = o.ctrName AND o.oppID = ?;";
+		"SELECT DISTINCT v.* \
+		FROM volunteer v, preferredcenter pc, opportunity o, skills s, center c \
+		WHERE v.username = pc.volId \
+		AND pc.ctrName = o.ctrName \
+		AND s.skill = c.prefSkill \
+		AND o.ctrName = ?;";
 
-	connection.execute(query, [req.body.ctrName], (err, results) => {
+	connection.execute(query, [req.query.ctrName], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({
