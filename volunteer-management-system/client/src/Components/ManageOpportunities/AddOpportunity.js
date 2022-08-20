@@ -1,30 +1,75 @@
 //Form to input opportunity data to DB
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import OpportunityService from "../../Services/OpportunityService";
 import { Link } from "react-router-dom";
 import DateTimePicker from "react-datetime-picker";
+import VolunteerService from "../../Services/VolunteerService";
 
 const AddOpportunity = () => {
 	const [ctrName, setCtrName] = useState("");
 	const [category, setCategory] = useState("");
 	const [testTime, setTestTime] = useState(new Date());
+	const [centers, setCenters] = useState([]);
+	const [addCenterInputToggle, setToggle] = useState([]);
+	const [ctrNames, setCtrNames] = useState([]);
 
 	const addOpp = () => {
-		OpportunityService.addCenter(ctrName);
 		OpportunityService.addOpp(ctrName, category, testTime);
 		console.log("Added opportunity.");
 	};
 
 	const handleSubmit = (e) => {
+		if (addCenterInputToggle.length > 0) {
+			OpportunityService.addCenter(ctrName).then(() => {
+				addOpp();
+			});
+		} else {
+			addOpp();
+		}
 		e.preventDefault();
-		addOpp();
 
 		window.alert("Opportunity Added!");
+		window.location.href = "http://localhost:3000/manageOpportunities";
 
 		//update database with form data
 	};
+
+	const checkIfCenterExists = (e) => {
+		setCtrName(e.target.value);
+		if (!ctrNames.includes(e.target.value)) {
+			setToggle(["Add New Center"]);
+		} else {
+			setToggle([]);
+		}
+	};
+
+	//Get centers and store in centers array
+	useEffect(() => {
+		async function fetchData() {
+			// Fetch data
+			VolunteerService.getCenters().then((data) => {
+				const results = [];
+				const centerNames = [];
+
+				// Store results in the results array
+				data.forEach((value) => {
+					results.push({
+						key: value.centerName,
+						ctrName: value.centerName,
+					});
+					centerNames.push(value.centerName);
+				});
+				// Update the options state
+				setCenters([...results]);
+				setCtrNames([...centerNames]);
+			});
+		}
+
+		// Trigger the fetch
+		fetchData();
+	}, []);
 
 	return (
 		<>
@@ -35,23 +80,36 @@ const AddOpportunity = () => {
 						<label htmlFor="ctrName" className="form-label">
 							Center Name
 						</label>
-						<input
-							type="text"
-							value={ctrName}
-							className="form-control"
-							onChange={(e) => setCtrName(e.target.value)}
-							required
-						/>
 
-						{/*<div className="form-group">
-					<label htmlFor="category">Category: </label>
-					<input
-						type="text"
-						value={category}
-						onChange={(e) => setCategory(e.target.value)}
-						required
-					/>
-	</div> */}
+						<select
+							required
+							className="form-select"
+							onChange={checkIfCenterExists}
+							id="prefCenterSelector"
+						>
+							<option value="starter" defaultValue hidden>
+								Select...
+							</option>
+							{centers.map((center) => {
+								return <option value={center.key}>{center.key}</option>;
+							})}
+							<option value="">Add New Center</option>
+						</select>
+						{addCenterInputToggle.map((x) => {
+							return (
+								<div className="form-group">
+									<label htmlFor="ctrName" className="form-label">
+										{x}
+									</label>
+									<input
+										name="newCenterName"
+										className="form-control"
+										value={ctrName}
+										onChange={checkIfCenterExists}
+									/>
+								</div>
+							);
+						})}
 
 						<div className="form-group">
 							<label htmlFor="category" className="form-label">

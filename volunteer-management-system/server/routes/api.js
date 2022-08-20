@@ -577,9 +577,9 @@ apiRouter.post("/deleteCenter", (req, res) => {
 
 // addCenter : add center to DB
 apiRouter.post("/addCenter", (req, res) => {
-	let query = "INSERT INTO center (ctrName) SELECT * FROM (SELECT ?) AS val WHERE NOT EXISTS(SELECT ctrName FROM center WHERE ctrName = ?)";
+	let query = "INSERT INTO center VALUES (?)";
 
-	connection.execute(query, [req.body.ctrName, req.body.ctrName], (err, results) => {
+	connection.execute(query, [req.body.ctrName], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({
