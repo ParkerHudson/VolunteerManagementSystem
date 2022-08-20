@@ -30,6 +30,12 @@ const EditVolunteer = (props) => {
 	const [socialSecurity, setSSN] = useState(volunteer.socialSecurity);
 	const [approvalStatus, setApproval] = useState(volunteer.approvalStatus);
 	const [skills, setSkills] = useState(volunteer.skills);
+	const [healthcare, setHealthcare] = useState(false);
+	const [greenCleanup, setGreenCleanup] = useState(false);
+	const [sports, setSports] = useState(false);
+	const [animals, setAnimals] = useState(false);
+	const [hospitality, setHospitality] = useState(false);
+	const [foodService, setFoodService] = useState(false);
 
 
 	// need to include PREFERRED CENTER api call to add/edit volunteer functionality
@@ -54,12 +60,36 @@ const EditVolunteer = (props) => {
 			approvalStatus: approvalStatus,
 			skills: skills,
 		});
+		updateSkills();
 		console.log("Updated volunteer details.");
 	};
 
 	const delVol = () => {
 		VolunteerService.deleteVolunteer(volunteer);
 		console.log("Deleted volunteer.");
+	};
+
+	const updateSkills = () => {
+		getSkills();
+		console.log(skills);
+		for (let i = 0; i < skills.length; i++) {
+			VolunteerService.addVolunteerSkill(volunteer.username, skills[i]);
+		}
+		setSkills([]);
+	};
+	const getSkills = () => {
+		var skillsArray = [];
+		// if (healthcare) skillsArray.push("Healthcare");
+		// if (greenCleanup) skillsArray.push("Green Cleanup");
+		// if (sports) skillsArray.push("Sports");
+		// if (animals) skillsArray.push("Animals");
+		// if (hospitality) skillsArray.push("Hospitality");
+		// if (foodService) skillsArray.push("Food Service");
+		skillsArray = VolunteerService.updateVolunteerSkill(volunteer.username);
+
+		skillsArray.forEach((skill) => {
+			skills.push(skill);
+		});
 	};
 
 	const SubmitHandler = (e) => {
