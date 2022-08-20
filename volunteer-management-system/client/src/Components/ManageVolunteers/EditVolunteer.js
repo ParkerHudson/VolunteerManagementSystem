@@ -118,6 +118,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="firstName"
 							id="firstName"
+							pattern = '^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$'
 							required
 							onChange={(e) => setFirstName(e.target.value)}
 							value={firstName}
@@ -129,6 +130,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="lastName"
 							id="lastName"
+							pattern = '^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$'
 							required
 							onChange={(e) => setlastName(e.target.value)}
 							value={lastName}
@@ -151,6 +153,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="homePhone"
 							id="homePhone"
+							pattern = '^[0-9]{10}$'
 							required
 							onChange={(e) => setHomePhone(e.target.value)}
 							value={homePhone}
@@ -162,6 +165,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="workPhone"
 							id="workPhone"
+							pattern = '^[0-9]{10}$'
 							required
 							onChange={(e) => setWorkPhone(e.target.value)}
 							value={workPhone}
@@ -173,6 +177,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="cellPhone"
 							id="cellPhone"
+							pattern = '^[0-9]{10}$'
 							required
 							onChange={(e) => setCellPhone(e.target.value)}
 							value={cellPhone}
@@ -184,6 +189,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="email"
 							id="email"
+							pattern = '[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
 							required
 							onChange={(e) => setEmail(e.target.value)}
 							value={email}
@@ -228,6 +234,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="emConPhone"
 							id="emConPhone"
+							pattern = '^[0-9]{10}$'
 							required
 							onChange={(e) => setEmContactPhone(e.target.value)}
 							value={emContactPhone}
@@ -239,6 +246,7 @@ const EditVolunteer = (props) => {
 							type="text"
 							name="emConEmail"
 							id="emConEmail"
+							pattern = '[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
 							required
 							onChange={(e) => setEmContactEmail(e.target.value)}
 							value={emContactEmail}

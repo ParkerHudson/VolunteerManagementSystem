@@ -12,6 +12,7 @@ const AddOpportunity = () => {
 	const [testTime, setTestTime] = useState(new Date());
 
 	const addOpp = () => {
+		OpportunityService.addCenter(ctrName);
 		OpportunityService.addOpp(ctrName, category, testTime);
 		console.log("Added opportunity.");
 	};

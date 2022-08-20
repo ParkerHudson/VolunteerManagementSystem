@@ -20,6 +20,21 @@ export default {
 			return response.json().then((data) => data);
 		});
 	},
+	addCenter: (ctrName) => {
+		var center = {
+			ctrName: ctrName
+		};
+
+		return fetch("api/addCenter", {
+			method: "post",
+			body: JSON.stringify(opp),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
 
 	// getOpps : fetch getOpportunities api
 	// return all opportunities, with filter and search options
