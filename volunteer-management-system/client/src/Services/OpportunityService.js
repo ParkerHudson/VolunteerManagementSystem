@@ -27,7 +27,7 @@ export default {
 
 		return fetch("api/addCenter", {
 			method: "post",
-			body: JSON.stringify(opp),
+			body: JSON.stringify(center),
 			headers: {
 				"Content-Type": "application/json",
 			},
