@@ -17,10 +17,10 @@ const AddOpportunity = () => {
 
 	const addOpp = () => {
 		OpportunityService.addOpp(ctrName, category, testTime);
-		console.log("Added opportunity.");
 	};
 
 	const handleSubmit = (e) => {
+		console.log(testTime);
 		if (addCenterInputToggle.length > 0) {
 			OpportunityService.addCenter(ctrName).then(() => {
 				addOpp();

@@ -38,7 +38,7 @@ const LoginInfo = () => {
 				<>
 					<div>
 						<form onSubmit={sumbitHandler}>
-							<div className="form-inner ">
+							<div className="form-inner  ">
 								<h2> Welcome to the Volunteer Management System</h2>
 
 								<div className="form-outline mb-4">
