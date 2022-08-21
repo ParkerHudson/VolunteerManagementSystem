@@ -21,6 +21,7 @@ const AddOpportunity = () => {
 	};
 
 	const handleSubmit = (e) => {
+		console.log(testTime);
 		if (addCenterInputToggle.length > 0) {
 			OpportunityService.addCenter(ctrName).then(() => {
 				addOpp();

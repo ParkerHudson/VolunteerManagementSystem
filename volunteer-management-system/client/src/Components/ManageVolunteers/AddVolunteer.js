@@ -147,7 +147,7 @@ const AddVolunteer = (props) => {
 								type="text"
 								className="form-control"
 								value={email}
-								pattern = '[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
+								pattern="[a-z0-9]+@[a-z]+\.[a-z]{2,3}"
 								placeholder="Email"
 								onChange={(e) => setEmail(e.target.value)}
 								required
@@ -161,7 +161,7 @@ const AddVolunteer = (props) => {
 								type="text"
 								className="form-control"
 								value={firstName}
-								pattern = '^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$'
+								pattern="^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$"
 								onChange={(e) => setFirstName(e.target.value)}
 								placeholder="First Name"
 								required
@@ -175,7 +175,7 @@ const AddVolunteer = (props) => {
 								type="text"
 								value={lastName}
 								className="form-control"
-								pattern = '^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$'
+								pattern="^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$"
 								onChange={(e) => setLastName(e.target.value)}
 								placeholder="Last Name"
 								required
@@ -199,14 +199,21 @@ const AddVolunteer = (props) => {
 							<label for="inputCity" className="form-label">
 								City
 							</label>
-							<input type="text" className="form-control" id="inputCity" pattern = '^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$'/>
+							<input
+								type="text"
+								className="form-control"
+								id="inputCity"
+								pattern="^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$"
+							/>
 						</div>
 						<div className="col-md-1">
 							<label for="inputState" className="form-label">
 								State
 							</label>
 							<select id="inputState" className="form-select" required>
-								<option selected hidden value="">Choose...</option>
+								<option selected hidden value="">
+									Choose...
+								</option>
 								<option value="AL">AL</option>
 								<option value="AK">AK</option>
 								<option value="AR">AR</option>
@@ -264,7 +271,12 @@ const AddVolunteer = (props) => {
 							<label for="inputZip" className="form-label">
 								Zip
 							</label>
-							<input type="text" className="form-control" id="inputZip" pattern = '^[0-9]{5}$' />
+							<input
+								type="text"
+								className="form-control"
+								id="inputZip"
+								pattern="^[0-9]{5}$"
+							/>
 						</div>
 						<div className="col-4">
 							<label htmlFor="homePhone" className="form-label">
@@ -273,7 +285,8 @@ const AddVolunteer = (props) => {
 							<input
 								type="text"
 								value={homePhone}
-								pattern = '^[0-9]{10}$'
+								pattern="[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}"
+								placeholder="(123) 456-7890"
 								className="form-control"
 								onChange={(e) => setHomePhone(e.target.value)}
 								required
@@ -286,7 +299,8 @@ const AddVolunteer = (props) => {
 							<input
 								type="text"
 								value={workPhone}
-								pattern = '^[0-9]{10}$'
+								pattern="[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}"
+								placeholder="(123) 456-7890"
 								className="form-control"
 								onChange={(e) => setWorkPhone(e.target.value)}
 								required
@@ -299,7 +313,8 @@ const AddVolunteer = (props) => {
 							<input
 								type="text"
 								value={cellPhone}
-								pattern = '^[0-9]{10}$'
+								pattern="[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}"
+								placeholder="(123) 456-7890"
 								className="form-control"
 								onChange={(e) => setCellPhone(e.target.value)}
 								required
@@ -344,7 +359,7 @@ const AddVolunteer = (props) => {
 								name="dlNumber"
 								onChange={(e) => setDLNumber(e.target.value)}
 							>
-								<option selected hidden value="">
+								<option hidden value="">
 									Select...
 								</option>
 								<option value="1">Yes</option>
@@ -513,7 +528,7 @@ const AddVolunteer = (props) => {
 							<input
 								type="text"
 								value={emContactEmail}
-								pattern = '[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
+								pattern="[a-z0-9]+@[a-z]+\.[a-z]{2,3}"
 								className="form-control"
 								onChange={(e) => setEmContactEmail(e.target.value)}
 								required
@@ -526,7 +541,8 @@ const AddVolunteer = (props) => {
 							<input
 								type="text"
 								value={emContactPhone}
-								pattern = '^[0-9]{10}$'
+								pattern="[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}"
+								placeholder="(123) 456-7890"
 								className="form-control"
 								onChange={(e) => setEmContactPhone(e.target.value)}
 								required
@@ -553,6 +569,7 @@ const AddVolunteer = (props) => {
 							<select
 								name="approval"
 								id="approval"
+								required
 								className="form-select"
 								onChange={(e) => setApprovalStatus(e.target.value)}
 							>

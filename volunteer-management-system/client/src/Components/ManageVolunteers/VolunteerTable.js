@@ -37,7 +37,7 @@ const VolunteerTable = (props) => {
 							);
 						})
 					) : (
-						<h3>No volunteers found . . .</h3>
+						<h4>No volunteers found . . .</h4>
 					)}
 				</tbody>
 			</table>
