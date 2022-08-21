@@ -1,10 +1,14 @@
 import React from "react";
+import AdminPanel from "./AdminPanel";
+import LoginInfo from "./LoginInfo";
+import "../css/App.css";
 
 const Home = () => {
+	//Placeholder for home page. For now redirects to log in page
 	return (
-		<>
-			<h1>This is the admin home page</h1>
-		</>
+		<div className="App">
+			<LoginInfo />
+		</div>
 	);
 };
 
