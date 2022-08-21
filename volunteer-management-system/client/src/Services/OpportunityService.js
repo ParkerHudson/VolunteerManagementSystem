@@ -22,7 +22,7 @@ export default {
 	},
 	addCenter: (ctrName) => {
 		var center = {
-			ctrName: ctrName
+			ctrName: ctrName,
 		};
 
 		return fetch("api/addCenter", {
@@ -73,9 +73,10 @@ export default {
 	// deleteOpp : fetch deleteOpportunity api
 	// take in opportunity, delete entry for oppID
 	deleteOpp: (opportunity) => {
+		let toDelete = { oppID: opportunity };
 		return fetch("/api/deleteOpportunity", {
-			method: "delete",
-			body: JSON.stringify(opportunity),
+			method: "post",
+			body: JSON.stringify(toDelete),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -88,7 +89,7 @@ export default {
 	// take in oppID, return list of matching volunteers
 	getVolunteerMatches: (opportunity) => {
 		var query = new URLSearchParams();
-		query.append("ctrName",opportunity.ctrName);
+		query.append("ctrName", opportunity.ctrName);
 
 		let url = "api/getVolMatches?" + query;
 		return fetch(url).then((response) => {

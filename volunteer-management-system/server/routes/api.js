@@ -499,7 +499,7 @@ apiRouter.post("/deleteOpportunity", (req, res) => {
 });
 
 //updateOpportunity : Update opportunity by provided oppID
-apiRouter.post("/updateOpportunity", (req, res) => {
+apiRouter.put("/updateOpportunity", (req, res) => {
 	let query =
 		"UPDATE opportunity SET ctrName = ?, category = ?, time = ? WHERE oppID = ?";
 	connection.execute(
