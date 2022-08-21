@@ -1,3 +1,4 @@
+const { application } = require("express");
 const express = require("express");
 const config = require("../config");
 const apiRouter = express.Router();
@@ -6,10 +7,40 @@ const Volunteer = require("../models/Volunteer");
 
 var connection = config.connection;
 
+<<<<<<< HEAD
+//** Takes in username and password. Check login info, and ensure that user is admin. Send error message if not admin.
+///login
+apiRouter.get("/getOppMatches", (req, res) => {
+
+	const user = req.body.name;
+	const password = req.body.password
+	const query = "SELECT * from user WHERE userID = ?"
+
+	connection.execute(
+		query,
+		[req.body.volId],
+		(err, results) => {
+			if (err) console.log(err);
+			res.send(results);
+		}
+	);
+
+
+//**Returns all volunteers
+///getVolunteers
+
+//**Take in volunteer ID, return list of matching opportunities
+// /getOppMatches
+apiRouter.get("/getOppMatches", (req, res) => {
+	const query = "SELECT * \
+		FROM opportunity o, preferredcenter pc \
+		WHERE o.ctrName = pc.ctrName and pc.volId = ?;"
+=======
 //addVolunteer : add volunteer to DB
 apiRouter.post("/addVolunteer", (req, res) => {
 	let query =
 		"INSERT INTO volunteer VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+>>>>>>> 3d1f018a32941a9199e392f66488b581898c0003
 
 	connection.execute(
 		query,

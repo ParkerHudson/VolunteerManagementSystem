@@ -28,6 +28,28 @@ const LoginInfo = () => {
 		});
 	};
 
+<<<<<<< HEAD
+  return (
+    <form onSubmit={sumbitHandler}>
+      <div className="form-inner">
+        <h2> Welcome to the Voluntary Management System</h2>
+        {(error !== "") ? (<div className="error">{error}</div> ) : ""}
+        
+    
+        <div className="form-group">
+          <label htmlFor="name">Username: </label>
+          <input type="text" name="name" id="name" onChange={e => setDetails({...details, name: e.target.value})} value={details.name}/>
+        </div>
+        <div className="form-group">
+            <label htmlFor="name">Password: </label>
+            <input type="password" name="name" id="name" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
+        </div>
+        <button>Login</button>
+      </div>
+    </form>
+  );
+}
+=======
 	/* const Authenticated = (token) => {
 		AuthService.isAuthenticated(token).then((data) => {
 			//setIsAuthorized(data.isAuthorized);
@@ -88,5 +110,6 @@ const LoginInfo = () => {
 		</>
 	);
 };
+>>>>>>> 3d1f018a32941a9199e392f66488b581898c0003
 
 export default LoginInfo;
