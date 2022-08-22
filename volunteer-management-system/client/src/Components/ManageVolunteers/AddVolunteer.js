@@ -10,6 +10,9 @@ const AddVolunteer = (props) => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [address, setAddress] = useState("");
+	const [city, setCity] = useState("");
+	const [state, setState] = useState("");
+	const [zip, setZip] = useState("");
 	const [homePhone, setHomePhone] = useState("");
 	const [workPhone, setWorkPhone] = useState("");
 	const [cellPhone, setCellPhone] = useState("");
@@ -34,11 +37,12 @@ const AddVolunteer = (props) => {
 	const [prefCenter, setPrefCenter] = useState("");
 
 	const addVol = () => {
+		combineAddress();
 		VolunteerService.postVolunteer({
 			username: username,
 			firstName: firstName,
 			lastName: lastName,
-			address: address,
+			address: combineAddress(),
 			homePhone: homePhone,
 			workPhone: workPhone,
 			cellPhone: cellPhone,
@@ -98,8 +102,12 @@ const AddVolunteer = (props) => {
 		setSkills([]);
 	};
 
-	const pushPrefCenter = () => {
+	const pushPrefCenter = async () => {
 		VolunteerService.addPrefCtr(username, prefCenter);
+	};
+
+	const combineAddress = () => {
+		return address + ", " + city + ", " + state + " " + zip;
 	};
 
 	useEffect(() => {
@@ -211,13 +219,19 @@ const AddVolunteer = (props) => {
 								className="form-control"
 								id="inputCity"
 								pattern="^[^±!@£$%^&amp;*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$"
+								onChange={(e) => setCity(e.target.value)}
 							/>
 						</div>
 						<div className="col-md-1">
 							<label for="inputState" className="form-label">
 								State
 							</label>
-							<select id="inputState" className="form-select" required>
+							<select
+								id="inputState"
+								className="form-select"
+								required
+								onChange={(e) => setState(e.target.value)}
+							>
 								<option selected hidden value="">
 									Choose...
 								</option>
@@ -283,6 +297,7 @@ const AddVolunteer = (props) => {
 								className="form-control"
 								id="inputZip"
 								pattern="^[0-9]{5}$"
+								onChange={(e) => setZip(e.target.value)}
 							/>
 						</div>
 						<div className="col-4">
