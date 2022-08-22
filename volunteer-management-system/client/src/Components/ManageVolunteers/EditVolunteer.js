@@ -36,6 +36,7 @@ const EditVolunteer = (props) => {
 	const [animals, setAnimals] = useState(false);
 	const [hospitality, setHospitality] = useState(false);
 	const [foodService, setFoodService] = useState(false);
+	const [prefCenter] = useState(volunteer.prefCenter);
 
 
 	// need to include PREFERRED CENTER api call to add/edit volunteer functionality
@@ -60,12 +61,15 @@ const EditVolunteer = (props) => {
 			approvalStatus: approvalStatus,
 			skills: skills,
 		});
-		updateSkills();
+		//updateSkills();
 		console.log("Updated volunteer details.");
 	};
 
 	const delVol = () => {
+		VolunteerService.deleteVolunteerSkill(volunteer, skills);
+		VolunteerService.deletePrefCtr(volunteer, volunteer.prefCenter);
 		VolunteerService.deleteVolunteer(volunteer);
+		alert(`${volunteer.username}'s information has been deleted.`);
 		console.log("Deleted volunteer.");
 	};
 
@@ -304,7 +308,7 @@ const EditVolunteer = (props) => {
 					<button type="submit" class="btn btn-success" onClick={update}>
 						Update Volunteer
 					</button>
-					<button type="submit" class="btn btn-danger" onClick={delVol}>
+					<button type="button" class="btn btn-danger" onClick={delVol}>
 						Delete Volunteer
 					</button>
 				</div>
