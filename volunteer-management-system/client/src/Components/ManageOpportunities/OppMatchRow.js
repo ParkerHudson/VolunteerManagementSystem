@@ -32,20 +32,6 @@ const OpportunityRow = (props) => {
 			<td>{convertDate(props.opportunity.time)}</td>
 
 			<td>{convertTime(props.opportunity.time)}</td>
-
-			<td>
-				<Link
-					to="/viewOpportunityInfo"
-					state={{ opportunity: props.opportunity }}
-				>
-					<FontAwesomeIcon
-						icon={faMagnifyingGlass}
-						data-toggle="tooltip"
-						data-placement="top"
-						title="View Details"
-					></FontAwesomeIcon>
-				</Link>
-			</td>
 		</tr>
 	);
 };
