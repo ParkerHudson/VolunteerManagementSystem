@@ -405,6 +405,7 @@ apiRouter.get("/getOpportunities", (req, res) => {
 	let query = "SELECT * FROM opportunity";
 	let filter = req.query.filter;
 	let search = req.query.search;
+	let center = req.query.center;
 	let today = new Date();
 	today.setTime(req.query.date);
 	let sixtyDaysAgo = new Date();
@@ -416,34 +417,27 @@ apiRouter.get("/getOpportunities", (req, res) => {
 			query +
 			" WHERE (ctrName LIKE CONCAT ('%',?,'%') OR category LIKE CONCAT ('%',?,'%'))";
 		valuesToPass.push(search, search);
-		switch (filter) {
-			case "recent":
-				query = query + " AND time >= ?";
+		if (filter != null) {
+			if (filter == "recent") {
+				query = query + " AND WHERE time >= ? ";
 				valuesToPass.push(sixtyDaysAgo);
-				break;
-			case "byCenter":
-				query = query + " ORDER BY ctrName ASC";
-				break;
-			default:
-				query = query;
-				break;
+			} else {
+				query = query + " AND WHERE ctrName LIKE CONCAT ('%',?,'%')";
+				valuesToPass.push(filter);
+			}
 		}
 	} else {
 		if (filter != null) {
-			switch (filter) {
-				case "recent":
-					query = query + " WHERE time >= ? ";
-					valuesToPass.push(sixtyDaysAgo);
-					break;
-				case "byCenter":
-					query = query + " ORDER BY ctrName ASC";
-					break;
-				default:
-					query = query;
-					break;
+			if (filter == "recent") {
+				query = query + " WHERE time >= ? ";
+				valuesToPass.push(sixtyDaysAgo);
+			} else if (filter == "byCenter" && center != "all") {
+				query = query + " WHERE ctrName LIKE CONCAT ('%',?,'%')";
+				valuesToPass.push(center);
 			}
 		}
 	}
+
 	connection.execute(query, valuesToPass, (err, results) => {
 		if (err) {
 			console.log(err);

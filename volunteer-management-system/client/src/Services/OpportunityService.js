@@ -38,9 +38,11 @@ export default {
 
 	// getOpps : fetch getOpportunities api
 	// return all opportunities, with filter and search options
-	getOpps: (filter, search, date) => {
+	getOpps: (filter, search, date, center) => {
 		var query = new URLSearchParams();
 		if (filter != "") {
+			query.append("filter", filter);
+		} else if (filter == "byCenter") {
 			query.append("filter", filter);
 		} else {
 			query.append("filter", "all");
@@ -49,7 +51,7 @@ export default {
 			query.append("search", search);
 		}
 		query.append("date", date);
-
+		query.append("center", center);
 		let url = "/api/getOpportunities?" + query;
 		return fetch(url).then((response) => {
 			return response.json().then((data) => data);
