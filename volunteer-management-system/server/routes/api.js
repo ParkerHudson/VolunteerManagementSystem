@@ -213,9 +213,9 @@ apiRouter.post("/addPrefCenter", (req, res) => {
 
 //getPrefCenter : get array of preferred center for each volunteer by username
 apiRouter.get("/getPrefCenter", (req, res) => {
-	const query = "SELECT * FROM preferredcenter WHERE username = ?";
+	const query = "SELECT ctrName FROM preferredcenter WHERE username = ?";
 
-	connection.execute(query, [req.body.username], (err, results) => {
+	connection.execute(query, [req.query.username], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({

@@ -179,13 +179,10 @@ export default {
 	// getPrefCtr : fetch getPrefCenter api
 	// take in volunteer, return preferred center
 	getPrefCtr: (volunteer) => {
-		return fetch("api/getPrefCenter", {
-			method: "get",
-			body: JSON.stringify(volunteer),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then((response) => {
+		var query = new URLSearchParams();
+
+		query.append("username", volunteer);
+		return fetch("api/getPrefCenter?" + query).then((response) => {
 			return response.json().then((data) => data);
 		});
 	},

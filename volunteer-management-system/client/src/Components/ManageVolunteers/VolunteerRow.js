@@ -16,6 +16,7 @@ import VolunteerService from "../../Services/VolunteerService";
 
 const VolunteerRow = (props) => {
 	const [skills, setSkills] = useState([]);
+	const [prefCenter, setPrefCenter] = useState("");
 
 	useEffect(() => {
 		async function getSkills() {
@@ -29,7 +30,15 @@ const VolunteerRow = (props) => {
 				}
 			);
 		}
+		async function getPrefCenter() {
+			VolunteerService.getPrefCtr(props.volunteer.username).then((data) => {
+				if (data.length > 0) setPrefCenter(data[0].ctrName);
+				console.log(prefCenter);
+			});
+		}
+
 		getSkills();
+		getPrefCenter();
 	}, []);
 
 	const capitalizeFirstLetter = (word) => {
@@ -182,6 +191,10 @@ const VolunteerRow = (props) => {
 												: skills.map((skill) => {
 														return skill;
 												  })}
+										</p>
+										<p>
+											<b>Preferred Center: </b>
+											{prefCenter}
 										</p>
 									</div>
 									<div className="col">
