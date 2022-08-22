@@ -82,14 +82,95 @@ const VolunteerRow = (props) => {
 				</Link>
 			</td>
 			<td>
-				<Link to="/viewVolunteerInfo" state={{ volunteer: props.volunteer }}>
+				<button
+					type="button"
+					data-bs-toggle="modal"
+					data-bs-target={"#" + props.volunteer.username}
+				>
 					<FontAwesomeIcon
 						icon={faMagnifyingGlass}
 						data-toggle="tooltip"
 						data-placement="top"
-						title="View Details"
+						title="Details"
+						className="blue"
 					></FontAwesomeIcon>
-				</Link>
+				</button>
+
+				<div
+					className="modal fade"
+					id={props.volunteer.username}
+					tabindex="-1"
+					aria-labelledby={props.volunteer.username + "Label"}
+					aria-hidden="true"
+				>
+					<div className="modal-dialog">
+						<div className="modal-content">
+							<div className="modal-header">
+								<h5
+									className="modal-title"
+									id={props.volunteer.username + "Label"}
+								>
+									{capitalizeFirstLetter(props.volunteer.firstName)}{" "}
+									{capitalizeFirstLetter(props.volunteer.lastName)}'s Details
+								</h5>
+								<button
+									type="button"
+									className="btn-close"
+									data-bs-dismiss="modal"
+									aria-label="Close"
+								></button>
+							</div>
+							<div className="modal-body">
+								<div className="row g-2">
+									<div className="col">
+										<p>Username: {props.volunteer.username} </p>
+										<p>
+											First Name:{" "}
+											{capitalizeFirstLetter(props.volunteer.firstName)}{" "}
+										</p>
+										<p>
+											Last Name:{" "}
+											{capitalizeFirstLetter(props.volunteer.lastName)}{" "}
+										</p>
+										<p>Address: {props.volunteer.address} </p>
+										<p>Home Phone: {props.volunteer.homePhone} </p>
+										<p>Work Phone: {props.volunteer.workPhone} </p>
+										<p>Cell Phone: {props.volunteer.cellPhone} </p>
+										<p>Email: {props.volunteer.email} </p>
+									</div>
+									<div className="col">
+										<p>
+											Education:{" "}
+											{capitalizeFirstLetter(props.volunteer.education)}{" "}
+										</p>
+										<p>License(s): {props.volunteer.licenses} </p>
+										<p>
+											Emergency Contact Name: {props.volunteer.emContactName}{" "}
+										</p>
+										<p>
+											Emergency Contact Phone: {props.volunteer.emContactPhone}{" "}
+										</p>
+										<p>
+											Emergency Contact Email: {props.volunteer.emContactEmail}{" "}
+										</p>
+										<p>
+											Emergency Contact Address:{" "}
+											{props.volunteer.emContactAddress}{" "}
+										</p>
+										<p>Drivers License: {props.volunteer.driversLicense} </p>
+										<p>
+											Social Security Number: {props.volunteer.socialSecurity}{" "}
+										</p>
+										<p>
+											Approval Status:{" "}
+											{capitalizeFirstLetter(props.volunteer.approvalStatus)}{" "}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</td>
 			<td>
 				<Link to="/editVolunteer" state={{ volunteer: props.volunteer }}>
@@ -97,6 +178,7 @@ const VolunteerRow = (props) => {
 						icon={faPenToSquare}
 						data-toggle="tooltip"
 						data-placement="top"
+						className="blue"
 						title="Edit Volunteer"
 					></FontAwesomeIcon>
 				</Link>
