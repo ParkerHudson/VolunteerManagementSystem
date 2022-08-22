@@ -36,7 +36,7 @@ apiRouter.post("/addVolunteer", (req, res) => {
 		(err, results) => {
 			if (err) {
 				console.log(err);
-				res.send({
+				res.status(500).send({
 					errorCode: err.code,
 					errorNum: err.errno,
 					message: err.message,

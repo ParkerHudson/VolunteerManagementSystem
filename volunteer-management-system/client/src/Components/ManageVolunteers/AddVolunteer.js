@@ -53,17 +53,24 @@ const AddVolunteer = (props) => {
 			socialSecurity: ssn,
 			approvalStatus: approvalStatus,
 			skills: "none",
+		}).then((data) => {
+			if (data.errorNum == 1062) {
+				window.alert("Username already in use");
+			} else {
+				pushSkills();
+				pushPrefCenter();
+				relocate();
+			}
 		});
-		pushSkills();
-		pushPrefCenter();
+	};
+	const relocate = () => {
+		window.alert("Volunteer Added!");
+		window.location.href = "http://localhost:3000/manageVolunteers";
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		addVol();
-
-		window.alert("Volunteer Added!");
-		window.location.href = "http://localhost:3000/manageVolunteers";
 
 		//update database with form data
 	};
@@ -84,7 +91,7 @@ const AddVolunteer = (props) => {
 
 	const pushSkills = () => {
 		getSkills();
-		console.log(skills);
+
 		for (let i = 0; i < skills.length; i++) {
 			VolunteerService.addVolunteerSkill(username, skills[i]);
 		}
