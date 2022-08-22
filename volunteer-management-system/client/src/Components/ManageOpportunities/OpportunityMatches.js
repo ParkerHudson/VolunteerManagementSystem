@@ -3,6 +3,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import OppMatchTable from "./OppMatchTable";
+import { Link } from "react-router-dom";
 
 const OpportunityMatches = (props) => {
 	const location = useLocation();
@@ -13,9 +14,15 @@ const OpportunityMatches = (props) => {
 
 	return (
 		<>
-			{ /* add back button */ }
-			<h1>Opportunity Matches for {volunteer.firstName} {volunteer.lastName}</h1>
+			<h1>
+				Opportunity Matches for {volunteer.firstName} {volunteer.lastName}
+			</h1>
 			<OppMatchTable volunteer={volunteer} />
+			<Link to="/manageVolunteers">
+				<button type="button" class="btn btn-primary">
+					Back
+				</button>
+			</Link>
 		</>
 	);
 };

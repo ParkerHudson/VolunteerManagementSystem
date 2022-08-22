@@ -22,7 +22,7 @@ export default {
 	},
 	addCenter: (ctrName) => {
 		var center = {
-			ctrName: ctrName
+			ctrName: ctrName,
 		};
 
 		return fetch("api/addCenter", {
@@ -38,9 +38,11 @@ export default {
 
 	// getOpps : fetch getOpportunities api
 	// return all opportunities, with filter and search options
-	getOpps: (filter, search, date) => {
+	getOpps: (filter, search, date, center) => {
 		var query = new URLSearchParams();
 		if (filter != "") {
+			query.append("filter", filter);
+		} else if (filter == "byCenter") {
 			query.append("filter", filter);
 		} else {
 			query.append("filter", "all");
@@ -49,7 +51,7 @@ export default {
 			query.append("search", search);
 		}
 		query.append("date", date);
-
+		query.append("center", center);
 		let url = "/api/getOpportunities?" + query;
 		return fetch(url).then((response) => {
 			return response.json().then((data) => data);
@@ -73,9 +75,10 @@ export default {
 	// deleteOpp : fetch deleteOpportunity api
 	// take in opportunity, delete entry for oppID
 	deleteOpp: (opportunity) => {
+		let toDelete = { oppID: opportunity };
 		return fetch("/api/deleteOpportunity", {
-			method: "delete",
-			body: JSON.stringify(opportunity),
+			method: "post",
+			body: JSON.stringify(toDelete),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -88,7 +91,7 @@ export default {
 	// take in oppID, return list of matching volunteers
 	getVolunteerMatches: (opportunity) => {
 		var query = new URLSearchParams();
-		query.append("ctrName",opportunity.ctrName);
+		query.append("ctrName", opportunity.ctrName);
 
 		let url = "api/getVolMatches?" + query;
 		return fetch(url).then((response) => {

@@ -33,26 +33,11 @@ const OpportunityRow = (props) => {
 			<td>{convertTime(props.opportunity.time)}</td>
 
 			<td>
-				<Link
-					to="/volunteerMatches"
-					state={{ opportunity: props.opportunity }}
-				>
+				<Link to="/volunteerMatches" state={{ opportunity: props.opportunity }}>
 					<button className=" btn btn-primary ">View Volunteer Matches</button>
 				</Link>
 			</td>
-			<td>
-				<Link
-					to="/viewOpportunityInfo"
-					state={{ opportunity: props.opportunity }}
-				>
-					<FontAwesomeIcon
-						icon={faMagnifyingGlass}
-						data-toggle="tooltip"
-						data-placement="top"
-						title="View Details"
-					></FontAwesomeIcon>
-				</Link>
-			</td>
+
 			<td>
 				<Link to="/editOpportunity" state={{ opportunity: props.opportunity }}>
 					<FontAwesomeIcon

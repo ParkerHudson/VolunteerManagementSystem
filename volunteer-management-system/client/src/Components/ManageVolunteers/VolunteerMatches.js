@@ -3,6 +3,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import VolMatchTable from "./VolMatchTable";
+import { Link } from "react-router-dom";
 
 const VolunteerMatches = (props) => {
 	const location = useLocation();
@@ -27,9 +28,16 @@ const VolunteerMatches = (props) => {
 
 	return (
 		<>
-			{ /* add back button */ }
-			<h1>Volunteer Matches for {opportunity.ctrName}, {convertDate(opportunity.time)} at {convertTime(opportunity.time)}</h1>
+			<h1>
+				Volunteer Matches for {opportunity.ctrName},{" "}
+				{convertDate(opportunity.time)} at {convertTime(opportunity.time)}
+			</h1>
 			<VolMatchTable opportunity={opportunity} />
+			<Link to="/manageOpportunities">
+				<button type="button" class="btn btn-primary">
+					Back
+				</button>
+			</Link>
 		</>
 	);
 };

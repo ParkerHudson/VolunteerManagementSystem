@@ -13,12 +13,15 @@ const OpportunityTable = (props) => {
 
 	//Get volunteers from DB
 	useEffect(() => {
-		OpportunityService.getOpps(props.filter, props.search, getToday()).then(
-			(data) => {
-				setOpportunities(data);
-			}
-		);
-	}, [props.search, props.filter]);
+		OpportunityService.getOpps(
+			props.filter,
+			props.search,
+			getToday(),
+			props.centerName
+		).then((data) => {
+			setOpportunities(data);
+		});
+	}, [props.search, props.filter, props.centerName]);
 
 	return (
 		<>

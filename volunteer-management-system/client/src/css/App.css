@@ -52,6 +52,9 @@ input[type="number"] {
 .grey {
 	color: grey;
 }
+.blue {
+	color: #0d6efd;
+}
 
 /*input,    Commented this as it was causing issues with datePicker format. Can revert if this causes other issues*/
 .search {
@@ -128,6 +131,3 @@ form .form-inner .form-group input {
 	border-radius: 8px;
 	transition: 0.4s;
 }
- 
-
- 
