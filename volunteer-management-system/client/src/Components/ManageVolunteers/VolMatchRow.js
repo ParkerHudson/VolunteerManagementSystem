@@ -1,7 +1,7 @@
 //Take in volunteer object
 //Return table element (<td>) containing Volunteer name, edit button, and view matches button
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,11 +12,38 @@ import {
 	faCircleMinus,
 	faCircleHalfStroke,
 } from "@fortawesome/free-solid-svg-icons";
+import VolunteerService from "../../Services/VolunteerService";
 
 const VolMatchRow = (props) => {
 	const capitalizeFirstLetter = (word) => {
 		return word.charAt(0).toUpperCase() + word.slice(1);
 	};
+
+	const [skills, setSkills] = useState([]);
+	const [prefCenter, setPrefCenter] = useState("");
+
+	useEffect(() => {
+		async function getSkills() {
+			VolunteerService.getVolunteerSkills(props.volunteer.username).then(
+				(data) => {
+					const results = [];
+					data.forEach((value) => {
+						results.push(value.skill);
+					});
+					setSkills([...results]);
+				}
+			);
+		}
+		async function getPrefCenter() {
+			VolunteerService.getPrefCtr(props.volunteer.username).then((data) => {
+				if (data.length > 0) setPrefCenter(data[0].ctrName);
+				console.log(prefCenter);
+			});
+		}
+
+		getSkills();
+		getPrefCenter();
+	}, []);
 
 	const approvalStatus = (status) => {
 		switch (status) {
@@ -79,14 +106,136 @@ const VolMatchRow = (props) => {
 			</td>
 
 			<td>
-				<Link to="/viewVolunteerInfo" state={{ volunteer: props.volunteer }}>
+				<button
+					type="button"
+					data-bs-toggle="modal"
+					data-bs-target={"#" + props.volunteer.username}
+				>
 					<FontAwesomeIcon
 						icon={faMagnifyingGlass}
 						data-toggle="tooltip"
 						data-placement="top"
-						title="View Details"
+						title="Details"
+						className="blue"
 					></FontAwesomeIcon>
-				</Link>
+				</button>
+
+				<div
+					className="modal fade"
+					id={props.volunteer.username}
+					tabindex="-1"
+					aria-labelledby={props.volunteer.username + "Label"}
+					aria-hidden="true"
+				>
+					<div className="modal-dialog">
+						<div className="modal-content">
+							<div className="modal-header">
+								<h5
+									className="modal-title"
+									id={props.volunteer.username + "Label"}
+								>
+									{capitalizeFirstLetter(props.volunteer.firstName)}{" "}
+									{capitalizeFirstLetter(props.volunteer.lastName)}'s Details
+								</h5>
+								<button
+									type="button"
+									className="btn-close"
+									data-bs-dismiss="modal"
+									aria-label="Close"
+								></button>
+							</div>
+							<div className="modal-body">
+								<div className="row g-2">
+									<div className="col">
+										<p>
+											<b>Username: </b>
+											{props.volunteer.username}{" "}
+										</p>
+										<p>
+											<b>First Name:</b>{" "}
+											{capitalizeFirstLetter(props.volunteer.firstName)}{" "}
+										</p>
+										<p>
+											<b>Last Name:</b>{" "}
+											{capitalizeFirstLetter(props.volunteer.lastName)}{" "}
+										</p>
+										<p>
+											<b>Address:</b> {props.volunteer.address}{" "}
+										</p>
+										<p>
+											<b>Home Phone: </b>
+											{props.volunteer.homePhone}{" "}
+										</p>
+										<p>
+											<b>Work Phone: </b>
+											{props.volunteer.workPhone}{" "}
+										</p>
+										<p>
+											<b>Cell Phone: </b>
+											{props.volunteer.cellPhone}{" "}
+										</p>
+										<p>
+											<b>Email: </b>
+											{props.volunteer.email}{" "}
+										</p>
+										<p>
+											{" "}
+											<b>Skills:</b>{" "}
+											{skills.length > 1
+												? skills.map((skill) => {
+														return skill + ", ";
+												  })
+												: skills.map((skill) => {
+														return skill;
+												  })}
+										</p>
+										<p>
+											<b>Preferred Center: </b>
+											{prefCenter}
+										</p>
+									</div>
+									<div className="col">
+										<p>
+											<b>Education:</b>{" "}
+											{capitalizeFirstLetter(props.volunteer.education)}{" "}
+										</p>
+										<p>
+											<b>License(s):</b> {props.volunteer.licenses}{" "}
+										</p>
+										<p>
+											<b>Emergency Contact Name:</b>{" "}
+											{props.volunteer.emContactName}{" "}
+										</p>
+										<p>
+											<b>Emergency Contact Phone: </b>
+											{props.volunteer.emContactPhone}{" "}
+										</p>
+										<p>
+											<b>Emergency Contact Email: </b>
+											{props.volunteer.emContactEmail}{" "}
+										</p>
+										<p>
+											<b>Emergency Contact Address: </b>{" "}
+											{props.volunteer.emContactAddress}{" "}
+										</p>
+										<p>
+											<b>Drivers License: </b>{" "}
+											{props.volunteer.driversLicense ? "Yes" : "No"}{" "}
+										</p>
+										<p>
+											<b>Social Security Number: </b>
+											{props.volunteer.socialSecurity ? "Yes" : "No"}{" "}
+										</p>
+										<p>
+											<b>Approval Status: </b>{" "}
+											{capitalizeFirstLetter(props.volunteer.approvalStatus)}{" "}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</td>
 		</tr>
 	);
