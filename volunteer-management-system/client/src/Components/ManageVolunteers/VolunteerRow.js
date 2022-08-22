@@ -1,7 +1,7 @@
 //Take in volunteer object
 //Return table element (<td>) containing Volunteer name, edit button, and view matches button
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,8 +12,26 @@ import {
 	faCircleMinus,
 	faCircleHalfStroke,
 } from "@fortawesome/free-solid-svg-icons";
+import VolunteerService from "../../Services/VolunteerService";
 
 const VolunteerRow = (props) => {
+	const [skills, setSkills] = useState([]);
+
+	useEffect(() => {
+		async function getSkills() {
+			VolunteerService.getVolunteerSkills(props.volunteer.username).then(
+				(data) => {
+					const results = [];
+					data.forEach((value) => {
+						results.push(value.skill);
+					});
+					setSkills([...results]);
+				}
+			);
+		}
+		getSkills();
+	}, []);
+
 	const capitalizeFirstLetter = (word) => {
 		return word.charAt(0).toUpperCase() + word.slice(1);
 	};
@@ -123,46 +141,83 @@ const VolunteerRow = (props) => {
 							<div className="modal-body">
 								<div className="row g-2">
 									<div className="col">
-										<p>Username: {props.volunteer.username} </p>
 										<p>
-											First Name:{" "}
+											<b>Username: </b>
+											{props.volunteer.username}{" "}
+										</p>
+										<p>
+											<b>First Name:</b>{" "}
 											{capitalizeFirstLetter(props.volunteer.firstName)}{" "}
 										</p>
 										<p>
-											Last Name:{" "}
+											<b>Last Name:</b>{" "}
 											{capitalizeFirstLetter(props.volunteer.lastName)}{" "}
 										</p>
-										<p>Address: {props.volunteer.address} </p>
-										<p>Home Phone: {props.volunteer.homePhone} </p>
-										<p>Work Phone: {props.volunteer.workPhone} </p>
-										<p>Cell Phone: {props.volunteer.cellPhone} </p>
-										<p>Email: {props.volunteer.email} </p>
+										<p>
+											<b>Address:</b> {props.volunteer.address}{" "}
+										</p>
+										<p>
+											<b>Home Phone: </b>
+											{props.volunteer.homePhone}{" "}
+										</p>
+										<p>
+											<b>Work Phone: </b>
+											{props.volunteer.workPhone}{" "}
+										</p>
+										<p>
+											<b>Cell Phone: </b>
+											{props.volunteer.cellPhone}{" "}
+										</p>
+										<p>
+											<b>Email: </b>
+											{props.volunteer.email}{" "}
+										</p>
+										<p>
+											{" "}
+											<b>Skills:</b>{" "}
+											{skills.length > 1
+												? skills.map((skill) => {
+														return skill + ", ";
+												  })
+												: skills.map((skill) => {
+														return skill;
+												  })}
+										</p>
 									</div>
 									<div className="col">
 										<p>
-											Education:{" "}
+											<b>Education:</b>{" "}
 											{capitalizeFirstLetter(props.volunteer.education)}{" "}
 										</p>
-										<p>License(s): {props.volunteer.licenses} </p>
 										<p>
-											Emergency Contact Name: {props.volunteer.emContactName}{" "}
+											<b>License(s):</b> {props.volunteer.licenses}{" "}
 										</p>
 										<p>
-											Emergency Contact Phone: {props.volunteer.emContactPhone}{" "}
+											<b>Emergency Contact Name:</b>{" "}
+											{props.volunteer.emContactName}{" "}
 										</p>
 										<p>
-											Emergency Contact Email: {props.volunteer.emContactEmail}{" "}
+											<b>Emergency Contact Phone: </b>
+											{props.volunteer.emContactPhone}{" "}
 										</p>
 										<p>
-											Emergency Contact Address:{" "}
+											<b>Emergency Contact Email: </b>
+											{props.volunteer.emContactEmail}{" "}
+										</p>
+										<p>
+											<b>Emergency Contact Address: </b>{" "}
 											{props.volunteer.emContactAddress}{" "}
 										</p>
-										<p>Drivers License: {props.volunteer.driversLicense} </p>
 										<p>
-											Social Security Number: {props.volunteer.socialSecurity}{" "}
+											<b>Drivers License: </b>{" "}
+											{props.volunteer.driversLicense ? "Yes" : "No"}{" "}
 										</p>
 										<p>
-											Approval Status:{" "}
+											<b>Social Security Number: </b>
+											{props.volunteer.socialSecurity ? "Yes" : "No"}{" "}
+										</p>
+										<p>
+											<b>Approval Status: </b>{" "}
 											{capitalizeFirstLetter(props.volunteer.approvalStatus)}{" "}
 										</p>
 									</div>

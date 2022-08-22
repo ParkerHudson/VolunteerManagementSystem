@@ -18,7 +18,7 @@ const OpportunityMatches = (props) => {
 				Opportunity Matches for {volunteer.firstName} {volunteer.lastName}
 			</h1>
 			<OppMatchTable volunteer={volunteer} />
-			<Link to="/manageOpportunities">
+			<Link to="/manageVolunteers">
 				<button type="button" class="btn btn-primary">
 					Back
 				</button>

@@ -291,9 +291,10 @@ apiRouter.post("/addSkill", (req, res) => {
 
 //getSkills : get all of the skills of a particular username
 apiRouter.get("/getSkills", (req, res) => {
+	const username = req.query.username;
 	const query = "SELECT skill FROM skills WHERE username = ?";
 
-	connection.execute(query, [req.body.username], (err, results) => {
+	connection.execute(query, [username], (err, results) => {
 		if (err) {
 			console.log(err);
 			res.send({

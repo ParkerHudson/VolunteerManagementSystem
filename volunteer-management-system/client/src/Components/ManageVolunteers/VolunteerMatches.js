@@ -33,7 +33,7 @@ const VolunteerMatches = (props) => {
 				{convertDate(opportunity.time)} at {convertTime(opportunity.time)}
 			</h1>
 			<VolMatchTable opportunity={opportunity} />
-			<Link to="/manageVolunteers">
+			<Link to="/manageOpportunities">
 				<button type="button" class="btn btn-primary">
 					Back
 				</button>

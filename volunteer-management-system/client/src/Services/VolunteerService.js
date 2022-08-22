@@ -88,13 +88,11 @@ export default {
 	// getVolunteerSkills : fetch getSkills api
 	// take in volunteer, return list of skills by username
 	getVolunteerSkills: (volunteerUsername) => {
-		return fetch("/api/getSkills", {
-			method: "get",
-			body: JSON.stringify(volunteerUsername),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then((response) => {
+		var query = new URLSearchParams();
+
+		query.append("username", volunteerUsername);
+
+		return fetch("/api/getSkills?" + query).then((response) => {
 			return response.json().then((data) => data);
 		});
 	},
