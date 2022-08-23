@@ -28,16 +28,18 @@ const VolunteerMatches = (props) => {
 
 	return (
 		<>
-			<h1>
-				Volunteer Matches for {opportunity.ctrName},{" "}
-				{convertDate(opportunity.time)} at {convertTime(opportunity.time)}
-			</h1>
-			<VolMatchTable opportunity={opportunity} />
-			<Link to="/manageOpportunities">
-				<button type="button" class="btn btn-primary">
-					Back
-				</button>
-			</Link>
+			<div className="container-fluid">
+				<h1>
+					Volunteer Matches for {opportunity.ctrName},{" "}
+					{convertDate(opportunity.time)} at {convertTime(opportunity.time)}
+				</h1>
+				<VolMatchTable opportunity={opportunity} />
+				<Link to="/manageOpportunities">
+					<button type="button" class="btn btn-primary">
+						Back
+					</button>
+				</Link>
+			</div>
 		</>
 	);
 };

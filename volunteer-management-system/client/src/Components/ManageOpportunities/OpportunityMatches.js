@@ -14,15 +14,17 @@ const OpportunityMatches = (props) => {
 
 	return (
 		<>
-			<h1>
-				Opportunity Matches for {volunteer.firstName} {volunteer.lastName}
-			</h1>
-			<OppMatchTable volunteer={volunteer} />
-			<Link to="/manageVolunteers">
-				<button type="button" class="btn btn-primary">
-					Back
-				</button>
-			</Link>
+			<div className="container-fluid">
+				<h1>
+					Opportunity Matches for {volunteer.firstName} {volunteer.lastName}
+				</h1>
+				<OppMatchTable volunteer={volunteer} />
+				<Link to="/manageVolunteers">
+					<button type="button" class="btn btn-primary">
+						Back
+					</button>
+				</Link>
+			</div>
 		</>
 	);
 };
