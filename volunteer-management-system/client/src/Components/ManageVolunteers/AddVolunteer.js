@@ -107,7 +107,7 @@ const AddVolunteer = (props) => {
 	};
 
 	const combineAddress = () => {
-		return address + ", " + city + ", " + state + " " + zip;
+		return address + ", " + city + ", " + state + ", " + zip;
 	};
 
 	useEffect(() => {

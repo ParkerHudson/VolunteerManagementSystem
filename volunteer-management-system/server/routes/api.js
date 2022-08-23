@@ -350,6 +350,22 @@ apiRouter.delete("/deleteSkill", (req, res) => {
 	);
 });
 
+apiRouter.delete("/deleteSkills", (req, res) => {
+	let query = "DELETE FROM skills WHERE username = ?";
+	connection.execute(query, [req.body.username], (err, results) => {
+		if (err) {
+			console.log(err);
+			res.send({
+				errorCode: err.code,
+				errorNum: err.errno,
+				message: err.message,
+			});
+		} else {
+			res.send(results);
+		}
+	});
+});
+
 //getOppMatches : Take in username, return list of matching opportunities
 apiRouter.get("/getOppMatches", (req, res) => {
 	const username = req.query.username;

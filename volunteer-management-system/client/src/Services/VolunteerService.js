@@ -135,6 +135,21 @@ export default {
 			return response.json().then((data) => data);
 		});
 	},
+	deleteAllVolunteerSkills: (volunteer) => {
+		var removeSkill = {
+			username: volunteer,
+		};
+
+		return fetch("/api/deleteSkills", {
+			method: "delete",
+			body: JSON.stringify(removeSkill),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			return response.json().then((data) => data);
+		});
+	},
 
 	///////////////////
 	//  PREF CENTER  //

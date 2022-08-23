@@ -7,7 +7,7 @@ import AddVolunteer from "./Components/ManageVolunteers/AddVolunteer";
 import VolunteerMatches from "./Components/ManageVolunteers/VolunteerMatches";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VolunteerController from "./Components/ManageVolunteers/VolunteerController";
-import VolunteerView from "./Components/ManageVolunteers/VolunteerView";
+
 import AddOpportunity from "./Components/ManageOpportunities/AddOpportunity";
 import EditOpportunity from "./Components/ManageOpportunities/EditOpportunity";
 import OpportunityController from "./Components/ManageOpportunities/OpportunityController";
@@ -54,14 +54,7 @@ function App() {
 						</PrivateRoute>
 					}
 				/>
-				<Route
-					path="/viewVolunteerInfo"
-					element={
-						<PrivateRoute>
-							<VolunteerView />
-						</PrivateRoute>
-					}
-				/>
+
 				<Route
 					path="/addOpportunity"
 					element={
